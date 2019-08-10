@@ -19,8 +19,11 @@ test_labels = test_labels.reshape(1, test_labels.shape[0])
 print("Training data shapes : ", train_features.shape, train_labels.shape)
 print("Testing data shape : ", test_features.shape, test_labels.shape)
 
-model = dnet.DNet()
-model.fit(train_features, train_labels, epochs=100, hidden_units=200, lr=0.03) #Train the model
+model = dnet.DNet(train_features, train_labels)
+
+model.set_arch(hidden_units = [1000]) #Define neural network architecture
+
+model.train(epochs=100, lr=0.03) #Train the model
 
 model.plot_losses() #Plot the Loss Curve during training
 model.plot_acc() #Plot the Accuracy Curve during training
