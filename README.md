@@ -36,4 +36,4 @@ model.predict(X_test, Y_test)
 Please check the link : [Roadmap](https://github.com/umangjpatel/DNet/projects/2)
 
 ## Notes
-If any bugs/errors, don't hesistate to raise issues for the project. Your honest review can significantly impact the output of this project.
+If any bugs/errors, don't hesitate to raise issues for the project. Your honest review can significantly impact the output of this project.
