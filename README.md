@@ -16,7 +16,7 @@ import dnet
 ...
 
 #Define your model
-model = DNet(X_train, Y_train)
+model = dnet.DNet(X_train, Y_train)
 
 #Define units in the hidden layers
 model.set_arch(hidden_units=[100,200,...])
