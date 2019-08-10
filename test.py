@@ -1,5 +1,5 @@
 import pandas as pd
-import dnet
+from dnet import *
 
 train_data = pd.read_csv("datasets/mnist/mnist_train_small.csv", header=None)
 test_data = pd.read_csv("datasets/mnist/mnist_test.csv", header=None)
@@ -19,13 +19,22 @@ test_labels = test_labels.reshape(1, test_labels.shape[0])
 print("Training data shapes : ", train_features.shape, train_labels.shape)
 print("Testing data shape : ", test_features.shape, test_labels.shape)
 
-model = dnet.DNet(train_features, train_labels)
+#Create model object
+model = DNet()
 
-model.set_arch(hidden_units = [1000]) #Define neural network architecture
+#Define neural network architecture
+model.add(FC(units = 500, activation = 'relu'))
+model.add(FC(units = 50, activation = 'relu'))
+model.add(FC(units = 1, activation ='sigmoid'))
 
-model.train(epochs=100, lr=0.03) #Train the model
+#Compile the model with epochs and learning rate
+model.compile(epochs = 50, lr = 0.01)
 
-model.plot_losses() #Plot the Loss Curve during training
-model.plot_acc() #Plot the Accuracy Curve during training
+#Train the model
+model.fit(train_features, train_labels)
 
-model.predict(test_features, test_labels) #Test model on unseen data
+#Plot the Loss Curve during training
+model.plot_losses()
+
+#Test model on unseen data
+model.predict(test_features, test_labels)
