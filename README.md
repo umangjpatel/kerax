@@ -10,26 +10,30 @@ Neural Network Library built from scratch... :D
 ## Usage
 Download the dnet.py script and start using the library as follows :
 ```python
-import dnet
+from dnet import *
 ...
 ...
 ...
 
-#Define your model
-model = dnet.DNet(X_train, Y_train)
+#Create model object
+model = DNet()
 
-#Define units in the hidden layers
-model.set_arch(hidden_units=[100,200,...])
+#Define neural network architecture
+model.add(FC(units = 500, activation = 'relu'))
+model.add(FC(units = 50, activation = 'relu'))
+model.add(FC(units = 1, activation ='sigmoid'))
 
-#Train your model
-model.train(epochs, lr)
+#Compile the model with epochs and learning rate
+model.compile(epochs = 50, lr = 0.01)
 
-#Visualize the loss curve and accuracy curve during training process
+#Train the model
+model.fit(train_features, train_labels)
+
+#Plot the Loss Curve during training
 model.plot_losses()
-model.plot_acc()
 
-#Make predictions on unseen data using your model
-model.predict(X_test, Y_test)
+#Test model on unseen data
+model.predict(test_features, test_labels)
 ```
 
 ## Roadmap for the project
