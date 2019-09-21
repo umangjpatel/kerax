@@ -6,7 +6,7 @@ Neural Network Library built from scratch... :D
 * Pandas, for manipulating the data
 * Matplotlib, for data visualization
 * tqdm, for displaying the model training progress
-* jax, for automatic differentiation
+* JAX, for automatic differentiation
 
 ## Usage
 Download the dnet.py script and start using the library as follows :
