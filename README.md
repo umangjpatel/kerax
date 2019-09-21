@@ -29,7 +29,7 @@ model.plot_losses()
 model.evaluate(X_val, Y_val)
 
 # Make predictions on test data
-model.predict(X_test
+model.predict(X_test)
 ```
 
 ## Roadmap for the project
