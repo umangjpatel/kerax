@@ -20,11 +20,22 @@ print("Testing data -> features shape : {}, labels shape : {}".format(test_featu
 # Create model object
 model = DNet()
 
+# Define the model architecture
+model.add(units=500, activation='tanh')
+model.add(units=50, activation='tanh')
+model.add(units=1, activation='sigmoid')
+
+# Compile the model
+model.compile(epochs=100, lr=0.003)
+
 # Train the model
-model.fit(train_features, train_labels, epochs=100, lr=0.01)
+model.fit(train_features, train_labels)
 
 # Plot the training loss curve
 model.plot_losses()
 
-# Evaluate the model on unseen data
+# Evaluate the model on validation data
 model.evaluate(test_features, test_labels)
+
+# Make predictions on unseen data
+# model.predict(test_features)
