@@ -2,10 +2,11 @@
 Neural Network Library built from scratch... :D
 
 ## Modules / Packages required
-* NumPy, for the computation engine
+* NumPy, for vectorization
 * Pandas, for manipulating the data
 * Matplotlib, for data visualization
 * tqdm, for displaying the model training progress
+* jax, for automatic differentiation
 
 ## Usage
 Download the dnet.py script and start using the library as follows :
