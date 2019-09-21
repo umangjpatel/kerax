@@ -1,40 +1,30 @@
+# Avoid CPU execution warning
+import warnings
+
 import pandas as pd
+
 from dnet import *
 
-train_data = pd.read_csv("datasets/mnist/mnist_train_small.csv", header=None)
-test_data = pd.read_csv("datasets/mnist/mnist_test.csv", header=None)
+warnings.simplefilter("ignore", UserWarning)
 
-options = [0, 1]
-train_dataset = train_data.loc[train_data[0].isin(options)]
-test_dataset = test_data.loc[test_data[0].isin(options)]
+trainer = pd.read_csv("datasets/mnist/mnist_train_small.csv", header=None)
+train_data = trainer.loc[(trainer[0] == 1) | (trainer[0] == 0)]
+train_features, train_labels = train_data.iloc[:, 1:].values / 255.0, train_data[1].values
+print("Training data -> features shape : {}, labels shape : {}".format(train_features.shape, train_labels.shape))
 
-train_features = train_dataset.iloc[:, 1:].values.T / 255
-train_labels = train_dataset.iloc[:, 0].values
-train_labels = train_labels.reshape(1, train_labels.shape[0])
+tester = pd.read_csv("datasets/mnist/mnist_test.csv", header=None)
+test_data = tester.loc[(tester[0] == 1) | (tester[0] == 0)]
+test_features, test_labels = test_data.iloc[:, 1:].values / 255.0, test_data[1].values
+print("Testing data -> features shape : {}, labels shape : {}".format(test_features.shape, test_labels.shape))
 
-test_features = test_dataset.iloc[:, 1:].values.T / 255
-test_labels = test_dataset.iloc[:, 0].values
-test_labels = test_labels.reshape(1, test_labels.shape[0])
-
-print("Training data shapes : ", train_features.shape, train_labels.shape)
-print("Testing data shape : ", test_features.shape, test_labels.shape)
-
-#Create model object
+# Create model object
 model = DNet()
 
-#Define neural network architecture
-model.add(FC(units = 500, activation = 'relu'))
-model.add(FC(units = 50, activation = 'relu'))
-model.add(FC(units = 1, activation ='sigmoid'))
+# Train the model
+model.fit(train_features, train_labels, epochs=100, lr=0.01)
 
-#Compile the model with epochs and learning rate
-model.compile(epochs = 50, lr = 0.01)
-
-#Train the model
-model.fit(train_features, train_labels)
-
-#Plot the Loss Curve during training
+# Plot the training loss curve
 model.plot_losses()
 
-#Test model on unseen data
-model.predict(test_features, test_labels)
+# Evaluate the model on unseen data
+model.evaluate(test_features, test_labels)

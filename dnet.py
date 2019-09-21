@@ -1,151 +1,65 @@
-import numpy as np
-import pandas as pd
-from tqdm import tqdm
+import jax.numpy as np
 import matplotlib.pyplot as plt
+from jax import grad, jit
+from tqdm import tqdm
 
-class DNet():
 
-  def __init__(self):
-    np.random.seed(42)
-    self.layers = []
-    global _model; _model = self
+@jit
+def compute_activation(x):
+    return 1 / (1 + np.exp(-x))
 
-  def add(self, fc):
-    self.layers.append(fc)
 
-  def summary(self):
-    for l, layer in enumerate(self.layers):
-        print("Layer {} :=> units = {}, activation = {}".format(l+1, layer.units, layer.activation.act))
-        print("Weights : {}, Bias : {}".format(layer.W.shape, layer.b.shape), "\n\n")
+@jit
+def compute_predictions(weights, inputs):
+    W, b = weights.get('W'), weights.get('b')
+    Z = np.dot(inputs, W) + b
+    A = compute_activation(Z)
+    return A
 
-  def compile(self, epochs, lr):
-    self.epochs, self.alpha = epochs, lr
 
-  def fit(self, X_train, Y_train):
-    self.X_train, self.Y_train = X_train, Y_train
-    self.init_weights()
-    self.init_comp_graph()
+@jit
+def compute_cost(weights, inputs, targets):
+    predictions = compute_predictions(weights, inputs)
+    loss = -np.mean(targets * np.log(predictions) + (1 - targets) * np.log(1 - predictions))
+    return loss
 
-  def init_weights(self):
-    self.nx, self.m_train = self.X_train.shape
-    for i, layer in enumerate(self.layers):
-      layer.W = np.random.randn(layer.units, self.nx) * 0.01 if i == 0 else np.random.randn(layer.units, self.layers[i-1].units)
-      layer.b = np.random.randn(layer.units, 1) * 0.01
 
-  def init_comp_graph(self):
-    self.graph = CompGraph()
-    self.graph.gradient_descent()
-    self.cost = self.graph.cost
+class DNet:
 
-  def plot_losses(self):
-    plt.plot(range(self.epochs), self.cost, color='red')
-    plt.title('Loss Curve')
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.show()
+    def fit(self, x_train, y_train, epochs, lr=1e-3):
+        self.x_train, self.y_train = x_train, y_train
+        self.epochs, self.alpha = epochs, lr
+        self.gradient_descent()
 
-  def predict(self, X_test, Y_test):
-    self.X_test, self.Y_test = X_test, Y_test
-    self.m_test = self.X_test.shape[1]
-    self.graph.forward_pass(train=False)
-    cost, acc = self.graph.compute_cost(train=False)
-    print("Test set loss : {0:.2f}".format(cost))
-    print("Test set acc : {0:.2f}".format(acc))
+    def init_weights(self):
+        self.m, self.nx = self.x_train.shape
+        W = np.zeros((self.nx, 1))
+        b = np.zeros(1)
+        self.weights = {'W': W, 'b': b}
 
-class Activation():
+    def gradient_descent(self):
+        self.cost = []
+        grad_fn = jit(grad(compute_cost))
+        self.init_weights()
 
-  def __init__(self, act):
-    self.activation_funcs = {
-        'sigmoid' : self.sigmoid,
-        'tanh' : self.tanh,
-        'relu' : self.relu
-    }
-    self.activation_funcs_grads = {
-        'sigmoid' : self.sigmoid_derivative,
-        'tanh' : self.tanh_derivative,
-        'relu' : self.relu_derivative
-    }
-    self.act = act
+        for _ in tqdm(range(self.epochs), desc="Training the model"):
+            self.cost.append(compute_cost(self.weights, self.x_train, self.y_train))
+            grads = grad_fn(self.weights, self.x_train, self.y_train)
+            self.weights['W'] -= self.alpha * grads['W']
+            self.weights['b'] -= self.alpha * grads['b']
 
-  def sigmoid(self, z):
-    return 1 / (1 + np.exp(-z))
+    def plot_losses(self):
+        plt.plot(range(self.epochs), self.cost, color='red')
+        plt.title('Training Loss Curve')
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.show()
 
-  def tanh(self, z):
-    return np.tanh(z)
+    def evaluate(self, x_test, y_test):
+        predictions = compute_predictions(self.weights, x_test)
+        prediction_labels = np.where(predictions >= 0.7, 1, 0)
+        accuracy = np.mean(prediction_labels == y_test)
+        print("Accuracy : {:0.2f}".format(accuracy))
 
-  def relu(self, z):
-    return np.where(z > 0, z, 0)
-
-  def sigmoid_derivative(self, z):
-    g = self.sigmoid(z)
-    return g * (1-g)
-
-  def tanh_derivative(self, z):
-    g = self.tanh(z)
-    return 1 - np.square(g)
-
-  def relu_derivative(self, z):
-    return np.where(z >= 0, 1, 0)
-
-  def compute_activation(self, z):
-    return self.activation_funcs.get(self.act)(z)
-
-  def compute_activation_gradient(self, z):
-    return self.activation_funcs_grads.get(self.act)(z)
-
-class FC():
-
-  def __init__(self, units, activation):
-    self.units, self.activation = units, Activation(activation)
-    self.Z, self.A = None, None
-    self.W, self.b = None, None
-    self.dZ, self.dA = None, None
-    self.dW, self.db = None, None
-
-class CompGraph():
-
-  def __init__(self):
-    self.layers = _model.layers.copy()
-    self.A0 = _model.X_train.copy()
-    self.cost = []
-
-  def gradient_descent(self):
-    for _ in tqdm(range(_model.epochs), desc="Training the model"):
-      self.forward_pass()
-      self.compute_cost()
-      self.backward_pass()
-      self.update_weights()
-    print("\n", "*" * 10)
-
-  def forward_pass(self, train=True):
-    if train:
-      for i, layer in enumerate(self.layers):
-        layer.Z = (np.dot(layer.W, self.A0) + layer.b if i == 0 else np.dot(layer.W, self.layers[i-1].A) + layer.b)
-        layer.A = layer.activation.compute_activation(layer.Z)
-    else:
-      A = _model.X_test.copy()
-      for layer in self.layers:
-        Z = np.dot(layer.W, A) + layer.b
-        A = layer.activation.compute_activation(Z)
-      self.preds = A.copy()
-
-  def compute_cost(self, train=True):
-    if train:
-      cost = np.sum(_model.Y_train * np.log(self.layers[-1].A) + (1 - _model.Y_train) * np.log(1 - self.layers[-1].A)) / -_model.m_train
-      self.cost.append(cost)
-    else:
-      cost = np.sum(_model.Y_test * np.log(self.preds) + (1 - _model.Y_test) * np.log(1 - self.preds)) / -_model.m_test
-      acc = 1 - cost
-      return cost, acc
-
-  def backward_pass(self):
-    for i, layer in reversed(list(enumerate(self.layers))):
-      layer.dZ = (layer.A - _model.Y_train if i+1 == len(self.layers) else layer.dA * layer.activation.compute_activation_gradient(layer.Z))
-      layer.dW = np.dot(layer.dZ, self.layers[i-1].A.T) / _model.m_train
-      layer.db = np.sum(layer.dZ, keepdims=True, axis=1) / _model.m_train
-      self.layers[i-1].dA = np.dot(layer.W.T, layer.dZ)
-
-  def update_weights(self):
-    for layer in self.layers:
-      layer.W -= _model.alpha * layer.dW
-      layer.b -= _model.alpha * layer.db
+    def predict(self, inputs):
+        return compute_predictions(self.weights, inputs)
