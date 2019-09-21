@@ -19,8 +19,16 @@ from dnet import *
 # Create model object
 model = DNet()
 
+# Define the model architecture
+model.add(units = 500, activation = 'relu')
+model.add(units = 100, activation = 'relu')
+model.add(units = 1, activation = 'sigmoid')
+
+# Compile the model
+model.compiile(epochs = 100, lr = 0.01)
+
 # Train the model
-model.fit(X_train, Y_train, epochs=100, lr=0.01)
+model.fit(X_train, Y_train)
 
 # Plot the training loss curve
 model.plot_losses()
