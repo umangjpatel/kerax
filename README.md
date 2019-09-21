@@ -20,13 +20,16 @@ from dnet import *
 model = DNet()
 
 # Train the model
-model.fit(train_features, train_labels, epochs=100, lr=0.01)
+model.fit(X_train, Y_train, epochs=100, lr=0.01)
 
 # Plot the training loss curve
 model.plot_losses()
 
-# Evaluate the model on unseen data
-model.evaluate(test_features, test_labels)
+# Evaluate the model on validation data
+model.evaluate(X_val, Y_val)
+
+# Make predictions on test data
+model.predict(X_test
 ```
 
 ## Roadmap for the project
