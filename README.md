@@ -15,25 +15,17 @@ from dnet import *
 ...
 ...
 
-#Create model object
+# Create model object
 model = DNet()
 
-#Define neural network architecture
-model.add(FC(units = 500, activation = 'relu'))
-model.add(FC(units = 50, activation = 'relu'))
-model.add(FC(units = 1, activation ='sigmoid'))
+# Train the model
+model.fit(train_features, train_labels, epochs=100, lr=0.01)
 
-#Compile the model with epochs and learning rate
-model.compile(epochs = 50, lr = 0.01)
-
-#Train the model
-model.fit(train_features, train_labels)
-
-#Plot the Loss Curve during training
+# Plot the training loss curve
 model.plot_losses()
 
-#Test model on unseen data
-model.predict(test_features, test_labels)
+# Evaluate the model on unseen data
+model.evaluate(test_features, test_labels)
 ```
 
 ## Roadmap for the project
