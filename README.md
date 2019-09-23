@@ -25,7 +25,7 @@ model.add(units = 100, activation = 'relu')
 model.add(units = 1, activation = 'sigmoid')
 
 # Compile the model
-model.compiile(epochs = 100, lr = 0.01)
+model.compile(epochs = 100, lr = 0.01)
 
 # Train the model
 model.fit(X_train, Y_train)
