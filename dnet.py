@@ -5,35 +5,9 @@ from jax import grad, jit
 from sklearn.metrics import accuracy_score
 from tqdm import tqdm
 
-
-@jit
-def relu(x):
-    return np.where(x > 0, x, 0.0)
-
-
-@jit
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-
-@jit
-def tanh(x):
-    return np.tanh(x)
-
-
-@jit
-def binary_crossentropy(a, y):
-    return -np.mean(y * np.log(a) + (1 - y) * np.log(1 - a))
-
-
-activation_dict = {'sigmoid': sigmoid, 'relu': relu, 'tanh': tanh}
-loss_fn_dict = {'binary_crossentropy': binary_crossentropy}
-
-
-class FC:
-
-    def __init__(self, units, activation):
-        self.units, self.activation = units, activation
+import nn.activations as activations
+import nn.losses as losses
+from nn.layers import FC
 
 
 class DNet:
@@ -43,13 +17,13 @@ class DNet:
 
     @staticmethod
     def compute_activation(act, x):
-        return activation_dict.get(act)(x)
+        return getattr(activations, act)(x)
 
     def add(self, layer):
         self.layers.append(layer)
 
     def compile(self, loss, epochs, lr=1e-3, weight_scale=0.01):
-        self.loss_fn = loss_fn_dict.get(loss)
+        self.loss_fn = getattr(losses, loss)
         self.epochs, self.alpha = epochs, lr
         self.weight_scale = weight_scale
 
