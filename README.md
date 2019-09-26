@@ -20,12 +20,12 @@ from dnet import *
 model = DNet()
 
 # Define the model architecture
-model.add(units = 500, activation = 'relu')
-model.add(units = 100, activation = 'relu')
-model.add(units = 1, activation = 'sigmoid')
+model.add(FC(units = 500, activation = 'relu'))
+model.add(FC(units = 100, activation = 'relu'))
+model.add(FC(units = 1, activation = 'sigmoid'))
 
 # Compile the model
-model.compile(epochs = 100, lr = 0.01)
+model.compile(loss = 'binary_crossentropy', epochs = 100, lr = 1e-3)
 
 # Train the model
 model.fit(X_train, Y_train)
