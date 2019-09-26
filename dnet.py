@@ -21,20 +21,35 @@ def tanh(x):
     return np.tanh(x)
 
 
+@jit
+def binary_crossentropy(a, y):
+    return -np.mean(y * np.log(a) + (1 - y) * np.log(1 - a))
+
+
+activation_dict = {'sigmoid': sigmoid, 'relu': relu, 'tanh': tanh}
+loss_fn_dict = {'binary_crossentropy': binary_crossentropy}
+
+
+class FC:
+
+    def __init__(self, units, activation):
+        self.units, self.activation = units, activation
+
+
 class DNet:
 
     def __init__(self):
-        self.units, self.activations = [None], []
-        self.activation_dict = {'sigmoid': sigmoid, 'relu': relu, 'tanh': tanh}
+        self.layers = []
 
-    def compute_activation(self, act, x):
-        return self.activation_dict.get(act)(x)
+    @staticmethod
+    def compute_activation(act, x):
+        return activation_dict.get(act)(x)
 
-    def add(self, units, activation):
-        self.units.append(units)
-        self.activations.append(activation)
+    def add(self, layer):
+        self.layers.append(layer)
 
-    def compile(self, epochs, lr=1e-3):
+    def compile(self, loss, epochs, lr=1e-3):
+        self.loss_fn = loss_fn_dict.get(loss)
         self.epochs, self.alpha = epochs, lr
 
     def fit(self, x_train, y_train):
@@ -44,13 +59,13 @@ class DNet:
         self.gradient_descent()
 
     def init_weights(self):
-        self.units[0] = self.nx
+        self.layers.insert(0, FC(units=self.nx, activation=None))
         self.weights = []
         key = random.PRNGKey(0)
-        for i, units in enumerate(self.units[1:]):
+        for i, layer in enumerate(self.layers[1:]):
             key, subkey = random.split(key)
-            W = random.normal(subkey, shape=(self.units[i], units)) * 0.01
-            b = np.zeros(units)
+            W = random.normal(subkey, shape=(self.layers[i].units, layer.units)) * 0.01
+            b = np.zeros(layer.units)
             self.weights.append({'W': W, 'b': b})
 
     def compute_predictions(self, weights, inputs):
@@ -58,12 +73,12 @@ class DNet:
         for i, layer_weights in enumerate(weights):
             W, b = layer_weights.get('W'), layer_weights.get('b')
             Z = np.dot(A, W) + b
-            A = self.compute_activation(self.activations[i], Z)
+            A = self.compute_activation(self.layers[i + 1].activation, Z)
         return A
 
     def compute_cost(self, weights, inputs, targets):
         preds = self.compute_predictions(weights, inputs)
-        loss = -np.mean(targets * np.log(preds) + (1 - targets) * np.log(1 - preds))
+        loss = self.loss_fn(a=preds, y=targets)
         return loss
 
     def gradient_descent(self):
