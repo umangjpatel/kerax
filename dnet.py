@@ -48,9 +48,10 @@ class DNet:
     def add(self, layer):
         self.layers.append(layer)
 
-    def compile(self, loss, epochs, lr=1e-3):
+    def compile(self, loss, epochs, lr=1e-3, weight_scale=0.01):
         self.loss_fn = loss_fn_dict.get(loss)
         self.epochs, self.alpha = epochs, lr
+        self.weight_scale = weight_scale
 
     def fit(self, x_train, y_train):
         self.x_train, self.y_train = x_train, y_train
@@ -64,7 +65,7 @@ class DNet:
         key = random.PRNGKey(0)
         for i, layer in enumerate(self.layers[1:]):
             key, subkey = random.split(key)
-            W = random.normal(subkey, shape=(self.layers[i].units, layer.units)) * 0.01
+            W = random.normal(subkey, shape=(self.layers[i].units, layer.units)) * self.weight_scale
             b = np.zeros(layer.units)
             self.weights.append({'W': W, 'b': b})
 
