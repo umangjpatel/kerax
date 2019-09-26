@@ -21,7 +21,7 @@ model = DNet()
 
 # Define the model architecture
 model.add(FC(units = 500, activation = 'relu'))
-model.add(FC(units = 100, activation = 'relu'))
+model.add(FC(units = 100, activation = 'mish'))
 model.add(FC(units = 1, activation = 'sigmoid'))
 
 # Compile the model
