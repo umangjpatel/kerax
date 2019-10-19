@@ -46,9 +46,10 @@ class DNet:
     def compute_predictions(self, weights, inputs):
         A = inputs
         for i, layer_weights in enumerate(weights):
+            fc_layer = self.layers[i + 1]
             W, b = layer_weights.get('W'), layer_weights.get('b')
             Z = np.dot(A, W) + b
-            A = self.compute_activation(self.layers[i + 1].activation, Z)
+            A = self.compute_activation(fc_layer.activation, Z)
         return A
 
     def compute_cost(self, weights, inputs, targets):
@@ -76,8 +77,7 @@ class DNet:
     def evaluate(self, x_test, y_test):
         preds = self.compute_predictions(self.weights, x_test)
         pred_labels = np.where(preds >= 0.7, 1, 0)
-        accuracy = accuracy_score(y_test, pred_labels)
-        print("Accuracy : {:0.2f}".format(accuracy))
+        return accuracy_score(y_test, pred_labels)
 
     def predict(self, inputs):
         return self.compute_predictions(self.weights, inputs)
