@@ -1,11 +1,6 @@
-import warnings
-
 import pandas as pd
 
 from dnet import *
-
-# Avoid CPU execution warning (for tqdm)
-warnings.simplefilter("ignore", UserWarning)
 
 # Loading the training dataset
 trainer = pd.read_csv("datasets/mnist/mnist_train_small.csv", header=None)
@@ -23,12 +18,12 @@ print("Validation data -> features shape : {}, labels shape : {}".format(val_fea
 model = DNet()
 
 # Define the model architecture
-model.add(FC(units=500, activation='relu'))
-model.add(FC(units=50, activation='relu'))
+model.add(FC(units=500, activation='relu', keep_prob=0.5))
+model.add(FC(units=50, activation='relu', keep_prob=0.5))
 model.add(FC(units=1, activation='sigmoid'))
 
 # Compile the model
-model.compile(loss='binary_crossentropy', epochs=10, lr=0.003)
+model.compile(loss='binary_crossentropy', epochs=20, lr=3e-2)
 
 # Train the model
 model.fit(train_features, train_labels)
@@ -37,7 +32,7 @@ model.fit(train_features, train_labels)
 model.plot_losses()
 
 # Evaluate the model on validation data
-val_acc_score = model.evaluate(val_features, val_labels)
+val_acc_score = model.evaluate(val_features, val_labels, threshold=1.0)
 print("Validation accuracy : {0:.6}".format(val_acc_score))
 
 # Make predictions on unseen data

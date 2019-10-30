@@ -2,7 +2,6 @@ import jax.numpy as np
 import jax.random as random
 import matplotlib.pyplot as plt
 from jax import grad, jit
-from sklearn.metrics import accuracy_score
 from tqdm import tqdm
 
 import nn.activations as activations
@@ -43,13 +42,16 @@ class DNet:
             b = np.zeros(layer.units)
             self.weights.append({'W': W, 'b': b})
 
-    def compute_predictions(self, weights, inputs):
+    def compute_predictions(self, weights, inputs, train=True):
         A = inputs
+        key = random.PRNGKey(0)
         for i, layer_weights in enumerate(weights):
+            key, subkey = random.split(key)
             fc_layer = self.layers[i + 1]
             W, b = layer_weights.get('W'), layer_weights.get('b')
             Z = np.dot(A, W) + b
             A = self.compute_activation(fc_layer.activation, Z)
+            A *= (random.bernoulli(subkey, fc_layer.keep_prob, shape=A.shape) / fc_layer.keep_prob) if train else 1.0
         return A
 
     def compute_cost(self, weights, inputs, targets):
@@ -74,10 +76,10 @@ class DNet:
         plt.ylabel('Loss')
         plt.show()
 
-    def evaluate(self, x_test, y_test):
-        preds = self.compute_predictions(self.weights, x_test)
-        pred_labels = np.where(preds >= 0.7, 1, 0)
-        return accuracy_score(y_test, pred_labels)
+    def evaluate(self, x_test, y_test, threshold=0.9):
+        preds = self.compute_predictions(self.weights, x_test, train=False)
+        pred_labels = np.where(preds >= threshold, 1, 0)
+        return np.mean(y_test == pred_labels)
 
     def predict(self, inputs):
-        return self.compute_predictions(self.weights, inputs)
+        return self.compute_predictions(self.weights, inputs, train=False)
