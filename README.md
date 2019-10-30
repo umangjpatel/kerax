@@ -2,10 +2,10 @@
 Neural Network Library built from scratch... :D
 
 ## Modules / Packages required
-* <a href="http://github.com/google/jax" target="_blank">JAX</a> , for automatic differentiation
-* <a href="https://github.com/pandas-dev/pandas" target="_blank">Pandas</a> , for manipulating the data
-* <a href="https://github.com/matplotlib/matplotlib" target="_blank">Matplotlib</a> , for data visualization
-* <a href="https://github.com/tqdm/tqdm" target="_blank">tqdm</a> , for displaying the model training progress
+* <a href="http://github.com/google/jax">JAX</a> , for automatic differentiation
+* <a href="https://github.com/pandas-dev/pandas">Pandas</a> , for manipulating the data
+* <a href="https://github.com/matplotlib/matplotlib">Matplotlib</a> , for data visualization
+* <a href="https://github.com/tqdm/tqdm">tqdm</a> , for displaying the model training progress
 
 ## Features
 * Fast, fluid and flexible deep learning framework
