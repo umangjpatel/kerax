@@ -1,4 +1,4 @@
-# DNet
+# dnet
 Neural Network Library built from scratch... :D
 
 ## Modules / Packages required
@@ -48,7 +48,7 @@ model.predict(X_test)
 
 ## Upcoming features
 
-Please check the link : [Roadmap](https://github.com/umangjpatel/DNet/projects/2) to track the progress of the project so far.
+Please check the link : [Roadmap](https://github.com/umangjpatel/dnet/projects/2) to track the progress of the project so far.
 
 ## Notes
 If any bugs/errors, don't hesitate to raise issues for the project. Your honest review can significantly impact the output of this project.
