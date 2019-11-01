@@ -14,6 +14,7 @@ Neural Network Library built from scratch... :D
 
 ## Supports
 * Binary Classification
+* Mutli-class Classification
 * Regression
 
 
