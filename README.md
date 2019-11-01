@@ -1,4 +1,4 @@
-# dnet
+# DNet
 Neural Network Library built from scratch... :D
 
 ## Modules / Packages required
