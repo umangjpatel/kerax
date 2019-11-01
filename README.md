@@ -12,6 +12,10 @@ Neural Network Library built from scratch... :D
 * High-level APIs for faster experimentation
 * Works on CPU/GPU and even TPU (Thanks to Google)
 
+## Supports
+* Binary Classification
+* Regression
+
 
 ## Usage
 Download the repository and start using the library as follows :
