@@ -29,10 +29,10 @@ class DNet:
     def fit(self, x_train, y_train):
         self.x_train, self.y_train = x_train, y_train
         self.m_train, self.nx = self.x_train.shape
-        self.init_weights()
+        self.init_network_params()
         self.gradient_descent()
 
-    def init_weights(self):
+    def init_network_params(self):
         self.layers.insert(0, FC(units=self.nx, activation=None))
         self.weights = []
         key = random.PRNGKey(0)
@@ -76,10 +76,10 @@ class DNet:
         plt.ylabel('Loss')
         plt.show()
 
-    def evaluate(self, x_test, y_test, threshold=0.9):
-        preds = self.compute_predictions(self.weights, x_test, train=False)
-        pred_labels = np.where(preds >= threshold, 1, 0)
-        return np.mean(y_test == pred_labels)
+    def evaluate(self, x_test, y_test):
+        preds = self.compute_predictions(self.weights, x_test, train=False).flatten()
+        pred_labels = np.where(1 - preds > preds, 0, 1).flatten()
+        return np.mean(pred_labels == y_test)
 
     def predict(self, inputs):
         return self.compute_predictions(self.weights, inputs, train=False)

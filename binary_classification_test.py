@@ -1,15 +1,22 @@
+import os
+
 import pandas as pd
 
 from dnet import *
 
+# Loading the paths to the data
+data_path = os.path.join("datasets", "mnist")
+train_data_path = os.path.join(data_path, 'mnist_train_small.csv')
+test_data_path = os.path.join(data_path, "mnist_test.csv")
+
 # Loading the training dataset
-trainer = pd.read_csv("datasets/mnist/mnist_train_small.csv", header=None)
+trainer = pd.read_csv(train_data_path, header=None)
 train_data = trainer.loc[(trainer[0] == 1) | (trainer[0] == 0)]
 train_features, train_labels = train_data.iloc[:, 1:].values, train_data[1].values
 print("Training data -> features shape : {}, labels shape : {}".format(train_features.shape, train_labels.shape))
 
-# Loading the training dataset
-validator = pd.read_csv("datasets/mnist/mnist_test.csv", header=None)
+# Loading the validation dataset
+validator = pd.read_csv(test_data_path, header=None)
 val_data = validator.loc[(validator[0] == 1) | (validator[0] == 0)]
 val_features, val_labels = val_data.iloc[:, 1:].values, val_data[1].values
 print("Validation data -> features shape : {}, labels shape : {}".format(val_features.shape, val_labels.shape))
@@ -32,7 +39,7 @@ model.fit(train_features, train_labels)
 model.plot_losses()
 
 # Evaluate the model on validation data
-val_acc_score = model.evaluate(val_features, val_labels, threshold=1.0)
+val_acc_score = model.evaluate(val_features, val_labels)
 print("Validation accuracy : {0:.6}".format(val_acc_score))
 
 # Make predictions on unseen data
