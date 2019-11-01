@@ -65,3 +65,8 @@ def tanh(x):
 @jit
 def linear(x):
     return x
+
+
+@jit
+def softmax(x):
+    return np.exp(x) / np.sum(np.exp(x), axis=1, keepdims=True)

@@ -9,6 +9,12 @@ def binary_crossentropy(preds, targets):
 
 
 @jit
+def categorical_crossentropy(preds, targets):
+    preds, targets = np.argmax(preds, axis=1), targets.flatten()
+    return np.mean(preds == targets)
+
+
+@jit
 def mse(preds, targets):
     return np.mean((preds - targets) ** 2)
 

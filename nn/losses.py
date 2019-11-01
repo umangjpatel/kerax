@@ -8,6 +8,11 @@ def binary_crossentropy(a, y):
 
 
 @jit
+def categorical_crossentropy(a, y):
+    return -np.mean(y * np.log(a))
+
+
+@jit
 def mse(a, y):
     return np.mean((a - y) ** 2)
 
