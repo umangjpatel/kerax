@@ -12,6 +12,10 @@ Neural Network Library built from scratch... :D
 * High-level APIs for faster experimentation
 * Works on CPU/GPU and even TPU (Thanks to Google)
 
+## Supports
+* Binary Classification
+* Regression
+
 
 ## Usage
 Download the repository and start using the library as follows :
@@ -39,8 +43,8 @@ model.fit(X_train, Y_train)
 model.plot_losses()
 
 # Evaluate the model on validation data
-val_acc_score = model.evaluate(X_val, Y_val, threshold=1.0)
-print("Validation accuracy : {0:.6}".format(val_acc_score))
+val_acc = model.evaluate(X_val, Y_val)
+print("Validation accuracy : {0:.6}".format(val_acc))
 
 # Make predictions on test data
 model.predict(X_test)
