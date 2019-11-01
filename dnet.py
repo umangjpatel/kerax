@@ -5,6 +5,7 @@ from jax import grad, jit
 from tqdm import tqdm
 
 import nn.activations as activations
+import nn.evaluators as evaluators
 import nn.losses as losses
 from nn.layers import FC
 
@@ -18,11 +19,16 @@ class DNet:
     def compute_activation(act, x):
         return getattr(activations, act)(x)
 
+    @staticmethod
+    def compute_evaluation(metric, preds, targets):
+        return getattr(evaluators, metric)(preds, targets)
+
     def add(self, layer):
         self.layers.append(layer)
 
     def compile(self, loss, epochs, lr=1e-3, weight_scale=0.01):
-        self.loss_fn = getattr(losses, loss)
+        self.loss = loss
+        self.loss_fn = getattr(losses, self.loss)
         self.epochs, self.alpha = epochs, lr
         self.weight_scale = weight_scale
 
@@ -77,9 +83,8 @@ class DNet:
         plt.show()
 
     def evaluate(self, x_test, y_test):
-        preds = self.compute_predictions(self.weights, x_test, train=False).flatten()
-        pred_labels = np.where(1 - preds > preds, 0, 1).flatten()
-        return np.mean(pred_labels == y_test)
+        preds = self.compute_predictions(self.weights, x_test, train=False)
+        return self.compute_evaluation(self.loss, preds, y_test)
 
     def predict(self, inputs):
         return self.compute_predictions(self.weights, inputs, train=False)

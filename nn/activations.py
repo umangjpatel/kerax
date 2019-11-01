@@ -60,3 +60,8 @@ def sigmoid(x):
 @jit
 def tanh(x):
     return np.tanh(x)
+
+
+@jit
+def linear(x):
+    return x
