@@ -1,0 +1,81 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "tensor",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "tensor.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "tensor.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "tensor.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "tensor.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    },
+    "np": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "tensor.np",
+        "name": "np",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "tensor.np",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    }
+  },
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-488/dnet/tensor.py"
+}

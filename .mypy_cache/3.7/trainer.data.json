@@ -1,0 +1,1085 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "trainer",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "Dict": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "typing.Dict",
+      "kind": "Gdef"
+    },
+    "List": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "typing.List",
+      "kind": "Gdef"
+    },
+    "Trainer": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "TypeInfo",
+        "_promote": null,
+        "abstract_attributes": [],
+        "bases": [
+          "builtins.object"
+        ],
+        "declared_metaclass": null,
+        "defn": {
+          ".class": "ClassDef",
+          "fullname": "trainer.Trainer",
+          "name": "Trainer",
+          "type_vars": []
+        },
+        "flags": [],
+        "fullname": "trainer.Trainer",
+        "metaclass_type": null,
+        "metadata": {},
+        "module_name": "trainer",
+        "mro": [
+          "trainer.Trainer",
+          "builtins.object"
+        ],
+        "names": {
+          ".class": "SymbolTable",
+          "__init__": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "net_config"
+              ],
+              "flags": [],
+              "fullname": "trainer.Trainer.__init__",
+              "name": "__init__",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "net_config"
+                ],
+                "arg_types": [
+                  "trainer.Trainer",
+                  {
+                    ".class": "Instance",
+                    "args": [
+                      {
+                        ".class": "AnyType",
+                        "missing_import_name": null,
+                        "source_any": null,
+                        "type_of_any": 4
+                      },
+                      {
+                        ".class": "AnyType",
+                        "missing_import_name": null,
+                        "source_any": null,
+                        "type_of_any": 4
+                      }
+                    ],
+                    "type_ref": "builtins.dict"
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "__init__ of Trainer",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
+          "accuracy": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "trainer.Trainer.accuracy",
+              "name": "accuracy",
+              "type": {
+                ".class": "Instance",
+                "args": [
+                  "builtins.float"
+                ],
+                "type_ref": "builtins.list"
+              }
+            }
+          },
+          "compute_activation": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "Decorator",
+              "func": {
+                ".class": "FuncDef",
+                "arg_kinds": [
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "act_name",
+                  "z"
+                ],
+                "flags": [
+                  "is_static",
+                  "is_decorated"
+                ],
+                "fullname": "trainer.Trainer.compute_activation",
+                "name": "compute_activation",
+                "type": {
+                  ".class": "CallableType",
+                  "arg_kinds": [
+                    0,
+                    0
+                  ],
+                  "arg_names": [
+                    "act_name",
+                    "z"
+                  ],
+                  "arg_types": [
+                    "builtins.str",
+                    {
+                      ".class": "AnyType",
+                      "missing_import_name": "trainer.tensor",
+                      "source_any": null,
+                      "type_of_any": 3
+                    }
+                  ],
+                  "bound_args": [],
+                  "def_extras": {
+                    "first_arg": null
+                  },
+                  "fallback": "builtins.function",
+                  "implicit": false,
+                  "is_ellipsis_args": false,
+                  "name": "compute_activation of Trainer",
+                  "ret_type": {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  "variables": []
+                }
+              },
+              "is_overload": false,
+              "var": {
+                ".class": "Var",
+                "flags": [
+                  "is_initialized_in_class",
+                  "is_staticmethod",
+                  "is_ready"
+                ],
+                "fullname": null,
+                "name": "compute_activation",
+                "type": {
+                  ".class": "CallableType",
+                  "arg_kinds": [
+                    0,
+                    0
+                  ],
+                  "arg_names": [
+                    "act_name",
+                    "z"
+                  ],
+                  "arg_types": [
+                    "builtins.str",
+                    {
+                      ".class": "AnyType",
+                      "missing_import_name": "trainer.tensor",
+                      "source_any": null,
+                      "type_of_any": 3
+                    }
+                  ],
+                  "bound_args": [],
+                  "def_extras": {
+                    "first_arg": null
+                  },
+                  "fallback": "builtins.function",
+                  "implicit": false,
+                  "is_ellipsis_args": false,
+                  "name": "compute_activation of Trainer",
+                  "ret_type": {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  "variables": []
+                }
+              }
+            }
+          },
+          "compute_cost": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "params",
+                "inputs",
+                "outputs"
+              ],
+              "flags": [],
+              "fullname": "trainer.Trainer.compute_cost",
+              "name": "compute_cost",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "params",
+                  "inputs",
+                  "outputs"
+                ],
+                "arg_types": [
+                  "trainer.Trainer",
+                  {
+                    ".class": "Instance",
+                    "args": [
+                      {
+                        ".class": "Instance",
+                        "args": [
+                          {
+                            ".class": "AnyType",
+                            "missing_import_name": null,
+                            "source_any": null,
+                            "type_of_any": 4
+                          },
+                          {
+                            ".class": "AnyType",
+                            "missing_import_name": null,
+                            "source_any": null,
+                            "type_of_any": 4
+                          }
+                        ],
+                        "type_ref": "builtins.dict"
+                      }
+                    ],
+                    "type_ref": "builtins.list"
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "compute_cost of Trainer",
+                "ret_type": "builtins.float",
+                "variables": []
+              }
+            }
+          },
+          "compute_cost_on_step": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "predictions",
+                "outputs"
+              ],
+              "flags": [],
+              "fullname": "trainer.Trainer.compute_cost_on_step",
+              "name": "compute_cost_on_step",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "predictions",
+                  "outputs"
+                ],
+                "arg_types": [
+                  "trainer.Trainer",
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "compute_cost_on_step of Trainer",
+                "ret_type": {
+                  ".class": "AnyType",
+                  "missing_import_name": "trainer.tensor",
+                  "source_any": null,
+                  "type_of_any": 3
+                },
+                "variables": []
+              }
+            }
+          },
+          "compute_evaluation": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "Decorator",
+              "func": {
+                ".class": "FuncDef",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "metric",
+                  "predictions",
+                  "outputs"
+                ],
+                "flags": [
+                  "is_static",
+                  "is_decorated"
+                ],
+                "fullname": "trainer.Trainer.compute_evaluation",
+                "name": "compute_evaluation",
+                "type": {
+                  ".class": "CallableType",
+                  "arg_kinds": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "arg_names": [
+                    "metric",
+                    "predictions",
+                    "outputs"
+                  ],
+                  "arg_types": [
+                    "builtins.str",
+                    {
+                      ".class": "AnyType",
+                      "missing_import_name": "trainer.tensor",
+                      "source_any": null,
+                      "type_of_any": 3
+                    },
+                    {
+                      ".class": "AnyType",
+                      "missing_import_name": "trainer.tensor",
+                      "source_any": null,
+                      "type_of_any": 3
+                    }
+                  ],
+                  "bound_args": [],
+                  "def_extras": {
+                    "first_arg": null
+                  },
+                  "fallback": "builtins.function",
+                  "implicit": false,
+                  "is_ellipsis_args": false,
+                  "name": "compute_evaluation of Trainer",
+                  "ret_type": "builtins.float",
+                  "variables": []
+                }
+              },
+              "is_overload": false,
+              "var": {
+                ".class": "Var",
+                "flags": [
+                  "is_initialized_in_class",
+                  "is_staticmethod",
+                  "is_ready"
+                ],
+                "fullname": null,
+                "name": "compute_evaluation",
+                "type": {
+                  ".class": "CallableType",
+                  "arg_kinds": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "arg_names": [
+                    "metric",
+                    "predictions",
+                    "outputs"
+                  ],
+                  "arg_types": [
+                    "builtins.str",
+                    {
+                      ".class": "AnyType",
+                      "missing_import_name": "trainer.tensor",
+                      "source_any": null,
+                      "type_of_any": 3
+                    },
+                    {
+                      ".class": "AnyType",
+                      "missing_import_name": "trainer.tensor",
+                      "source_any": null,
+                      "type_of_any": 3
+                    }
+                  ],
+                  "bound_args": [],
+                  "def_extras": {
+                    "first_arg": null
+                  },
+                  "fallback": "builtins.function",
+                  "implicit": false,
+                  "is_ellipsis_args": false,
+                  "name": "compute_evaluation of Trainer",
+                  "ret_type": "builtins.float",
+                  "variables": []
+                }
+              }
+            }
+          },
+          "compute_predictions": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "params",
+                "inputs"
+              ],
+              "flags": [],
+              "fullname": "trainer.Trainer.compute_predictions",
+              "name": "compute_predictions",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "params",
+                  "inputs"
+                ],
+                "arg_types": [
+                  "trainer.Trainer",
+                  {
+                    ".class": "Instance",
+                    "args": [
+                      {
+                        ".class": "Instance",
+                        "args": [
+                          {
+                            ".class": "AnyType",
+                            "missing_import_name": null,
+                            "source_any": null,
+                            "type_of_any": 4
+                          },
+                          {
+                            ".class": "AnyType",
+                            "missing_import_name": null,
+                            "source_any": null,
+                            "type_of_any": 4
+                          }
+                        ],
+                        "type_ref": "builtins.dict"
+                      }
+                    ],
+                    "type_ref": "builtins.list"
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "compute_predictions of Trainer",
+                "ret_type": {
+                  ".class": "AnyType",
+                  "missing_import_name": "trainer.tensor",
+                  "source_any": null,
+                  "type_of_any": 3
+                },
+                "variables": []
+              }
+            }
+          },
+          "cost": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "trainer.Trainer.cost",
+              "name": "cost",
+              "type": {
+                ".class": "Instance",
+                "args": [
+                  "builtins.float"
+                ],
+                "type_ref": "builtins.list"
+              }
+            }
+          },
+          "epochs": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [],
+              "fullname": "trainer.Trainer.epochs",
+              "name": "epochs",
+              "type": {
+                ".class": "AnyType",
+                "missing_import_name": null,
+                "source_any": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
+                },
+                "type_of_any": 7
+              }
+            }
+          },
+          "evaluate": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "inputs",
+                "outputs"
+              ],
+              "flags": [],
+              "fullname": "trainer.Trainer.evaluate",
+              "name": "evaluate",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "inputs",
+                  "outputs"
+                ],
+                "arg_types": [
+                  "trainer.Trainer",
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "evaluate of Trainer",
+                "ret_type": "builtins.float",
+                "variables": []
+              }
+            }
+          },
+          "extract_config": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "net_config"
+              ],
+              "flags": [],
+              "fullname": "trainer.Trainer.extract_config",
+              "name": "extract_config",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "net_config"
+                ],
+                "arg_types": [
+                  "trainer.Trainer",
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": null,
+                    "source_any": null,
+                    "type_of_any": 1
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "extract_config of Trainer",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
+          "gradient_descent": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0
+              ],
+              "arg_names": [
+                "self"
+              ],
+              "flags": [],
+              "fullname": "trainer.Trainer.gradient_descent",
+              "name": "gradient_descent",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0
+                ],
+                "arg_names": [
+                  "self"
+                ],
+                "arg_types": [
+                  "trainer.Trainer"
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "gradient_descent of Trainer",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
+          "init_network_params": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0
+              ],
+              "arg_names": [
+                "self"
+              ],
+              "flags": [],
+              "fullname": "trainer.Trainer.init_network_params",
+              "name": "init_network_params",
+              "type": null
+            }
+          },
+          "inputs": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [],
+              "fullname": "trainer.Trainer.inputs",
+              "name": "inputs",
+              "type": {
+                ".class": "AnyType",
+                "missing_import_name": null,
+                "source_any": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
+                },
+                "type_of_any": 7
+              }
+            }
+          },
+          "layers": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [],
+              "fullname": "trainer.Trainer.layers",
+              "name": "layers",
+              "type": {
+                ".class": "AnyType",
+                "missing_import_name": null,
+                "source_any": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
+                },
+                "type_of_any": 7
+              }
+            }
+          },
+          "loss": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [],
+              "fullname": "trainer.Trainer.loss",
+              "name": "loss",
+              "type": {
+                ".class": "AnyType",
+                "missing_import_name": null,
+                "source_any": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
+                },
+                "type_of_any": 7
+              }
+            }
+          },
+          "loss_fn": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [],
+              "fullname": "trainer.Trainer.loss_fn",
+              "name": "loss_fn",
+              "type": {
+                ".class": "AnyType",
+                "missing_import_name": null,
+                "source_any": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
+                },
+                "type_of_any": 7
+              }
+            }
+          },
+          "lr": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [],
+              "fullname": "trainer.Trainer.lr",
+              "name": "lr",
+              "type": {
+                ".class": "AnyType",
+                "missing_import_name": null,
+                "source_any": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
+                },
+                "type_of_any": 7
+              }
+            }
+          },
+          "network_params": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [],
+              "fullname": "trainer.Trainer.network_params",
+              "name": "network_params",
+              "type": {
+                ".class": "AnyType",
+                "missing_import_name": null,
+                "source_any": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
+                },
+                "type_of_any": 7
+              }
+            }
+          },
+          "outputs": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [],
+              "fullname": "trainer.Trainer.outputs",
+              "name": "outputs",
+              "type": {
+                ".class": "AnyType",
+                "missing_import_name": null,
+                "source_any": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
+                },
+                "type_of_any": 7
+              }
+            }
+          }
+        },
+        "tuple_type": null,
+        "type_vars": [],
+        "typeddict_type": null
+      }
+    },
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "trainer.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "trainer.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "trainer.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "trainer.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    },
+    "activations": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.activations",
+      "kind": "Gdef"
+    },
+    "evaluators": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.evaluators",
+      "kind": "Gdef"
+    },
+    "grad": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "trainer.grad",
+        "name": "grad",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "trainer.grad",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "jit": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "trainer.jit",
+        "name": "jit",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "trainer.jit",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "tensor": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "trainer.tensor",
+        "name": "tensor",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "trainer.tensor",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "tqdm": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "trainer.tqdm",
+        "name": "tqdm",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "trainer.tqdm",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    }
+  },
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-479/dnet/trainer.py"
+}

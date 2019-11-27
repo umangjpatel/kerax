@@ -1,0 +1,58 @@
+{
+  "id": "Model",
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-793/dnet/Model.py",
+  "mtime": 1574751325,
+  "size": 87,
+  "hash": "bb30a8f5e92562e562196c701d55234f",
+  "data_mtime": 1574751325,
+  "dependencies": [
+    "builtins"
+  ],
+  "suppressed": [],
+  "child_modules": [],
+  "options": {
+    "disallow_any_unimported": false,
+    "implicit_reexport": true,
+    "disallow_untyped_defs": false,
+    "disallow_untyped_decorators": false,
+    "bazel": false,
+    "always_false": [],
+    "warn_return_any": false,
+    "warn_unused_ignores": false,
+    "follow_imports_for_stubs": false,
+    "strict_optional_whitelist": null,
+    "ignore_missing_imports": true,
+    "disallow_any_decorated": false,
+    "disallow_any_explicit": false,
+    "mypyc": false,
+    "follow_imports": "silent",
+    "strict_equality": false,
+    "allow_redefinition": false,
+    "show_none_errors": true,
+    "ignore_errors": false,
+    "plugins": [],
+    "disallow_subclassing_any": false,
+    "disallow_incomplete_defs": false,
+    "warn_no_return": true,
+    "check_untyped_defs": false,
+    "platform": "darwin",
+    "no_implicit_optional": false,
+    "disallow_untyped_calls": false,
+    "always_true": [],
+    "disallow_any_expr": false,
+    "local_partial_types": false,
+    "warn_unreachable": false,
+    "disallow_any_generics": false,
+    "strict_optional": true,
+    "allow_untyped_globals": false
+  },
+  "dep_prios": [
+    5
+  ],
+  "dep_lines": [
+    1
+  ],
+  "interface_hash": "ddea9b676c9e341972009b72c96aba32",
+  "version_id": "0.740",
+  "ignore_all": false
+}

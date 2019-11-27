@@ -1,0 +1,148 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "Model",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "Model": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "TypeInfo",
+        "_promote": null,
+        "abstract_attributes": [],
+        "bases": [
+          "builtins.object"
+        ],
+        "declared_metaclass": null,
+        "defn": {
+          ".class": "ClassDef",
+          "fullname": "Model.Model",
+          "name": "Model",
+          "type_vars": []
+        },
+        "flags": [],
+        "fullname": "Model.Model",
+        "metaclass_type": null,
+        "metadata": {},
+        "module_name": "Model",
+        "mro": [
+          "Model.Model",
+          "builtins.object"
+        ],
+        "names": {
+          ".class": "SymbolTable"
+        },
+        "tuple_type": null,
+        "type_vars": [],
+        "typeddict_type": null
+      }
+    },
+    "Sequential": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "TypeInfo",
+        "_promote": null,
+        "abstract_attributes": [],
+        "bases": [
+          "Model.Model"
+        ],
+        "declared_metaclass": null,
+        "defn": {
+          ".class": "ClassDef",
+          "fullname": "Model.Sequential",
+          "name": "Sequential",
+          "type_vars": []
+        },
+        "flags": [],
+        "fullname": "Model.Sequential",
+        "metaclass_type": null,
+        "metadata": {},
+        "module_name": "Model",
+        "mro": [
+          "Model.Sequential",
+          "Model.Model",
+          "builtins.object"
+        ],
+        "names": {
+          ".class": "SymbolTable",
+          "__init__": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0
+              ],
+              "arg_names": [
+                "self"
+              ],
+              "flags": [],
+              "fullname": "Model.Sequential.__init__",
+              "name": "__init__",
+              "type": null
+            }
+          }
+        },
+        "tuple_type": null,
+        "type_vars": [],
+        "typeddict_type": null
+      }
+    },
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "Model.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "Model.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "Model.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "Model.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    }
+  },
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-791/dnet/Model.py"
+}

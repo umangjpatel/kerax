@@ -1,0 +1,178 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "losses",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "losses.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "losses.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "losses.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "losses.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    },
+    "binary_crossentropy": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Decorator",
+        "func": {
+          ".class": "FuncDef",
+          "arg_kinds": [
+            0,
+            0
+          ],
+          "arg_names": [
+            "predictions",
+            "outputs"
+          ],
+          "flags": [
+            "is_decorated"
+          ],
+          "fullname": "losses.binary_crossentropy",
+          "name": "binary_crossentropy",
+          "type": {
+            ".class": "CallableType",
+            "arg_kinds": [
+              0,
+              0
+            ],
+            "arg_names": [
+              "predictions",
+              "outputs"
+            ],
+            "arg_types": [
+              {
+                ".class": "AnyType",
+                "missing_import_name": "losses.tensor",
+                "source_any": null,
+                "type_of_any": 3
+              },
+              {
+                ".class": "AnyType",
+                "missing_import_name": "losses.tensor",
+                "source_any": null,
+                "type_of_any": 3
+              }
+            ],
+            "bound_args": [],
+            "def_extras": {
+              "first_arg": null
+            },
+            "fallback": "builtins.function",
+            "implicit": false,
+            "is_ellipsis_args": false,
+            "name": "binary_crossentropy",
+            "ret_type": "builtins.float",
+            "variables": []
+          }
+        },
+        "is_overload": false,
+        "var": {
+          ".class": "Var",
+          "flags": [
+            "is_ready"
+          ],
+          "fullname": null,
+          "name": "binary_crossentropy",
+          "type": {
+            ".class": "AnyType",
+            "missing_import_name": "losses.jit",
+            "source_any": {
+              ".class": "AnyType",
+              "missing_import_name": "losses.jit",
+              "source_any": null,
+              "type_of_any": 3
+            },
+            "type_of_any": 7
+          }
+        }
+      }
+    },
+    "jit": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "losses.jit",
+        "name": "jit",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "losses.jit",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "tensor": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "losses.tensor",
+        "name": "tensor",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "losses.tensor",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    }
+  },
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-229/dnet/losses.py"
+}

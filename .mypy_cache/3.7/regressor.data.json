@@ -1,0 +1,243 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "regressor",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "regressor.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "regressor.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "regressor.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "regressor.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    },
+    "c2f": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "FuncDef",
+        "arg_kinds": [
+          0
+        ],
+        "arg_names": [
+          "temp"
+        ],
+        "flags": [],
+        "fullname": "regressor.c2f",
+        "name": "c2f",
+        "type": null
+      }
+    },
+    "c2k": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "FuncDef",
+        "arg_kinds": [
+          0
+        ],
+        "arg_names": [
+          "temp"
+        ],
+        "flags": [],
+        "fullname": "regressor.c2k",
+        "name": "c2k",
+        "type": null
+      }
+    },
+    "data": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "regressor.data",
+        "name": "data",
+        "type": {
+          ".class": "Instance",
+          "args": [
+            {
+              ".class": "TupleType",
+              "implicit": false,
+              "items": [
+                {
+                  ".class": "AnyType",
+                  "missing_import_name": "regressor.np",
+                  "source_any": {
+                    ".class": "AnyType",
+                    "missing_import_name": "regressor.np",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  "type_of_any": 7
+                },
+                {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": {
+                    ".class": "AnyType",
+                    "missing_import_name": null,
+                    "source_any": null,
+                    "type_of_any": 1
+                  },
+                  "type_of_any": 7
+                },
+                {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": {
+                    ".class": "AnyType",
+                    "missing_import_name": null,
+                    "source_any": null,
+                    "type_of_any": 1
+                  },
+                  "type_of_any": 7
+                }
+              ],
+              "partial_fallback": {
+                ".class": "Instance",
+                "args": [
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": null,
+                    "source_any": null,
+                    "type_of_any": 6
+                  }
+                ],
+                "type_ref": "builtins.tuple"
+              }
+            }
+          ],
+          "type_ref": "builtins.list"
+        }
+      }
+    },
+    "df": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "regressor.df",
+        "name": "df",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "regressor.pd",
+          "source_any": {
+            ".class": "AnyType",
+            "missing_import_name": "regressor.pd",
+            "source_any": null,
+            "type_of_any": 3
+          },
+          "type_of_any": 7
+        }
+      }
+    },
+    "np": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "regressor.np",
+        "name": "np",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "regressor.np",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "pd": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "regressor.pd",
+        "name": "pd",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "regressor.pd",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "temp_c": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "regressor.temp_c",
+        "name": "temp_c",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "regressor.np",
+          "source_any": {
+            ".class": "AnyType",
+            "missing_import_name": "regressor.np",
+            "source_any": null,
+            "type_of_any": 3
+          },
+          "type_of_any": 7
+        }
+      }
+    }
+  },
+  "path": "../regressor.py"
+}

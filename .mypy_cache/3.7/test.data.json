@@ -1,0 +1,307 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "test",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "FC": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.layers.FC",
+      "kind": "Gdef"
+    },
+    "Sequential": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.nn.Sequential",
+      "kind": "Gdef"
+    },
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "test.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "test.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "test.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "test.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    },
+    "mnist_dataset_path": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.mnist_dataset_path",
+        "name": "mnist_dataset_path",
+        "type": "builtins.str"
+      }
+    },
+    "mnist_test_path": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.mnist_test_path",
+        "name": "mnist_test_path",
+        "type": "builtins.str"
+      }
+    },
+    "mnist_train_path": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.mnist_train_path",
+        "name": "mnist_train_path",
+        "type": "builtins.str"
+      }
+    },
+    "model": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.model",
+        "name": "model",
+        "type": "dnet.nn.Sequential"
+      }
+    },
+    "os": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "os",
+      "kind": "Gdef"
+    },
+    "pd": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "test.pd",
+        "name": "pd",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "test.pd",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "tensor": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "test.tensor",
+        "name": "tensor",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "test.tensor",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "testing_data": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.testing_data",
+        "name": "testing_data",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "test.pd",
+          "source_any": {
+            ".class": "AnyType",
+            "missing_import_name": "test.pd",
+            "source_any": null,
+            "type_of_any": 3
+          },
+          "type_of_any": 7
+        }
+      }
+    },
+    "train_acc_score": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.train_acc_score",
+        "name": "train_acc_score",
+        "type": "builtins.float"
+      }
+    },
+    "training_data": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.training_data",
+        "name": "training_data",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "test.pd",
+          "source_any": {
+            ".class": "AnyType",
+            "missing_import_name": "test.pd",
+            "source_any": null,
+            "type_of_any": 3
+          },
+          "type_of_any": 7
+        }
+      }
+    },
+    "val_acc_score": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.val_acc_score",
+        "name": "val_acc_score",
+        "type": "builtins.float"
+      }
+    },
+    "x_train": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.x_train",
+        "name": "x_train",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "test.tensor",
+          "source_any": {
+            ".class": "AnyType",
+            "missing_import_name": "test.tensor",
+            "source_any": null,
+            "type_of_any": 3
+          },
+          "type_of_any": 7
+        }
+      }
+    },
+    "x_val": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.x_val",
+        "name": "x_val",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "test.tensor",
+          "source_any": {
+            ".class": "AnyType",
+            "missing_import_name": "test.tensor",
+            "source_any": null,
+            "type_of_any": 3
+          },
+          "type_of_any": 7
+        }
+      }
+    },
+    "y_train": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.y_train",
+        "name": "y_train",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "test.tensor",
+          "source_any": {
+            ".class": "AnyType",
+            "missing_import_name": "test.tensor",
+            "source_any": null,
+            "type_of_any": 3
+          },
+          "type_of_any": 7
+        }
+      }
+    },
+    "y_val": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [],
+        "fullname": "test.y_val",
+        "name": "y_val",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "test.tensor",
+          "source_any": {
+            ".class": "AnyType",
+            "missing_import_name": "test.tensor",
+            "source_any": null,
+            "type_of_any": 3
+          },
+          "type_of_any": 7
+        }
+      }
+    }
+  },
+  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/test.py"
+}

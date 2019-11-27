@@ -1,0 +1,72 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "train",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "DNet": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.nn.DNet",
+      "kind": "Gdef"
+    },
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "train.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "train.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "train.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "train.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    },
+    "tensor": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.tensor.np",
+      "kind": "Gdef"
+    }
+  },
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-484/dnet/train.py"
+}

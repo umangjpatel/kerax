@@ -1,0 +1,81 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "dnet.tensor",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "dnet.tensor.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "dnet.tensor.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "dnet.tensor.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "dnet.tensor.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    },
+    "np": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "dnet.tensor.np",
+        "name": "np",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "dnet.tensor.np",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    }
+  },
+  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/tensor.py"
+}

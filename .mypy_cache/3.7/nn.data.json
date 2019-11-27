@@ -1,0 +1,726 @@
+{
+  ".class": "MypyFile",
+  "_fullname": "nn",
+  "is_partial_stub_package": false,
+  "is_stub": false,
+  "names": {
+    ".class": "SymbolTable",
+    "Callable": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "typing.Callable",
+      "kind": "Gdef"
+    },
+    "FC": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.layers.FC",
+      "kind": "Gdef"
+    },
+    "GD": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.optimizers.GD",
+      "kind": "Gdef"
+    },
+    "Layer": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "TypeInfo",
+        "_promote": null,
+        "abstract_attributes": [],
+        "bases": [
+          "builtins.object"
+        ],
+        "declared_metaclass": null,
+        "defn": {
+          ".class": "ClassDef",
+          "fullname": "nn.Layer",
+          "name": "Layer",
+          "type_vars": []
+        },
+        "flags": [],
+        "fullname": "nn.Layer",
+        "metaclass_type": null,
+        "metadata": {},
+        "module_name": "nn",
+        "mro": [
+          "nn.Layer",
+          "builtins.object"
+        ],
+        "names": {
+          ".class": "SymbolTable"
+        },
+        "tuple_type": null,
+        "type_vars": [],
+        "typeddict_type": null
+      }
+    },
+    "List": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "typing.List",
+      "kind": "Gdef"
+    },
+    "Sequential": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "TypeInfo",
+        "_promote": null,
+        "abstract_attributes": [],
+        "bases": [
+          "nn.Layer"
+        ],
+        "declared_metaclass": null,
+        "defn": {
+          ".class": "ClassDef",
+          "fullname": "nn.Sequential",
+          "name": "Sequential",
+          "type_vars": []
+        },
+        "flags": [],
+        "fullname": "nn.Sequential",
+        "metaclass_type": null,
+        "metadata": {},
+        "module_name": "nn",
+        "mro": [
+          "nn.Sequential",
+          "nn.Layer",
+          "builtins.object"
+        ],
+        "names": {
+          ".class": "SymbolTable",
+          "__init__": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0
+              ],
+              "arg_names": [
+                "self"
+              ],
+              "flags": [],
+              "fullname": "nn.Sequential.__init__",
+              "name": "__init__",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0
+                ],
+                "arg_names": [
+                  "self"
+                ],
+                "arg_types": [
+                  "nn.Sequential"
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "__init__ of Sequential",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
+          "accuracy_fn": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "nn.Sequential.accuracy_fn",
+              "name": "accuracy_fn",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  2,
+                  4
+                ],
+                "arg_names": [
+                  null,
+                  null
+                ],
+                "arg_types": [
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": null,
+                    "source_any": null,
+                    "type_of_any": 4
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": null,
+                    "source_any": null,
+                    "type_of_any": 4
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {},
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": true,
+                "name": null,
+                "ret_type": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 4
+                },
+                "variables": []
+              }
+            }
+          },
+          "add": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "layer"
+              ],
+              "flags": [],
+              "fullname": "nn.Sequential.add",
+              "name": "add",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "layer"
+                ],
+                "arg_types": [
+                  "nn.Sequential",
+                  "dnet.layers.FC"
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "add of Sequential",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
+          "compile": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "arg_names": [
+                "self",
+                "loss",
+                "epochs",
+                "lr"
+              ],
+              "flags": [],
+              "fullname": "nn.Sequential.compile",
+              "name": "compile",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "arg_names": [
+                  "self",
+                  "loss",
+                  "epochs",
+                  "lr"
+                ],
+                "arg_types": [
+                  "nn.Sequential",
+                  "builtins.str",
+                  "builtins.int",
+                  "builtins.float"
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "compile of Sequential",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
+          "epochs": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "nn.Sequential.epochs",
+              "name": "epochs",
+              "type": "builtins.int"
+            }
+          },
+          "evaluate": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "inputs",
+                "outputs"
+              ],
+              "flags": [],
+              "fullname": "nn.Sequential.evaluate",
+              "name": "evaluate",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "inputs",
+                  "outputs"
+                ],
+                "arg_types": [
+                  "nn.Sequential",
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "nn.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "nn.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "evaluate of Sequential",
+                "ret_type": "builtins.float",
+                "variables": []
+              }
+            }
+          },
+          "fit": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "inputs",
+                "outputs"
+              ],
+              "flags": [],
+              "fullname": "nn.Sequential.fit",
+              "name": "fit",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "inputs",
+                  "outputs"
+                ],
+                "arg_types": [
+                  "nn.Sequential",
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "nn.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "nn.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "fit of Sequential",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
+          "layers": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "nn.Sequential.layers",
+              "name": "layers",
+              "type": {
+                ".class": "Instance",
+                "args": [
+                  "dnet.layers.FC"
+                ],
+                "type_ref": "builtins.list"
+              }
+            }
+          },
+          "loss_fn": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "nn.Sequential.loss_fn",
+              "name": "loss_fn",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  2,
+                  4
+                ],
+                "arg_names": [
+                  null,
+                  null
+                ],
+                "arg_types": [
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": null,
+                    "source_any": null,
+                    "type_of_any": 4
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": null,
+                    "source_any": null,
+                    "type_of_any": 4
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {},
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": true,
+                "name": null,
+                "ret_type": {
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 4
+                },
+                "variables": []
+              }
+            }
+          },
+          "lr": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "nn.Sequential.lr",
+              "name": "lr",
+              "type": "builtins.float"
+            }
+          },
+          "optimizer": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "nn.Sequential.optimizer",
+              "name": "optimizer",
+              "type": "dnet.optimizers.GD"
+            }
+          },
+          "plot_accuracy": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0
+              ],
+              "arg_names": [
+                "self"
+              ],
+              "flags": [],
+              "fullname": "nn.Sequential.plot_accuracy",
+              "name": "plot_accuracy",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0
+                ],
+                "arg_names": [
+                  "self"
+                ],
+                "arg_types": [
+                  "nn.Sequential"
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "plot_accuracy of Sequential",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
+          "plot_losses": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0
+              ],
+              "arg_names": [
+                "self"
+              ],
+              "flags": [],
+              "fullname": "nn.Sequential.plot_losses",
+              "name": "plot_losses",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0
+                ],
+                "arg_names": [
+                  "self"
+                ],
+                "arg_types": [
+                  "nn.Sequential"
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "plot_losses of Sequential",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          }
+        },
+        "tuple_type": null,
+        "type_vars": [],
+        "typeddict_type": null
+      }
+    },
+    "__doc__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "nn.__doc__",
+        "name": "__doc__",
+        "type": "builtins.str"
+      }
+    },
+    "__file__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "nn.__file__",
+        "name": "__file__",
+        "type": "builtins.str"
+      }
+    },
+    "__name__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "nn.__name__",
+        "name": "__name__",
+        "type": "builtins.str"
+      }
+    },
+    "__package__": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_ready"
+        ],
+        "fullname": "nn.__package__",
+        "name": "__package__",
+        "type": "builtins.str"
+      }
+    },
+    "evaluators": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.evaluators",
+      "kind": "Gdef"
+    },
+    "jit": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "nn.jit",
+        "name": "jit",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "nn.jit",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "losses": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.losses",
+      "kind": "Gdef"
+    },
+    "plt": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "nn.plt",
+        "name": "plt",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "nn.plt",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    },
+    "tensor": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Var",
+        "flags": [
+          "is_suppressed_import",
+          "is_ready"
+        ],
+        "fullname": "nn.tensor",
+        "name": "tensor",
+        "type": {
+          ".class": "AnyType",
+          "missing_import_name": "nn.tensor",
+          "source_any": null,
+          "type_of_any": 3
+        }
+      }
+    }
+  },
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-245/dnet/nn.py"
+}

@@ -1,0 +1,65 @@
+{
+  "id": "activations",
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-289/dnet/activations.py",
+  "mtime": 1574879827,
+  "size": 220,
+  "hash": "e60acfaccafef9a7a2ff8a92be15a8f1",
+  "data_mtime": 1574879827,
+  "dependencies": [
+    "builtins"
+  ],
+  "suppressed": [
+    "jax",
+    "jax.numpy"
+  ],
+  "child_modules": [],
+  "options": {
+    "ignore_errors": false,
+    "bazel": false,
+    "no_implicit_optional": false,
+    "allow_redefinition": false,
+    "disallow_any_expr": false,
+    "always_true": [],
+    "disallow_any_decorated": false,
+    "disallow_subclassing_any": false,
+    "follow_imports": "silent",
+    "mypyc": false,
+    "strict_optional": true,
+    "warn_return_any": false,
+    "plugins": [],
+    "disallow_untyped_decorators": false,
+    "strict_equality": false,
+    "disallow_incomplete_defs": false,
+    "implicit_reexport": true,
+    "disallow_any_explicit": false,
+    "strict_optional_whitelist": null,
+    "warn_unreachable": false,
+    "platform": "darwin",
+    "ignore_missing_imports": true,
+    "disallow_any_generics": false,
+    "show_none_errors": true,
+    "warn_unused_ignores": false,
+    "warn_no_return": true,
+    "disallow_any_unimported": false,
+    "disallow_untyped_calls": false,
+    "disallow_untyped_defs": false,
+    "follow_imports_for_stubs": false,
+    "always_false": [],
+    "check_untyped_defs": false,
+    "local_partial_types": false,
+    "allow_untyped_globals": false
+  },
+  "dep_prios": [
+    5,
+    5,
+    10
+  ],
+  "dep_lines": [
+    1,
+    1,
+    2
+  ],
+  "interface_hash": "7a78c7ce232a587094d6fded21c8f004",
+  "version_id": "0.740",
+  "ignore_all": false
+}
