@@ -47,7 +47,8 @@ val_acc_score = model.evaluate(x_val, y_val)
 print("Validation accuracy : {0:.6f}".format(val_acc_score))
 ```
 
-## [Roadmap](https://github.com/umangjpatel/dnet/projects/2)
+## Roadmap
+Check the [roadmap](https://github.com/umangjpatel/dnet/projects/2) of this project. This will give you the idea of the progress in the development of this library.
 
 ## Developers
 * [Umang Patel](https://github.com/umangjpatel)
