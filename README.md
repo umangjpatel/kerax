@@ -38,11 +38,11 @@ Plot the loss curve :
 ```python3
 model.plot_losses()
 ```
-Plot the training accuracy curve :
+Plot the accuracy curve :
 ```python3
 model.plot_accuracy()
 ```
-Plot the training loss and accuracy curves :
+Plot both the loss and accuracy curves :
 ```python3
 model.plot_curves()
 ```
