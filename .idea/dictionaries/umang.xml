@@ -4,12 +4,14 @@
       <w>crossentropy</w>
       <w>dataset</w>
       <w>datasets</w>
+      <w>matplotlib</w>
       <w>mish</w>
       <w>mnist</w>
       <w>relu</w>
       <w>softplus</w>
       <w>subkey</w>
       <w>tanh</w>
+      <w>tqdm</w>
     </words>
   </dictionary>
 </component>
