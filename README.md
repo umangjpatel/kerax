@@ -23,7 +23,7 @@ Add the fully-connected layers / densely-connected layers :
 
 ```python3
 model.add(FC(units=500, activation="relu"))
-model.add(FC(units=50, activation="relu"))
+model.add(FC(units=50, activation="mish"))
 model.add(FC(units=1, activation="sigmoid"))
 ```
 Compile the model with the hyperparameters :
