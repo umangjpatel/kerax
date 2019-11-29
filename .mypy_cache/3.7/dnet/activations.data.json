@@ -76,6 +76,79 @@
         }
       }
     },
+    "mish": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Decorator",
+        "func": {
+          ".class": "FuncDef",
+          "arg_kinds": [
+            0
+          ],
+          "arg_names": [
+            "z"
+          ],
+          "flags": [
+            "is_decorated"
+          ],
+          "fullname": "dnet.activations.mish",
+          "name": "mish",
+          "type": {
+            ".class": "CallableType",
+            "arg_kinds": [
+              0
+            ],
+            "arg_names": [
+              "z"
+            ],
+            "arg_types": [
+              {
+                ".class": "AnyType",
+                "missing_import_name": "dnet.activations.tensor",
+                "source_any": null,
+                "type_of_any": 3
+              }
+            ],
+            "bound_args": [],
+            "def_extras": {
+              "first_arg": null
+            },
+            "fallback": "builtins.function",
+            "implicit": false,
+            "is_ellipsis_args": false,
+            "name": "mish",
+            "ret_type": {
+              ".class": "AnyType",
+              "missing_import_name": "dnet.activations.tensor",
+              "source_any": null,
+              "type_of_any": 3
+            },
+            "variables": []
+          }
+        },
+        "is_overload": false,
+        "var": {
+          ".class": "Var",
+          "flags": [
+            "is_ready"
+          ],
+          "fullname": null,
+          "name": "mish",
+          "type": {
+            ".class": "AnyType",
+            "missing_import_name": "dnet.activations.jit",
+            "source_any": {
+              ".class": "AnyType",
+              "missing_import_name": "dnet.activations.jit",
+              "source_any": null,
+              "type_of_any": 3
+            },
+            "type_of_any": 7
+          }
+        }
+      }
+    },
     "relu": {
       ".class": "SymbolTableNode",
       "kind": "Gdef",
@@ -208,6 +281,152 @@
           ],
           "fullname": null,
           "name": "sigmoid",
+          "type": {
+            ".class": "AnyType",
+            "missing_import_name": "dnet.activations.jit",
+            "source_any": {
+              ".class": "AnyType",
+              "missing_import_name": "dnet.activations.jit",
+              "source_any": null,
+              "type_of_any": 3
+            },
+            "type_of_any": 7
+          }
+        }
+      }
+    },
+    "softplus": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Decorator",
+        "func": {
+          ".class": "FuncDef",
+          "arg_kinds": [
+            0
+          ],
+          "arg_names": [
+            "z"
+          ],
+          "flags": [
+            "is_decorated"
+          ],
+          "fullname": "dnet.activations.softplus",
+          "name": "softplus",
+          "type": {
+            ".class": "CallableType",
+            "arg_kinds": [
+              0
+            ],
+            "arg_names": [
+              "z"
+            ],
+            "arg_types": [
+              {
+                ".class": "AnyType",
+                "missing_import_name": "dnet.activations.tensor",
+                "source_any": null,
+                "type_of_any": 3
+              }
+            ],
+            "bound_args": [],
+            "def_extras": {
+              "first_arg": null
+            },
+            "fallback": "builtins.function",
+            "implicit": false,
+            "is_ellipsis_args": false,
+            "name": "softplus",
+            "ret_type": {
+              ".class": "AnyType",
+              "missing_import_name": "dnet.activations.tensor",
+              "source_any": null,
+              "type_of_any": 3
+            },
+            "variables": []
+          }
+        },
+        "is_overload": false,
+        "var": {
+          ".class": "Var",
+          "flags": [
+            "is_ready"
+          ],
+          "fullname": null,
+          "name": "softplus",
+          "type": {
+            ".class": "AnyType",
+            "missing_import_name": "dnet.activations.jit",
+            "source_any": {
+              ".class": "AnyType",
+              "missing_import_name": "dnet.activations.jit",
+              "source_any": null,
+              "type_of_any": 3
+            },
+            "type_of_any": 7
+          }
+        }
+      }
+    },
+    "tanh": {
+      ".class": "SymbolTableNode",
+      "kind": "Gdef",
+      "node": {
+        ".class": "Decorator",
+        "func": {
+          ".class": "FuncDef",
+          "arg_kinds": [
+            0
+          ],
+          "arg_names": [
+            "z"
+          ],
+          "flags": [
+            "is_decorated"
+          ],
+          "fullname": "dnet.activations.tanh",
+          "name": "tanh",
+          "type": {
+            ".class": "CallableType",
+            "arg_kinds": [
+              0
+            ],
+            "arg_names": [
+              "z"
+            ],
+            "arg_types": [
+              {
+                ".class": "AnyType",
+                "missing_import_name": "dnet.activations.tensor",
+                "source_any": null,
+                "type_of_any": 3
+              }
+            ],
+            "bound_args": [],
+            "def_extras": {
+              "first_arg": null
+            },
+            "fallback": "builtins.function",
+            "implicit": false,
+            "is_ellipsis_args": false,
+            "name": "tanh",
+            "ret_type": {
+              ".class": "AnyType",
+              "missing_import_name": "dnet.activations.tensor",
+              "source_any": null,
+              "type_of_any": 3
+            },
+            "variables": []
+          }
+        },
+        "is_overload": false,
+        "var": {
+          ".class": "Var",
+          "flags": [
+            "is_ready"
+          ],
+          "fullname": null,
+          "name": "tanh",
           "type": {
             ".class": "AnyType",
             "missing_import_name": "dnet.activations.jit",
