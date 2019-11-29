@@ -26,9 +26,9 @@ class GD(Optimizer):
 
     def train(self, inputs: tensor.array, outputs: tensor.array) -> None:
         self.init_network_params(inputs.shape)
-        grad_fn = jit(grad(self.compute_cost))
-        for _ in tqdm(range(self.epochs), desc="Training the network"):
-            grads = grad_fn(self.network_params, inputs, outputs)
+        grad_fn: Callable = jit(grad(self.compute_cost))
+        for _ in tqdm(range(self.epochs), desc="Training the model"):
+            grads: List = grad_fn(self.network_params, inputs, outputs)
             for i, layer_params in enumerate(grads):
                 self.network_params[i]["w"] -= self.lr * layer_params.get("w")
                 self.network_params[i]["b"] -= self.lr * layer_params.get("b")

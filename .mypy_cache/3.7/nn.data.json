@@ -556,6 +556,46 @@
               }
             }
           },
+          "plot_curves": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0
+              ],
+              "arg_names": [
+                "self"
+              ],
+              "flags": [],
+              "fullname": "nn.Sequential.plot_curves",
+              "name": "plot_curves",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0
+                ],
+                "arg_names": [
+                  "self"
+                ],
+                "arg_types": [
+                  "nn.Sequential"
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "plot_curves of Sequential",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          },
           "plot_losses": {
             ".class": "SymbolTableNode",
             "kind": "Mdef",
@@ -601,6 +641,11 @@
         "type_vars": [],
         "typeddict_type": null
       }
+    },
+    "Tuple": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "typing.Tuple",
+      "kind": "Gdef"
     },
     "__doc__": {
       ".class": "SymbolTableNode",
@@ -722,5 +767,5 @@
       }
     }
   },
-  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-245/dnet/nn.py"
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-635/dnet/nn.py"
 }

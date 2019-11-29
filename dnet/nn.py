@@ -48,3 +48,12 @@ class Sequential(Layer):
         plt.ylabel("Accuracy")
         plt.title("Accuracy Curve")
         plt.show()
+
+    def plot_curves(self) -> None:
+        fig, (ax1, ax2) = plt.subplots(2, figsize=(7, 7), sharex=True)
+        fig.suptitle("Training Curves")
+        ax1.plot(range(self.epochs), self.optimizer.cost, "tab:red")
+        ax1.set_title("Loss Curve")
+        ax2.plot(range(self.epochs), self.optimizer.accuracy, "tab:green")
+        ax2.set_title("Accuracy Curve")
+        plt.show()

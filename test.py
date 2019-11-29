@@ -31,8 +31,9 @@ model.fit(x_train, y_train)
 
 model.plot_losses()
 model.plot_accuracy()
+model.plot_curves()
 
-train_acc_score = model.evaluate(x_train, y_train)
-print("Training accuracy : {0:.6f}".format(train_acc_score))
-val_acc_score = model.evaluate(x_val, y_val)
-print("Validation accuracy : {0:.6f}".format(val_acc_score))
+train_score = model.evaluate(x_train, y_train)
+print("Training accuracy : {0:.6f}".format(train_score))
+val_score = model.evaluate(x_val, y_val)
+print("Validation accuracy : {0:.6f}".format(val_score))
