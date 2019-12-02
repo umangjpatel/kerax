@@ -70,3 +70,36 @@ class SGD(Optimizer):
                 loss += self.compute_cost(self.network_params, batch.inputs, batch.outputs)
             self.cost.append(loss)
             self.accuracy.append(self.evaluate(inputs, outputs))
+
+
+class Momentum(Optimizer):
+
+    def __init__(self, layers: List[FC], loss: Callable, accuracy: Callable, epochs: int, lr: float,
+                 bs: int = 32, beta: float = 0.9):
+        super().__init__(layers, loss, accuracy, epochs, lr, bs)
+        self.beta: float = beta
+
+    def init_network_params(self, input_shape: Tuple[int, int]) -> None:
+        super().init_network_params(input_shape)
+        self.momentum_params: List[Dict[str, tensor.array]] = [
+            {"w": tensor.zeros_like(params.get("w")), "b": tensor.zeros_like(params.get("b"))} for params in
+            self.network_params]
+
+    def train(self, inputs: tensor.array, outputs: tensor.array) -> None:
+        self.init_network_params(inputs.shape)
+        for _ in tqdm(range(self.epochs), desc="Training the model"):
+            loss: float = 0.0
+            batch_num: int = 1
+            for batch in self.iterator(inputs, outputs):
+                grads: List[Dict[str, tensor.array]] = self.grad_fn(self.network_params, batch.inputs, batch.outputs)
+                for i, layer_params in enumerate(grads):
+                    self.momentum_params[i]["w"] = (self.beta * self.momentum_params[i]["w"] + (
+                            1 - self.beta * layer_params.get("w"))) / (1 - self.beta ** batch_num)
+                    self.momentum_params[i]["b"] = (self.beta * self.momentum_params[i]["b"] + (
+                            1 - self.beta * layer_params.get("b"))) / (1 - self.beta ** batch_num)
+                    self.network_params[i]["w"] -= self.lr * self.momentum_params[i]["w"]
+                    self.network_params[i]["b"] -= self.lr * self.momentum_params[i]["b"]
+                batch_num += 1
+                loss += self.compute_cost(self.network_params, batch.inputs, batch.outputs)
+            self.cost.append(loss)
+            self.accuracy.append(self.evaluate(inputs, outputs))

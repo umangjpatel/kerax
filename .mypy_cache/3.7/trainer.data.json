@@ -1,6 +1,6 @@
 {
   ".class": "MypyFile",
-  "_fullname": "dnet.trainer",
+  "_fullname": "trainer",
   "is_partial_stub_package": false,
   "is_stub": false,
   "names": {
@@ -48,17 +48,17 @@
         "declared_metaclass": null,
         "defn": {
           ".class": "ClassDef",
-          "fullname": "dnet.trainer.Trainer",
+          "fullname": "trainer.Trainer",
           "name": "Trainer",
           "type_vars": []
         },
         "flags": [],
-        "fullname": "dnet.trainer.Trainer",
+        "fullname": "trainer.Trainer",
         "metaclass_type": null,
         "metadata": {},
-        "module_name": "dnet.trainer",
+        "module_name": "trainer",
         "mro": [
-          "dnet.trainer.Trainer",
+          "trainer.Trainer",
           "builtins.object"
         ],
         "names": {
@@ -89,7 +89,7 @@
                 "bs"
               ],
               "flags": [],
-              "fullname": "dnet.trainer.Trainer.__init__",
+              "fullname": "trainer.Trainer.__init__",
               "name": "__init__",
               "type": {
                 ".class": "CallableType",
@@ -114,7 +114,7 @@
                   "bs"
                 ],
                 "arg_types": [
-                  "dnet.trainer.Trainer",
+                  "trainer.Trainer",
                   {
                     ".class": "Instance",
                     "args": [
@@ -234,7 +234,7 @@
                 "outputs"
               ],
               "flags": [],
-              "fullname": "dnet.trainer.Trainer.evaluate",
+              "fullname": "trainer.Trainer.evaluate",
               "name": "evaluate",
               "type": {
                 ".class": "CallableType",
@@ -249,16 +249,16 @@
                   "outputs"
                 ],
                 "arg_types": [
-                  "dnet.trainer.Trainer",
+                  "trainer.Trainer",
                   {
                     ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
+                    "missing_import_name": "trainer.tensor",
                     "source_any": null,
                     "type_of_any": 3
                   },
                   {
                     ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
+                    "missing_import_name": "trainer.tensor",
                     "source_any": null,
                     "type_of_any": 3
                   }
@@ -293,7 +293,7 @@
                 "self"
               ],
               "flags": [],
-              "fullname": "dnet.trainer.Trainer.get_accuracy",
+              "fullname": "trainer.Trainer.get_accuracy",
               "name": "get_accuracy",
               "type": {
                 ".class": "CallableType",
@@ -304,7 +304,7 @@
                   "self"
                 ],
                 "arg_types": [
-                  "dnet.trainer.Trainer"
+                  "trainer.Trainer"
                 ],
                 "bound_args": [],
                 "def_extras": {
@@ -337,7 +337,7 @@
                 "self"
               ],
               "flags": [],
-              "fullname": "dnet.trainer.Trainer.get_cost",
+              "fullname": "trainer.Trainer.get_cost",
               "name": "get_cost",
               "type": {
                 ".class": "CallableType",
@@ -348,7 +348,7 @@
                   "self"
                 ],
                 "arg_types": [
-                  "dnet.trainer.Trainer"
+                  "trainer.Trainer"
                 ],
                 "bound_args": [],
                 "def_extras": {
@@ -379,7 +379,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "dnet.trainer.Trainer.optimizer",
+              "fullname": "trainer.Trainer.optimizer",
               "name": "optimizer",
               "type": "dnet.optimizers.Optimizer"
             }
@@ -400,7 +400,7 @@
                 "outputs"
               ],
               "flags": [],
-              "fullname": "dnet.trainer.Trainer.train",
+              "fullname": "trainer.Trainer.train",
               "name": "train",
               "type": {
                 ".class": "CallableType",
@@ -415,16 +415,16 @@
                   "outputs"
                 ],
                 "arg_types": [
-                  "dnet.trainer.Trainer",
+                  "trainer.Trainer",
                   {
                     ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
+                    "missing_import_name": "trainer.tensor",
                     "source_any": null,
                     "type_of_any": 3
                   },
                   {
                     ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
+                    "missing_import_name": "trainer.tensor",
                     "source_any": null,
                     "type_of_any": 3
                   }
@@ -461,7 +461,7 @@
         "flags": [
           "is_ready"
         ],
-        "fullname": "dnet.trainer.__doc__",
+        "fullname": "trainer.__doc__",
         "name": "__doc__",
         "type": "builtins.str"
       }
@@ -474,7 +474,7 @@
         "flags": [
           "is_ready"
         ],
-        "fullname": "dnet.trainer.__file__",
+        "fullname": "trainer.__file__",
         "name": "__file__",
         "type": "builtins.str"
       }
@@ -487,7 +487,7 @@
         "flags": [
           "is_ready"
         ],
-        "fullname": "dnet.trainer.__name__",
+        "fullname": "trainer.__name__",
         "name": "__name__",
         "type": "builtins.str"
       }
@@ -500,7 +500,7 @@
         "flags": [
           "is_ready"
         ],
-        "fullname": "dnet.trainer.__package__",
+        "fullname": "trainer.__package__",
         "name": "__package__",
         "type": "builtins.str"
       }
@@ -514,16 +514,16 @@
           "is_suppressed_import",
           "is_ready"
         ],
-        "fullname": "dnet.trainer.tensor",
+        "fullname": "trainer.tensor",
         "name": "tensor",
         "type": {
           ".class": "AnyType",
-          "missing_import_name": "dnet.trainer.tensor",
+          "missing_import_name": "trainer.tensor",
           "source_any": null,
           "type_of_any": 3
         }
       }
     }
   },
-  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/trainer.py"
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-081/dnet/trainer.py"
 }

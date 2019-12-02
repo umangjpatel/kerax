@@ -1,12 +1,12 @@
 {
   "child_modules": [],
-  "data_mtime": 1575303995,
+  "data_mtime": 1575305367,
   "dep_lines": [
     1,
     1,
     1,
-    2,
-    2
+    3,
+    3
   ],
   "dep_prios": [
     5,
@@ -20,11 +20,11 @@
     "builtins",
     "abc"
   ],
-  "hash": "b2766a38211d460728da6d86826db229",
+  "hash": "ffe968134627a2519518e49f01fa52f4",
   "id": "dnet.data",
   "ignore_all": false,
   "interface_hash": "a69abd8742888d844adefcb6be3ca4a6",
-  "mtime": 1575304898,
+  "mtime": 1575305366,
   "options": {
     "allow_redefinition": false,
     "allow_untyped_globals": false,
@@ -62,7 +62,7 @@
     "warn_unused_ignores": false
   },
   "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/data.py",
-  "size": 987,
+  "size": 988,
   "suppressed": [
     "jax.numpy",
     "jax"
