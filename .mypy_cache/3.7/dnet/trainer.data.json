@@ -20,11 +20,6 @@
       "cross_ref": "typing.List",
       "kind": "Gdef"
     },
-    "Momentum": {
-      ".class": "SymbolTableNode",
-      "cross_ref": "dnet.optimizers.Momentum",
-      "kind": "Gdef"
-    },
     "Optimizer": {
       ".class": "SymbolTableNode",
       "cross_ref": "dnet.optimizers.Optimizer",
@@ -75,6 +70,7 @@
                 0,
                 0,
                 0,
+                0,
                 0
               ],
               "arg_names": [
@@ -84,7 +80,8 @@
                 "optimizer",
                 "accuracy",
                 "epochs",
-                "lr"
+                "lr",
+                "bs"
               ],
               "flags": [],
               "fullname": "dnet.trainer.Trainer.__init__",
@@ -92,6 +89,7 @@
               "type": {
                 ".class": "CallableType",
                 "arg_kinds": [
+                  0,
                   0,
                   0,
                   0,
@@ -107,7 +105,8 @@
                   "optimizer",
                   "accuracy",
                   "epochs",
-                  "lr"
+                  "lr",
+                  "bs"
                 ],
                 "arg_types": [
                   "dnet.trainer.Trainer",
@@ -196,7 +195,8 @@
                     "variables": []
                   },
                   "builtins.int",
-                  "builtins.float"
+                  "builtins.float",
+                  "builtins.int"
                 ],
                 "bound_args": [],
                 "def_extras": {

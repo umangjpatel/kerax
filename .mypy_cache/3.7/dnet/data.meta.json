@@ -1,29 +1,30 @@
 {
-  "child_modules": [
-    "dnet.trainer",
-    "dnet.data",
-    "dnet.nn",
-    "dnet.optimizers",
-    "dnet.activations",
-    "dnet.evaluators",
-    "dnet.losses",
-    "dnet.layers"
-  ],
-  "data_mtime": 1575303434,
+  "child_modules": [],
+  "data_mtime": 1575303995,
   "dep_lines": [
-    1
+    1,
+    1,
+    1,
+    2,
+    2
   ],
   "dep_prios": [
+    5,
+    5,
+    30,
+    10,
     5
   ],
   "dependencies": [
-    "builtins"
+    "typing",
+    "builtins",
+    "abc"
   ],
-  "hash": "d41d8cd98f00b204e9800998ecf8427e",
-  "id": "dnet",
-  "ignore_all": true,
-  "interface_hash": "b78961eaf0ce13675b070fba067c468a",
-  "mtime": 1575303433,
+  "hash": "b2766a38211d460728da6d86826db229",
+  "id": "dnet.data",
+  "ignore_all": false,
+  "interface_hash": "a69abd8742888d844adefcb6be3ca4a6",
+  "mtime": 1575304898,
   "options": {
     "allow_redefinition": false,
     "allow_untyped_globals": false,
@@ -60,8 +61,11 @@
     "warn_unreachable": false,
     "warn_unused_ignores": false
   },
-  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/__init__.py",
-  "size": 0,
-  "suppressed": [],
+  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/data.py",
+  "size": 987,
+  "suppressed": [
+    "jax.numpy",
+    "jax"
+  ],
   "version_id": "0.740"
 }

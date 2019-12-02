@@ -3,17 +3,16 @@ from typing import List, Callable
 import jax.numpy as tensor
 
 from dnet.layers import FC
-from dnet.optimizers import Optimizer, SGD, Momentum
+from dnet.optimizers import Optimizer, SGD
 
 
 class Trainer:
 
-    def __init__(self, layers: List[FC], loss: Callable, optimizer: str, accuracy: Callable, epochs: int, lr: float):
+    def __init__(self, layers: List[FC], loss: Callable, optimizer: str, accuracy: Callable, epochs: int, lr: float,
+                 bs: int):
         self.optimizer: Optimizer
         if optimizer == "sgd":
-            self.optimizer = SGD(layers, loss, accuracy, epochs, lr)
-        elif optimizer == "momentum":
-            self.optimizer = Momentum(layers, loss, accuracy, epochs, lr)
+            self.optimizer = SGD(layers, loss, accuracy, epochs, lr, bs)
 
     def train(self, inputs: tensor.array, outputs: tensor.array):
         self.optimizer.train(inputs, outputs)

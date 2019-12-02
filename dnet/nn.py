@@ -21,16 +21,17 @@ class Sequential(Model):
     def add(self, layer: FC) -> None:
         self.layers.append(layer)
 
-    def compile(self, loss: str, optimizer: str, epochs: int, lr: float = 1e-3) -> None:
+    def compile(self, loss: str, optimizer: str, epochs: int, lr: float = 1e-3, bs: int = 32) -> None:
         self.loss_fn: Callable = jit(getattr(losses, loss))
         self.optimizer: str = optimizer
         self.accuracy_fn: Callable = jit(getattr(evaluators, loss))
         self.lr: float = lr
         self.epochs: int = epochs
+        self.bs = bs
 
     def fit(self, inputs: tensor.array, outputs: tensor.array) -> None:
         self.trainer: Trainer = Trainer(self.layers, self.loss_fn, self.optimizer, self.accuracy_fn, self.epochs,
-                                        self.lr)
+                                        self.lr, self.bs)
         self.trainer.train(inputs, outputs)
 
     def evaluate(self, inputs: tensor.array, outputs: tensor.array) -> float:
