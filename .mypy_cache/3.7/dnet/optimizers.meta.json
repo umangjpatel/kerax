@@ -1,14 +1,15 @@
 {
   "child_modules": [],
-  "data_mtime": 1575306281,
+  "data_mtime": 1575306253,
   "dep_lines": [
     1,
-    5,
-    6,
+    8,
+    9,
     1,
     1,
     3,
-    3
+    3,
+    6
   ],
   "dep_prios": [
     5,
@@ -17,20 +18,21 @@
     5,
     30,
     10,
-    20
+    5,
+    5
   ],
   "dependencies": [
     "typing",
+    "dnet.data",
     "dnet.layers",
-    "dnet.optimizers",
     "builtins",
     "abc"
   ],
-  "hash": "9b1ef9c10edcfa12718b3e31972c19a2",
-  "id": "dnet.trainer",
+  "hash": "3750c459cba9ecab112763fee7c71fed",
+  "id": "dnet.optimizers",
   "ignore_all": true,
-  "interface_hash": "d537deb797b90f9401af6683f658904c",
-  "mtime": 1575305753,
+  "interface_hash": "c387b770f0c994939ad1895bae27fda8",
+  "mtime": 1575306215,
   "options": {
     "allow_redefinition": false,
     "allow_untyped_globals": false,
@@ -67,11 +69,12 @@
     "warn_unreachable": false,
     "warn_unused_ignores": false
   },
-  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/trainer.py",
-  "size": 956,
+  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/optimizers.py",
+  "size": 5146,
   "suppressed": [
     "jax.numpy",
-    "jax"
+    "jax",
+    "tqdm"
   ],
   "version_id": "0.740"
 }
