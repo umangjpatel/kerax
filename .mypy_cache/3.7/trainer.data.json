@@ -20,6 +20,11 @@
       "cross_ref": "typing.List",
       "kind": "Gdef"
     },
+    "Momentum": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.optimizers.Momentum",
+      "kind": "Gdef"
+    },
     "Optimizer": {
       ".class": "SymbolTableNode",
       "cross_ref": "dnet.optimizers.Optimizer",
@@ -515,5 +520,5 @@
       }
     }
   },
-  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-117/dnet/trainer.py"
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-107/dnet/trainer.py"
 }

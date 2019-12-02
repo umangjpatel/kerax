@@ -8,6 +8,7 @@
       <w>mish</w>
       <w>mnist</w>
       <w>relu</w>
+      <w>rmsprop</w>
       <w>softplus</w>
       <w>subkey</w>
       <w>tanh</w>

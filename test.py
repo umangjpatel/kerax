@@ -23,10 +23,10 @@ y_val = tensor.array(testing_data[0].values.reshape(1, -1))  # shape : (1, m)
 x_val = tensor.array(testing_data.iloc[:, 1:].values.T)  # shape = (n, m)
 
 model = Sequential()
-model.add(FC(units=500, activation="mish"))
-model.add(FC(units=50, activation="mish"))
+model.add(FC(units=500, activation="relu"))
+model.add(FC(units=50, activation="relu"))
 model.add(FC(units=1, activation="sigmoid"))
-model.compile(loss="binary_crossentropy", optimizer="sgd", epochs=20, lr=0.01)
+model.compile(loss="binary_crossentropy", optimizer="momentum", epochs=20, lr=0.01)
 model.fit(x_train, y_train)
 
 model.plot_curves()

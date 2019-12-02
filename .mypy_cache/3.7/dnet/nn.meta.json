@@ -1,6 +1,6 @@
 {
   "child_modules": [],
-  "data_mtime": 1575279294,
+  "data_mtime": 1575279402,
   "dep_lines": [
     1,
     7,
@@ -42,11 +42,11 @@
     "_importlib_modulespec",
     "abc"
   ],
-  "hash": "106938d4c510456e480ae8334acf6594",
+  "hash": "a2a67594a58103a0844caf4fac35e7d5",
   "id": "dnet.nn",
   "ignore_all": false,
-  "interface_hash": "eea6ce0840185fa912cb314ce724d94c",
-  "mtime": 1575278970,
+  "interface_hash": "1b9d413f4025abec410deab48113bbae",
+  "mtime": 1575279361,
   "options": {
     "allow_redefinition": false,
     "allow_untyped_globals": false,
@@ -84,7 +84,7 @@
     "warn_unused_ignores": false
   },
   "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/nn.py",
-  "size": 2009,
+  "size": 1982,
   "suppressed": [
     "jax.numpy",
     "jax",

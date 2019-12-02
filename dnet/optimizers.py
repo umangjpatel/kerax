@@ -58,9 +58,40 @@ class SGD(Optimizer):
         super().init_network_params(inputs.shape)
         grad_fn: Callable = jit(grad(self.compute_cost))
         for _ in tqdm(range(self.epochs), desc="Training the model"):
-            grads: List = grad_fn(self.network_params, inputs, outputs)
+            grads: List[Dict[str, tensor.array]] = grad_fn(self.network_params, inputs, outputs)
             for i, layer_params in enumerate(grads):
                 self.network_params[i]["w"] -= self.lr * layer_params.get("w")
                 self.network_params[i]["b"] -= self.lr * layer_params.get("b")
+            self.cost.append(self.compute_cost(self.network_params, inputs, outputs))
+            self.accuracy.append(self.evaluate(inputs, outputs))
+
+
+class Momentum(Optimizer):
+
+    def __init__(self, layers: List[FC], loss: Callable, accuracy: Callable, epochs: int, lr: float,
+                 beta: float = 0.90) -> None:
+        super().__init__(layers, loss, accuracy, epochs, lr)
+        self.beta: float = beta
+
+    def init_network_params(self, input_shape: Tuple[int, int]) -> None:
+        super().init_network_params(input_shape)
+        self.weighted_averages: List[Dict[str, tensor.array]] = []
+        for i, layer_params in enumerate(self.network_params):
+            w: tensor.array = tensor.zeros(shape=layer_params.get("w").shape)
+            b: tensor.array = tensor.zeros(shape=layer_params.get("b").shape)
+            self.weighted_averages.append({"w": w, "b": b})
+
+    def train(self, inputs: tensor.array, outputs: tensor.array) -> None:
+        self.init_network_params(inputs.shape)
+        grad_fn: Callable = jit(grad(self.compute_cost))
+        for _ in tqdm(range(self.epochs), desc="Training the model"):
+            grads: List[Dict[str, tensor.array]] = grad_fn(self.network_params, inputs, outputs)
+            for i, layer_params in enumerate(grads):
+                self.weighted_averages[i]["w"] = self.beta * self.weighted_averages[i].get("w") + (
+                        1 - self.beta) * layer_params.get("w")
+                self.weighted_averages[i]["b"] = self.beta * self.weighted_averages[i].get("b") + (
+                        1 - self.beta) * layer_params.get("b")
+                self.network_params[i]["w"] -= self.lr * self.weighted_averages[i].get("w")
+                self.network_params[i]["b"] -= self.lr * self.weighted_averages[i].get("b")
             self.cost.append(self.compute_cost(self.network_params, inputs, outputs))
             self.accuracy.append(self.evaluate(inputs, outputs))

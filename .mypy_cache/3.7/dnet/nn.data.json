@@ -15,7 +15,12 @@
       "cross_ref": "dnet.layers.FC",
       "kind": "Gdef"
     },
-    "Layer": {
+    "List": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "typing.List",
+      "kind": "Gdef"
+    },
+    "Model": {
       ".class": "SymbolTableNode",
       "kind": "Gdef",
       "node": {
@@ -28,17 +33,17 @@
         "declared_metaclass": null,
         "defn": {
           ".class": "ClassDef",
-          "fullname": "dnet.nn.Layer",
-          "name": "Layer",
+          "fullname": "dnet.nn.Model",
+          "name": "Model",
           "type_vars": []
         },
         "flags": [],
-        "fullname": "dnet.nn.Layer",
+        "fullname": "dnet.nn.Model",
         "metaclass_type": null,
         "metadata": {},
         "module_name": "dnet.nn",
         "mro": [
-          "dnet.nn.Layer",
+          "dnet.nn.Model",
           "builtins.object"
         ],
         "names": {
@@ -49,11 +54,6 @@
         "typeddict_type": null
       }
     },
-    "List": {
-      ".class": "SymbolTableNode",
-      "cross_ref": "typing.List",
-      "kind": "Gdef"
-    },
     "Sequential": {
       ".class": "SymbolTableNode",
       "kind": "Gdef",
@@ -62,7 +62,7 @@
         "_promote": null,
         "abstract_attributes": [],
         "bases": [
-          "dnet.nn.Layer"
+          "dnet.nn.Model"
         ],
         "declared_metaclass": null,
         "defn": {
@@ -78,7 +78,7 @@
         "module_name": "dnet.nn",
         "mro": [
           "dnet.nn.Sequential",
-          "dnet.nn.Layer",
+          "dnet.nn.Model",
           "builtins.object"
         ],
         "names": {
