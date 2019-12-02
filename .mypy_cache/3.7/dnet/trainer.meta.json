@@ -1,6 +1,6 @@
 {
   "child_modules": [],
-  "data_mtime": 1575279161,
+  "data_mtime": 1575279294,
   "dep_lines": [
     1,
     5,
@@ -28,7 +28,7 @@
   ],
   "hash": "967b594f4ab102283a0f8be1d1b2c964",
   "id": "dnet.trainer",
-  "ignore_all": false,
+  "ignore_all": true,
   "interface_hash": "351cf28252f68741459e59e04013863b",
   "mtime": 1575279183,
   "options": {

@@ -9,14 +9,13 @@ from dnet.layers import FC
 from dnet.trainer import Trainer
 
 
-class Layer:
+class Model:
     pass
 
 
-class Sequential(Layer):
+class Sequential(Model):
 
     def __init__(self) -> None:
-        super().__init__()
         self.layers: List[FC] = []
 
     def add(self, layer: FC) -> None:

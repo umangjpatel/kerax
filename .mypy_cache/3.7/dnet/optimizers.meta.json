@@ -1,6 +1,6 @@
 {
   "child_modules": [],
-  "data_mtime": 1575279150,
+  "data_mtime": 1575279294,
   "dep_lines": [
     1,
     8,
@@ -27,7 +27,7 @@
   ],
   "hash": "0bacb643cb4fc3286433eac6c2c127c0",
   "id": "dnet.optimizers",
-  "ignore_all": false,
+  "ignore_all": true,
   "interface_hash": "f4cf4607e4797e312a13c0b3245728cd",
   "mtime": 1575279138,
   "options": {
