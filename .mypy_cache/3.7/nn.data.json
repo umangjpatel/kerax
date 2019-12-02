@@ -15,11 +15,6 @@
       "cross_ref": "dnet.layers.FC",
       "kind": "Gdef"
     },
-    "GD": {
-      ".class": "SymbolTableNode",
-      "cross_ref": "dnet.optimizers.GD",
-      "kind": "Gdef"
-    },
     "Layer": {
       ".class": "SymbolTableNode",
       "kind": "Gdef",
@@ -234,11 +229,13 @@
                 0,
                 0,
                 0,
+                0,
                 1
               ],
               "arg_names": [
                 "self",
                 "loss",
+                "optimizer",
                 "epochs",
                 "lr"
               ],
@@ -251,16 +248,19 @@
                   0,
                   0,
                   0,
+                  0,
                   1
                 ],
                 "arg_names": [
                   "self",
                   "loss",
+                  "optimizer",
                   "epochs",
                   "lr"
                 ],
                 "arg_types": [
                   "nn.Sequential",
+                  "builtins.str",
                   "builtins.str",
                   "builtins.int",
                   "builtins.float"
@@ -513,7 +513,7 @@
               ],
               "fullname": "nn.Sequential.optimizer",
               "name": "optimizer",
-              "type": "dnet.optimizers.GD"
+              "type": "builtins.str"
             }
           },
           "plot_accuracy": {
@@ -635,6 +635,21 @@
                 "variables": []
               }
             }
+          },
+          "trainer": {
+            ".class": "SymbolTableNode",
+            "implicit": true,
+            "kind": "Mdef",
+            "node": {
+              ".class": "Var",
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "nn.Sequential.trainer",
+              "name": "trainer",
+              "type": "dnet.trainer.Trainer"
+            }
           }
         },
         "tuple_type": null,
@@ -642,9 +657,9 @@
         "typeddict_type": null
       }
     },
-    "Tuple": {
+    "Trainer": {
       ".class": "SymbolTableNode",
-      "cross_ref": "typing.Tuple",
+      "cross_ref": "dnet.trainer.Trainer",
       "kind": "Gdef"
     },
     "__doc__": {
@@ -767,5 +782,5 @@
       }
     }
   },
-  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-635/dnet/nn.py"
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-041/dnet/nn.py"
 }

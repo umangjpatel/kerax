@@ -5,14 +5,29 @@
   "is_stub": false,
   "names": {
     ".class": "SymbolTable",
-    "Dict": {
+    "Callable": {
       ".class": "SymbolTableNode",
-      "cross_ref": "typing.Dict",
+      "cross_ref": "typing.Callable",
+      "kind": "Gdef"
+    },
+    "FC": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.layers.FC",
       "kind": "Gdef"
     },
     "List": {
       ".class": "SymbolTableNode",
       "cross_ref": "typing.List",
+      "kind": "Gdef"
+    },
+    "Optimizer": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.optimizers.Optimizer",
+      "kind": "Gdef"
+    },
+    "SGD": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "dnet.optimizers.SGD",
       "kind": "Gdef"
     },
     "Trainer": {
@@ -50,11 +65,21 @@
               ".class": "FuncDef",
               "arg_kinds": [
                 0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 0
               ],
               "arg_names": [
                 "self",
-                "net_config"
+                "layers",
+                "loss",
+                "optimizer",
+                "accuracy",
+                "epochs",
+                "lr"
               ],
               "flags": [],
               "fullname": "dnet.trainer.Trainer.__init__",
@@ -63,17 +88,42 @@
                 ".class": "CallableType",
                 "arg_kinds": [
                   0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
                   0
                 ],
                 "arg_names": [
                   "self",
-                  "net_config"
+                  "layers",
+                  "loss",
+                  "optimizer",
+                  "accuracy",
+                  "epochs",
+                  "lr"
                 ],
                 "arg_types": [
                   "dnet.trainer.Trainer",
                   {
                     ".class": "Instance",
                     "args": [
+                      "dnet.layers.FC"
+                    ],
+                    "type_ref": "builtins.list"
+                  },
+                  {
+                    ".class": "CallableType",
+                    "arg_kinds": [
+                      2,
+                      4
+                    ],
+                    "arg_names": [
+                      null,
+                      null
+                    ],
+                    "arg_types": [
                       {
                         ".class": "AnyType",
                         "missing_import_name": null,
@@ -87,8 +137,61 @@
                         "type_of_any": 4
                       }
                     ],
-                    "type_ref": "builtins.dict"
-                  }
+                    "bound_args": [],
+                    "def_extras": {},
+                    "fallback": "builtins.function",
+                    "implicit": false,
+                    "is_ellipsis_args": true,
+                    "name": null,
+                    "ret_type": {
+                      ".class": "AnyType",
+                      "missing_import_name": null,
+                      "source_any": null,
+                      "type_of_any": 4
+                    },
+                    "variables": []
+                  },
+                  "builtins.str",
+                  {
+                    ".class": "CallableType",
+                    "arg_kinds": [
+                      2,
+                      4
+                    ],
+                    "arg_names": [
+                      null,
+                      null
+                    ],
+                    "arg_types": [
+                      {
+                        ".class": "AnyType",
+                        "missing_import_name": null,
+                        "source_any": null,
+                        "type_of_any": 4
+                      },
+                      {
+                        ".class": "AnyType",
+                        "missing_import_name": null,
+                        "source_any": null,
+                        "type_of_any": 4
+                      }
+                    ],
+                    "bound_args": [],
+                    "def_extras": {},
+                    "fallback": "builtins.function",
+                    "implicit": false,
+                    "is_ellipsis_args": true,
+                    "name": null,
+                    "ret_type": {
+                      ".class": "AnyType",
+                      "missing_import_name": null,
+                      "source_any": null,
+                      "type_of_any": 4
+                    },
+                    "variables": []
+                  },
+                  "builtins.int",
+                  "builtins.float"
                 ],
                 "bound_args": [],
                 "def_extras": {
@@ -102,518 +205,6 @@
                   ".class": "NoneType"
                 },
                 "variables": []
-              }
-            }
-          },
-          "accuracy": {
-            ".class": "SymbolTableNode",
-            "implicit": true,
-            "kind": "Mdef",
-            "node": {
-              ".class": "Var",
-              "flags": [
-                "explicit_self_type",
-                "is_ready"
-              ],
-              "fullname": "dnet.trainer.Trainer.accuracy",
-              "name": "accuracy",
-              "type": {
-                ".class": "Instance",
-                "args": [
-                  "builtins.float"
-                ],
-                "type_ref": "builtins.list"
-              }
-            }
-          },
-          "compute_activation": {
-            ".class": "SymbolTableNode",
-            "kind": "Mdef",
-            "node": {
-              ".class": "Decorator",
-              "func": {
-                ".class": "FuncDef",
-                "arg_kinds": [
-                  0,
-                  0
-                ],
-                "arg_names": [
-                  "act_name",
-                  "z"
-                ],
-                "flags": [
-                  "is_static",
-                  "is_decorated"
-                ],
-                "fullname": "dnet.trainer.Trainer.compute_activation",
-                "name": "compute_activation",
-                "type": {
-                  ".class": "CallableType",
-                  "arg_kinds": [
-                    0,
-                    0
-                  ],
-                  "arg_names": [
-                    "act_name",
-                    "z"
-                  ],
-                  "arg_types": [
-                    "builtins.str",
-                    {
-                      ".class": "AnyType",
-                      "missing_import_name": "dnet.trainer.tensor",
-                      "source_any": null,
-                      "type_of_any": 3
-                    }
-                  ],
-                  "bound_args": [],
-                  "def_extras": {
-                    "first_arg": null
-                  },
-                  "fallback": "builtins.function",
-                  "implicit": false,
-                  "is_ellipsis_args": false,
-                  "name": "compute_activation of Trainer",
-                  "ret_type": {
-                    ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
-                    "source_any": null,
-                    "type_of_any": 3
-                  },
-                  "variables": []
-                }
-              },
-              "is_overload": false,
-              "var": {
-                ".class": "Var",
-                "flags": [
-                  "is_initialized_in_class",
-                  "is_staticmethod",
-                  "is_ready"
-                ],
-                "fullname": null,
-                "name": "compute_activation",
-                "type": {
-                  ".class": "CallableType",
-                  "arg_kinds": [
-                    0,
-                    0
-                  ],
-                  "arg_names": [
-                    "act_name",
-                    "z"
-                  ],
-                  "arg_types": [
-                    "builtins.str",
-                    {
-                      ".class": "AnyType",
-                      "missing_import_name": "dnet.trainer.tensor",
-                      "source_any": null,
-                      "type_of_any": 3
-                    }
-                  ],
-                  "bound_args": [],
-                  "def_extras": {
-                    "first_arg": null
-                  },
-                  "fallback": "builtins.function",
-                  "implicit": false,
-                  "is_ellipsis_args": false,
-                  "name": "compute_activation of Trainer",
-                  "ret_type": {
-                    ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
-                    "source_any": null,
-                    "type_of_any": 3
-                  },
-                  "variables": []
-                }
-              }
-            }
-          },
-          "compute_cost": {
-            ".class": "SymbolTableNode",
-            "kind": "Mdef",
-            "node": {
-              ".class": "FuncDef",
-              "arg_kinds": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "arg_names": [
-                "self",
-                "params",
-                "inputs",
-                "outputs"
-              ],
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.compute_cost",
-              "name": "compute_cost",
-              "type": {
-                ".class": "CallableType",
-                "arg_kinds": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "arg_names": [
-                  "self",
-                  "params",
-                  "inputs",
-                  "outputs"
-                ],
-                "arg_types": [
-                  "dnet.trainer.Trainer",
-                  {
-                    ".class": "Instance",
-                    "args": [
-                      {
-                        ".class": "Instance",
-                        "args": [
-                          {
-                            ".class": "AnyType",
-                            "missing_import_name": null,
-                            "source_any": null,
-                            "type_of_any": 4
-                          },
-                          {
-                            ".class": "AnyType",
-                            "missing_import_name": null,
-                            "source_any": null,
-                            "type_of_any": 4
-                          }
-                        ],
-                        "type_ref": "builtins.dict"
-                      }
-                    ],
-                    "type_ref": "builtins.list"
-                  },
-                  {
-                    ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
-                    "source_any": null,
-                    "type_of_any": 3
-                  },
-                  {
-                    ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
-                    "source_any": null,
-                    "type_of_any": 3
-                  }
-                ],
-                "bound_args": [],
-                "def_extras": {
-                  "first_arg": "self"
-                },
-                "fallback": "builtins.function",
-                "implicit": false,
-                "is_ellipsis_args": false,
-                "name": "compute_cost of Trainer",
-                "ret_type": "builtins.float",
-                "variables": []
-              }
-            }
-          },
-          "compute_cost_on_step": {
-            ".class": "SymbolTableNode",
-            "kind": "Mdef",
-            "node": {
-              ".class": "FuncDef",
-              "arg_kinds": [
-                0,
-                0,
-                0
-              ],
-              "arg_names": [
-                "self",
-                "predictions",
-                "outputs"
-              ],
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.compute_cost_on_step",
-              "name": "compute_cost_on_step",
-              "type": {
-                ".class": "CallableType",
-                "arg_kinds": [
-                  0,
-                  0,
-                  0
-                ],
-                "arg_names": [
-                  "self",
-                  "predictions",
-                  "outputs"
-                ],
-                "arg_types": [
-                  "dnet.trainer.Trainer",
-                  {
-                    ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
-                    "source_any": null,
-                    "type_of_any": 3
-                  },
-                  {
-                    ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
-                    "source_any": null,
-                    "type_of_any": 3
-                  }
-                ],
-                "bound_args": [],
-                "def_extras": {
-                  "first_arg": "self"
-                },
-                "fallback": "builtins.function",
-                "implicit": false,
-                "is_ellipsis_args": false,
-                "name": "compute_cost_on_step of Trainer",
-                "ret_type": {
-                  ".class": "AnyType",
-                  "missing_import_name": "dnet.trainer.tensor",
-                  "source_any": null,
-                  "type_of_any": 3
-                },
-                "variables": []
-              }
-            }
-          },
-          "compute_evaluation": {
-            ".class": "SymbolTableNode",
-            "kind": "Mdef",
-            "node": {
-              ".class": "Decorator",
-              "func": {
-                ".class": "FuncDef",
-                "arg_kinds": [
-                  0,
-                  0,
-                  0
-                ],
-                "arg_names": [
-                  "metric",
-                  "predictions",
-                  "outputs"
-                ],
-                "flags": [
-                  "is_static",
-                  "is_decorated"
-                ],
-                "fullname": "dnet.trainer.Trainer.compute_evaluation",
-                "name": "compute_evaluation",
-                "type": {
-                  ".class": "CallableType",
-                  "arg_kinds": [
-                    0,
-                    0,
-                    0
-                  ],
-                  "arg_names": [
-                    "metric",
-                    "predictions",
-                    "outputs"
-                  ],
-                  "arg_types": [
-                    "builtins.str",
-                    {
-                      ".class": "AnyType",
-                      "missing_import_name": "dnet.trainer.tensor",
-                      "source_any": null,
-                      "type_of_any": 3
-                    },
-                    {
-                      ".class": "AnyType",
-                      "missing_import_name": "dnet.trainer.tensor",
-                      "source_any": null,
-                      "type_of_any": 3
-                    }
-                  ],
-                  "bound_args": [],
-                  "def_extras": {
-                    "first_arg": null
-                  },
-                  "fallback": "builtins.function",
-                  "implicit": false,
-                  "is_ellipsis_args": false,
-                  "name": "compute_evaluation of Trainer",
-                  "ret_type": "builtins.float",
-                  "variables": []
-                }
-              },
-              "is_overload": false,
-              "var": {
-                ".class": "Var",
-                "flags": [
-                  "is_initialized_in_class",
-                  "is_staticmethod",
-                  "is_ready"
-                ],
-                "fullname": null,
-                "name": "compute_evaluation",
-                "type": {
-                  ".class": "CallableType",
-                  "arg_kinds": [
-                    0,
-                    0,
-                    0
-                  ],
-                  "arg_names": [
-                    "metric",
-                    "predictions",
-                    "outputs"
-                  ],
-                  "arg_types": [
-                    "builtins.str",
-                    {
-                      ".class": "AnyType",
-                      "missing_import_name": "dnet.trainer.tensor",
-                      "source_any": null,
-                      "type_of_any": 3
-                    },
-                    {
-                      ".class": "AnyType",
-                      "missing_import_name": "dnet.trainer.tensor",
-                      "source_any": null,
-                      "type_of_any": 3
-                    }
-                  ],
-                  "bound_args": [],
-                  "def_extras": {
-                    "first_arg": null
-                  },
-                  "fallback": "builtins.function",
-                  "implicit": false,
-                  "is_ellipsis_args": false,
-                  "name": "compute_evaluation of Trainer",
-                  "ret_type": "builtins.float",
-                  "variables": []
-                }
-              }
-            }
-          },
-          "compute_predictions": {
-            ".class": "SymbolTableNode",
-            "kind": "Mdef",
-            "node": {
-              ".class": "FuncDef",
-              "arg_kinds": [
-                0,
-                0,
-                0
-              ],
-              "arg_names": [
-                "self",
-                "params",
-                "inputs"
-              ],
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.compute_predictions",
-              "name": "compute_predictions",
-              "type": {
-                ".class": "CallableType",
-                "arg_kinds": [
-                  0,
-                  0,
-                  0
-                ],
-                "arg_names": [
-                  "self",
-                  "params",
-                  "inputs"
-                ],
-                "arg_types": [
-                  "dnet.trainer.Trainer",
-                  {
-                    ".class": "Instance",
-                    "args": [
-                      {
-                        ".class": "Instance",
-                        "args": [
-                          {
-                            ".class": "AnyType",
-                            "missing_import_name": null,
-                            "source_any": null,
-                            "type_of_any": 4
-                          },
-                          {
-                            ".class": "AnyType",
-                            "missing_import_name": null,
-                            "source_any": null,
-                            "type_of_any": 4
-                          }
-                        ],
-                        "type_ref": "builtins.dict"
-                      }
-                    ],
-                    "type_ref": "builtins.list"
-                  },
-                  {
-                    ".class": "AnyType",
-                    "missing_import_name": "dnet.trainer.tensor",
-                    "source_any": null,
-                    "type_of_any": 3
-                  }
-                ],
-                "bound_args": [],
-                "def_extras": {
-                  "first_arg": "self"
-                },
-                "fallback": "builtins.function",
-                "implicit": false,
-                "is_ellipsis_args": false,
-                "name": "compute_predictions of Trainer",
-                "ret_type": {
-                  ".class": "AnyType",
-                  "missing_import_name": "dnet.trainer.tensor",
-                  "source_any": null,
-                  "type_of_any": 3
-                },
-                "variables": []
-              }
-            }
-          },
-          "cost": {
-            ".class": "SymbolTableNode",
-            "implicit": true,
-            "kind": "Mdef",
-            "node": {
-              ".class": "Var",
-              "flags": [
-                "explicit_self_type",
-                "is_ready"
-              ],
-              "fullname": "dnet.trainer.Trainer.cost",
-              "name": "cost",
-              "type": {
-                ".class": "Instance",
-                "args": [
-                  "builtins.float"
-                ],
-                "type_ref": "builtins.list"
-              }
-            }
-          },
-          "epochs": {
-            ".class": "SymbolTableNode",
-            "implicit": true,
-            "kind": "Mdef",
-            "node": {
-              ".class": "Var",
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.epochs",
-              "name": "epochs",
-              "type": {
-                ".class": "AnyType",
-                "missing_import_name": null,
-                "source_any": {
-                  ".class": "AnyType",
-                  "missing_import_name": null,
-                  "source_any": null,
-                  "type_of_any": 1
-                },
-                "type_of_any": 7
               }
             }
           },
@@ -670,62 +261,17 @@
                 "implicit": false,
                 "is_ellipsis_args": false,
                 "name": "evaluate of Trainer",
-                "ret_type": "builtins.float",
-                "variables": []
-              }
-            }
-          },
-          "extract_config": {
-            ".class": "SymbolTableNode",
-            "kind": "Mdef",
-            "node": {
-              ".class": "FuncDef",
-              "arg_kinds": [
-                0,
-                0
-              ],
-              "arg_names": [
-                "self",
-                "net_config"
-              ],
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.extract_config",
-              "name": "extract_config",
-              "type": {
-                ".class": "CallableType",
-                "arg_kinds": [
-                  0,
-                  0
-                ],
-                "arg_names": [
-                  "self",
-                  "net_config"
-                ],
-                "arg_types": [
-                  "dnet.trainer.Trainer",
-                  {
-                    ".class": "AnyType",
-                    "missing_import_name": null,
-                    "source_any": null,
-                    "type_of_any": 1
-                  }
-                ],
-                "bound_args": [],
-                "def_extras": {
-                  "first_arg": "self"
-                },
-                "fallback": "builtins.function",
-                "implicit": false,
-                "is_ellipsis_args": false,
-                "name": "extract_config of Trainer",
                 "ret_type": {
-                  ".class": "NoneType"
+                  ".class": "AnyType",
+                  "missing_import_name": null,
+                  "source_any": null,
+                  "type_of_any": 1
                 },
                 "variables": []
               }
             }
           },
-          "gradient_descent": {
+          "get_accuracy": {
             ".class": "SymbolTableNode",
             "kind": "Mdef",
             "node": {
@@ -737,8 +283,8 @@
                 "self"
               ],
               "flags": [],
-              "fullname": "dnet.trainer.Trainer.gradient_descent",
-              "name": "gradient_descent",
+              "fullname": "dnet.trainer.Trainer.get_accuracy",
+              "name": "get_accuracy",
               "type": {
                 ".class": "CallableType",
                 "arg_kinds": [
@@ -757,15 +303,19 @@
                 "fallback": "builtins.function",
                 "implicit": false,
                 "is_ellipsis_args": false,
-                "name": "gradient_descent of Trainer",
+                "name": "get_accuracy of Trainer",
                 "ret_type": {
-                  ".class": "NoneType"
+                  ".class": "Instance",
+                  "args": [
+                    "builtins.float"
+                  ],
+                  "type_ref": "builtins.list"
                 },
                 "variables": []
               }
             }
           },
-          "init_network_params": {
+          "get_cost": {
             ".class": "SymbolTableNode",
             "kind": "Mdef",
             "node": {
@@ -777,162 +327,113 @@
                 "self"
               ],
               "flags": [],
-              "fullname": "dnet.trainer.Trainer.init_network_params",
-              "name": "init_network_params",
-              "type": null
-            }
-          },
-          "inputs": {
-            ".class": "SymbolTableNode",
-            "implicit": true,
-            "kind": "Mdef",
-            "node": {
-              ".class": "Var",
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.inputs",
-              "name": "inputs",
+              "fullname": "dnet.trainer.Trainer.get_cost",
+              "name": "get_cost",
               "type": {
-                ".class": "AnyType",
-                "missing_import_name": null,
-                "source_any": {
-                  ".class": "AnyType",
-                  "missing_import_name": null,
-                  "source_any": null,
-                  "type_of_any": 1
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0
+                ],
+                "arg_names": [
+                  "self"
+                ],
+                "arg_types": [
+                  "dnet.trainer.Trainer"
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
                 },
-                "type_of_any": 7
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "get_cost of Trainer",
+                "ret_type": {
+                  ".class": "Instance",
+                  "args": [
+                    "builtins.float"
+                  ],
+                  "type_ref": "builtins.list"
+                },
+                "variables": []
               }
             }
           },
-          "layers": {
+          "optimizer": {
             ".class": "SymbolTableNode",
             "implicit": true,
             "kind": "Mdef",
             "node": {
               ".class": "Var",
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.layers",
-              "name": "layers",
-              "type": {
-                ".class": "AnyType",
-                "missing_import_name": null,
-                "source_any": {
-                  ".class": "AnyType",
-                  "missing_import_name": null,
-                  "source_any": null,
-                  "type_of_any": 1
-                },
-                "type_of_any": 7
-              }
+              "flags": [
+                "explicit_self_type",
+                "is_ready"
+              ],
+              "fullname": "dnet.trainer.Trainer.optimizer",
+              "name": "optimizer",
+              "type": "dnet.optimizers.Optimizer"
             }
           },
-          "loss": {
+          "train": {
             ".class": "SymbolTableNode",
-            "implicit": true,
             "kind": "Mdef",
             "node": {
-              ".class": "Var",
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "inputs",
+                "outputs"
+              ],
               "flags": [],
-              "fullname": "dnet.trainer.Trainer.loss",
-              "name": "loss",
+              "fullname": "dnet.trainer.Trainer.train",
+              "name": "train",
               "type": {
-                ".class": "AnyType",
-                "missing_import_name": null,
-                "source_any": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "inputs",
+                  "outputs"
+                ],
+                "arg_types": [
+                  "dnet.trainer.Trainer",
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "dnet.trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "dnet.trainer.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "train of Trainer",
+                "ret_type": {
                   ".class": "AnyType",
                   "missing_import_name": null,
                   "source_any": null,
                   "type_of_any": 1
                 },
-                "type_of_any": 7
-              }
-            }
-          },
-          "loss_fn": {
-            ".class": "SymbolTableNode",
-            "implicit": true,
-            "kind": "Mdef",
-            "node": {
-              ".class": "Var",
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.loss_fn",
-              "name": "loss_fn",
-              "type": {
-                ".class": "AnyType",
-                "missing_import_name": null,
-                "source_any": {
-                  ".class": "AnyType",
-                  "missing_import_name": null,
-                  "source_any": null,
-                  "type_of_any": 1
-                },
-                "type_of_any": 7
-              }
-            }
-          },
-          "lr": {
-            ".class": "SymbolTableNode",
-            "implicit": true,
-            "kind": "Mdef",
-            "node": {
-              ".class": "Var",
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.lr",
-              "name": "lr",
-              "type": {
-                ".class": "AnyType",
-                "missing_import_name": null,
-                "source_any": {
-                  ".class": "AnyType",
-                  "missing_import_name": null,
-                  "source_any": null,
-                  "type_of_any": 1
-                },
-                "type_of_any": 7
-              }
-            }
-          },
-          "network_params": {
-            ".class": "SymbolTableNode",
-            "implicit": true,
-            "kind": "Mdef",
-            "node": {
-              ".class": "Var",
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.network_params",
-              "name": "network_params",
-              "type": {
-                ".class": "AnyType",
-                "missing_import_name": null,
-                "source_any": {
-                  ".class": "AnyType",
-                  "missing_import_name": null,
-                  "source_any": null,
-                  "type_of_any": 1
-                },
-                "type_of_any": 7
-              }
-            }
-          },
-          "outputs": {
-            ".class": "SymbolTableNode",
-            "implicit": true,
-            "kind": "Mdef",
-            "node": {
-              ".class": "Var",
-              "flags": [],
-              "fullname": "dnet.trainer.Trainer.outputs",
-              "name": "outputs",
-              "type": {
-                ".class": "AnyType",
-                "missing_import_name": null,
-                "source_any": {
-                  ".class": "AnyType",
-                  "missing_import_name": null,
-                  "source_any": null,
-                  "type_of_any": 1
-                },
-                "type_of_any": 7
+                "variables": []
               }
             }
           }
@@ -994,54 +495,6 @@
         "type": "builtins.str"
       }
     },
-    "activations": {
-      ".class": "SymbolTableNode",
-      "cross_ref": "dnet.activations",
-      "kind": "Gdef"
-    },
-    "evaluators": {
-      ".class": "SymbolTableNode",
-      "cross_ref": "dnet.evaluators",
-      "kind": "Gdef"
-    },
-    "grad": {
-      ".class": "SymbolTableNode",
-      "kind": "Gdef",
-      "node": {
-        ".class": "Var",
-        "flags": [
-          "is_suppressed_import",
-          "is_ready"
-        ],
-        "fullname": "dnet.trainer.grad",
-        "name": "grad",
-        "type": {
-          ".class": "AnyType",
-          "missing_import_name": "dnet.trainer.grad",
-          "source_any": null,
-          "type_of_any": 3
-        }
-      }
-    },
-    "jit": {
-      ".class": "SymbolTableNode",
-      "kind": "Gdef",
-      "node": {
-        ".class": "Var",
-        "flags": [
-          "is_suppressed_import",
-          "is_ready"
-        ],
-        "fullname": "dnet.trainer.jit",
-        "name": "jit",
-        "type": {
-          ".class": "AnyType",
-          "missing_import_name": "dnet.trainer.jit",
-          "source_any": null,
-          "type_of_any": 3
-        }
-      }
-    },
     "tensor": {
       ".class": "SymbolTableNode",
       "kind": "Gdef",
@@ -1056,25 +509,6 @@
         "type": {
           ".class": "AnyType",
           "missing_import_name": "dnet.trainer.tensor",
-          "source_any": null,
-          "type_of_any": 3
-        }
-      }
-    },
-    "tqdm": {
-      ".class": "SymbolTableNode",
-      "kind": "Gdef",
-      "node": {
-        ".class": "Var",
-        "flags": [
-          "is_suppressed_import",
-          "is_ready"
-        ],
-        "fullname": "dnet.trainer.tqdm",
-        "name": "tqdm",
-        "type": {
-          ".class": "AnyType",
-          "missing_import_name": "dnet.trainer.tqdm",
           "source_any": null,
           "type_of_any": 3
         }

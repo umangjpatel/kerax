@@ -9,12 +9,8 @@ from dnet.layers import FC
 
 
 class Optimizer:
-    pass
 
-
-class GD(Optimizer):
-
-    def __init__(self, layers: List[FC], loss: Callable, accuracy: Callable, epochs: int, lr: float):
+    def __init__(self, layers: List[FC], loss: Callable, accuracy: Callable, epochs: int, lr: float) -> None:
         self.layers: List[FC] = layers
         self.loss_fn: Callable = loss
         self.accuracy_fn: Callable = accuracy
@@ -25,15 +21,7 @@ class GD(Optimizer):
         self.accuracy: List[float] = []
 
     def train(self, inputs: tensor.array, outputs: tensor.array) -> None:
-        self.init_network_params(inputs.shape)
-        grad_fn: Callable = jit(grad(self.compute_cost))
-        for _ in tqdm(range(self.epochs), desc="Training the model"):
-            grads: List = grad_fn(self.network_params, inputs, outputs)
-            for i, layer_params in enumerate(grads):
-                self.network_params[i]["w"] -= self.lr * layer_params.get("w")
-                self.network_params[i]["b"] -= self.lr * layer_params.get("b")
-            self.cost.append(self.compute_cost(self.network_params, inputs, outputs))
-            self.accuracy.append(self.evaluate(inputs, outputs))
+        raise NotImplementedError
 
     def init_network_params(self, input_shape: Tuple[int, int]) -> None:
         key: tensor.array = random.PRNGKey(0)
@@ -62,3 +50,17 @@ class GD(Optimizer):
     def evaluate(self, inputs: tensor.array, outputs: tensor.array) -> float:
         predictions = self.compute_predictions(self.network_params, inputs)
         return self.compute_accuracy(predictions, outputs)
+
+
+class SGD(Optimizer):
+
+    def train(self, inputs: tensor.array, outputs: tensor.array) -> None:
+        super().init_network_params(inputs.shape)
+        grad_fn: Callable = jit(grad(self.compute_cost))
+        for _ in tqdm(range(self.epochs), desc="Training the model"):
+            grads: List = grad_fn(self.network_params, inputs, outputs)
+            for i, layer_params in enumerate(grads):
+                self.network_params[i]["w"] -= self.lr * layer_params.get("w")
+                self.network_params[i]["b"] -= self.lr * layer_params.get("b")
+            self.cost.append(self.compute_cost(self.network_params, inputs, outputs))
+            self.accuracy.append(self.evaluate(inputs, outputs))

@@ -1,6 +1,6 @@
 {
   "child_modules": [],
-  "data_mtime": 1575007043,
+  "data_mtime": 1575279136,
   "dep_lines": [
     1,
     8,
@@ -28,11 +28,11 @@
     "abc",
     "dnet"
   ],
-  "hash": "305a42e8093419e4bd6acbfb9fd58457",
+  "hash": "0bacb643cb4fc3286433eac6c2c127c0",
   "id": "optimizers",
   "ignore_all": false,
-  "interface_hash": "890451e89c97df5c7178c23515f82296",
-  "mtime": 1575007043,
+  "interface_hash": "50d6d8168dcecd5c26fd899a07d0274a",
+  "mtime": 1575279136,
   "options": {
     "allow_redefinition": false,
     "allow_untyped_globals": false,
@@ -69,8 +69,8 @@
     "warn_unreachable": false,
     "warn_unused_ignores": false
   },
-  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-451/dnet/optimizers.py",
-  "size": 2835,
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-111/dnet/optimizers.py",
+  "size": 2946,
   "suppressed": [
     "jax.numpy",
     "jax",

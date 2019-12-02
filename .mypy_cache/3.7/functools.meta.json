@@ -1,28 +1,26 @@
 {
-  "child_modules": [
-    "dnet.activations",
-    "dnet.nn",
-    "dnet.trainer",
-    "dnet.evaluators",
-    "dnet.losses",
-    "dnet.optimizers",
-    "dnet.layers"
-  ],
-  "data_mtime": 1574881920,
+  "child_modules": [],
+  "data_mtime": 1575271465,
   "dep_lines": [
+    1,
+    1,
     1
   ],
   "dep_prios": [
-    5
+    5,
+    5,
+    30
   ],
   "dependencies": [
-    "builtins"
+    "typing",
+    "builtins",
+    "abc"
   ],
-  "hash": "d41d8cd98f00b204e9800998ecf8427e",
-  "id": "dnet",
+  "hash": "ddb0a88207e48fb0167145460323eb0a",
+  "id": "functools",
   "ignore_all": true,
-  "interface_hash": "b78961eaf0ce13675b070fba067c468a",
-  "mtime": 1574750195,
+  "interface_hash": "e118e12c1d1e9b74267b0b37cd39b39d",
+  "mtime": 1574360750,
   "options": {
     "allow_redefinition": false,
     "allow_untyped_globals": false,
@@ -59,8 +57,8 @@
     "warn_unreachable": false,
     "warn_unused_ignores": false
   },
-  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/__init__.py",
-  "size": 0,
+  "path": "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/mypy/typeshed/stdlib/3/functools.pyi",
+  "size": 2846,
   "suppressed": [],
   "version_id": "0.740"
 }

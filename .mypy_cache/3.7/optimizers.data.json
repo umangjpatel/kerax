@@ -20,7 +20,12 @@
       "cross_ref": "dnet.layers.FC",
       "kind": "Gdef"
     },
-    "GD": {
+    "List": {
+      ".class": "SymbolTableNode",
+      "cross_ref": "typing.List",
+      "kind": "Gdef"
+    },
+    "Optimizer": {
       ".class": "SymbolTableNode",
       "kind": "Gdef",
       "node": {
@@ -28,22 +33,21 @@
         "_promote": null,
         "abstract_attributes": [],
         "bases": [
-          "optimizers.Optimizer"
+          "builtins.object"
         ],
         "declared_metaclass": null,
         "defn": {
           ".class": "ClassDef",
-          "fullname": "optimizers.GD",
-          "name": "GD",
+          "fullname": "optimizers.Optimizer",
+          "name": "Optimizer",
           "type_vars": []
         },
         "flags": [],
-        "fullname": "optimizers.GD",
+        "fullname": "optimizers.Optimizer",
         "metaclass_type": null,
         "metadata": {},
         "module_name": "optimizers",
         "mro": [
-          "optimizers.GD",
           "optimizers.Optimizer",
           "builtins.object"
         ],
@@ -71,7 +75,7 @@
                 "lr"
               ],
               "flags": [],
-              "fullname": "optimizers.GD.__init__",
+              "fullname": "optimizers.Optimizer.__init__",
               "name": "__init__",
               "type": {
                 ".class": "CallableType",
@@ -92,7 +96,7 @@
                   "lr"
                 ],
                 "arg_types": [
-                  "optimizers.GD",
+                  "optimizers.Optimizer",
                   {
                     ".class": "Instance",
                     "args": [
@@ -186,7 +190,7 @@
                 "fallback": "builtins.function",
                 "implicit": false,
                 "is_ellipsis_args": false,
-                "name": "__init__ of GD",
+                "name": "__init__ of Optimizer",
                 "ret_type": {
                   ".class": "NoneType"
                 },
@@ -204,7 +208,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "optimizers.GD.accuracy",
+              "fullname": "optimizers.Optimizer.accuracy",
               "name": "accuracy",
               "type": {
                 ".class": "Instance",
@@ -225,7 +229,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "optimizers.GD.accuracy_fn",
+              "fullname": "optimizers.Optimizer.accuracy_fn",
               "name": "accuracy_fn",
               "type": {
                 ".class": "CallableType",
@@ -283,7 +287,7 @@
                 "outputs"
               ],
               "flags": [],
-              "fullname": "optimizers.GD.compute_accuracy",
+              "fullname": "optimizers.Optimizer.compute_accuracy",
               "name": "compute_accuracy",
               "type": {
                 ".class": "CallableType",
@@ -298,7 +302,7 @@
                   "outputs"
                 ],
                 "arg_types": [
-                  "optimizers.GD",
+                  "optimizers.Optimizer",
                   {
                     ".class": "AnyType",
                     "missing_import_name": "optimizers.tensor",
@@ -319,7 +323,7 @@
                 "fallback": "builtins.function",
                 "implicit": false,
                 "is_ellipsis_args": false,
-                "name": "compute_accuracy of GD",
+                "name": "compute_accuracy of Optimizer",
                 "ret_type": "builtins.float",
                 "variables": []
               }
@@ -343,7 +347,7 @@
                 "outputs"
               ],
               "flags": [],
-              "fullname": "optimizers.GD.compute_cost",
+              "fullname": "optimizers.Optimizer.compute_cost",
               "name": "compute_cost",
               "type": {
                 ".class": "CallableType",
@@ -360,7 +364,7 @@
                   "outputs"
                 ],
                 "arg_types": [
-                  "optimizers.GD",
+                  "optimizers.Optimizer",
                   {
                     ".class": "Instance",
                     "args": [
@@ -400,7 +404,7 @@
                 "fallback": "builtins.function",
                 "implicit": false,
                 "is_ellipsis_args": false,
-                "name": "compute_cost of GD",
+                "name": "compute_cost of Optimizer",
                 "ret_type": "builtins.float",
                 "variables": []
               }
@@ -422,7 +426,7 @@
                 "inputs"
               ],
               "flags": [],
-              "fullname": "optimizers.GD.compute_predictions",
+              "fullname": "optimizers.Optimizer.compute_predictions",
               "name": "compute_predictions",
               "type": {
                 ".class": "CallableType",
@@ -437,7 +441,7 @@
                   "inputs"
                 ],
                 "arg_types": [
-                  "optimizers.GD",
+                  "optimizers.Optimizer",
                   {
                     ".class": "Instance",
                     "args": [
@@ -471,7 +475,7 @@
                 "fallback": "builtins.function",
                 "implicit": false,
                 "is_ellipsis_args": false,
-                "name": "compute_predictions of GD",
+                "name": "compute_predictions of Optimizer",
                 "ret_type": {
                   ".class": "AnyType",
                   "missing_import_name": "optimizers.tensor",
@@ -492,7 +496,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "optimizers.GD.cost",
+              "fullname": "optimizers.Optimizer.cost",
               "name": "cost",
               "type": {
                 ".class": "Instance",
@@ -513,7 +517,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "optimizers.GD.epochs",
+              "fullname": "optimizers.Optimizer.epochs",
               "name": "epochs",
               "type": "builtins.int"
             }
@@ -534,7 +538,7 @@
                 "outputs"
               ],
               "flags": [],
-              "fullname": "optimizers.GD.evaluate",
+              "fullname": "optimizers.Optimizer.evaluate",
               "name": "evaluate",
               "type": {
                 ".class": "CallableType",
@@ -549,7 +553,7 @@
                   "outputs"
                 ],
                 "arg_types": [
-                  "optimizers.GD",
+                  "optimizers.Optimizer",
                   {
                     ".class": "AnyType",
                     "missing_import_name": "optimizers.tensor",
@@ -570,7 +574,7 @@
                 "fallback": "builtins.function",
                 "implicit": false,
                 "is_ellipsis_args": false,
-                "name": "evaluate of GD",
+                "name": "evaluate of Optimizer",
                 "ret_type": "builtins.float",
                 "variables": []
               }
@@ -590,7 +594,7 @@
                 "input_shape"
               ],
               "flags": [],
-              "fullname": "optimizers.GD.init_network_params",
+              "fullname": "optimizers.Optimizer.init_network_params",
               "name": "init_network_params",
               "type": {
                 ".class": "CallableType",
@@ -603,7 +607,7 @@
                   "input_shape"
                 ],
                 "arg_types": [
-                  "optimizers.GD",
+                  "optimizers.Optimizer",
                   {
                     ".class": "TupleType",
                     "implicit": false,
@@ -632,7 +636,7 @@
                 "fallback": "builtins.function",
                 "implicit": false,
                 "is_ellipsis_args": false,
-                "name": "init_network_params of GD",
+                "name": "init_network_params of Optimizer",
                 "ret_type": {
                   ".class": "NoneType"
                 },
@@ -650,7 +654,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "optimizers.GD.layers",
+              "fullname": "optimizers.Optimizer.layers",
               "name": "layers",
               "type": {
                 ".class": "Instance",
@@ -671,7 +675,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "optimizers.GD.loss_fn",
+              "fullname": "optimizers.Optimizer.loss_fn",
               "name": "loss_fn",
               "type": {
                 ".class": "CallableType",
@@ -723,7 +727,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "optimizers.GD.lr",
+              "fullname": "optimizers.Optimizer.lr",
               "name": "lr",
               "type": "builtins.float"
             }
@@ -738,7 +742,7 @@
                 "explicit_self_type",
                 "is_ready"
               ],
-              "fullname": "optimizers.GD.network_params",
+              "fullname": "optimizers.Optimizer.network_params",
               "name": "network_params",
               "type": {
                 ".class": "Instance",
@@ -777,7 +781,7 @@
                 "outputs"
               ],
               "flags": [],
-              "fullname": "optimizers.GD.train",
+              "fullname": "optimizers.Optimizer.train",
               "name": "train",
               "type": {
                 ".class": "CallableType",
@@ -792,7 +796,7 @@
                   "outputs"
                 ],
                 "arg_types": [
-                  "optimizers.GD",
+                  "optimizers.Optimizer",
                   {
                     ".class": "AnyType",
                     "missing_import_name": "optimizers.tensor",
@@ -813,7 +817,7 @@
                 "fallback": "builtins.function",
                 "implicit": false,
                 "is_ellipsis_args": false,
-                "name": "train of GD",
+                "name": "train of Optimizer",
                 "ret_type": {
                   ".class": "NoneType"
                 },
@@ -827,12 +831,7 @@
         "typeddict_type": null
       }
     },
-    "List": {
-      ".class": "SymbolTableNode",
-      "cross_ref": "typing.List",
-      "kind": "Gdef"
-    },
-    "Optimizer": {
+    "SGD": {
       ".class": "SymbolTableNode",
       "kind": "Gdef",
       "node": {
@@ -840,26 +839,87 @@
         "_promote": null,
         "abstract_attributes": [],
         "bases": [
-          "builtins.object"
+          "optimizers.Optimizer"
         ],
         "declared_metaclass": null,
         "defn": {
           ".class": "ClassDef",
-          "fullname": "optimizers.Optimizer",
-          "name": "Optimizer",
+          "fullname": "optimizers.SGD",
+          "name": "SGD",
           "type_vars": []
         },
         "flags": [],
-        "fullname": "optimizers.Optimizer",
+        "fullname": "optimizers.SGD",
         "metaclass_type": null,
         "metadata": {},
         "module_name": "optimizers",
         "mro": [
+          "optimizers.SGD",
           "optimizers.Optimizer",
           "builtins.object"
         ],
         "names": {
-          ".class": "SymbolTable"
+          ".class": "SymbolTable",
+          "train": {
+            ".class": "SymbolTableNode",
+            "kind": "Mdef",
+            "node": {
+              ".class": "FuncDef",
+              "arg_kinds": [
+                0,
+                0,
+                0
+              ],
+              "arg_names": [
+                "self",
+                "inputs",
+                "outputs"
+              ],
+              "flags": [],
+              "fullname": "optimizers.SGD.train",
+              "name": "train",
+              "type": {
+                ".class": "CallableType",
+                "arg_kinds": [
+                  0,
+                  0,
+                  0
+                ],
+                "arg_names": [
+                  "self",
+                  "inputs",
+                  "outputs"
+                ],
+                "arg_types": [
+                  "optimizers.SGD",
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "optimizers.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  },
+                  {
+                    ".class": "AnyType",
+                    "missing_import_name": "optimizers.tensor",
+                    "source_any": null,
+                    "type_of_any": 3
+                  }
+                ],
+                "bound_args": [],
+                "def_extras": {
+                  "first_arg": "self"
+                },
+                "fallback": "builtins.function",
+                "implicit": false,
+                "is_ellipsis_args": false,
+                "name": "train of SGD",
+                "ret_type": {
+                  ".class": "NoneType"
+                },
+                "variables": []
+              }
+            }
+          }
         },
         "tuple_type": null,
         "type_vars": [],
@@ -1019,5 +1079,5 @@
       }
     }
   },
-  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-451/dnet/optimizers.py"
+  "path": "/var/folders/m9/t37mmhrx3c746bgx9j8przd80000gn/T/csi-111/dnet/optimizers.py"
 }

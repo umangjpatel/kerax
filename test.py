@@ -26,11 +26,9 @@ model = Sequential()
 model.add(FC(units=500, activation="mish"))
 model.add(FC(units=50, activation="mish"))
 model.add(FC(units=1, activation="sigmoid"))
-model.compile(loss="binary_crossentropy", epochs=20, lr=0.01)
+model.compile(loss="binary_crossentropy", optimizer="sgd", epochs=20, lr=0.01)
 model.fit(x_train, y_train)
 
-model.plot_losses()
-model.plot_accuracy()
 model.plot_curves()
 
 train_score = model.evaluate(x_train, y_train)

@@ -1,44 +1,36 @@
 {
   "child_modules": [],
-  "data_mtime": 1574749887,
+  "data_mtime": 1575279161,
   "dep_lines": [
+    1,
+    5,
+    6,
+    1,
+    1,
     3,
-    4,
-    4,
-    4,
-    1,
-    1,
-    1,
-    1,
-    1,
-    5
+    3
   ],
   "dep_prios": [
     5,
-    20,
-    10,
-    10,
+    5,
+    5,
     5,
     30,
-    30,
     10,
-    5,
-    5
+    20
   ],
   "dependencies": [
     "typing",
-    "dnet",
-    "dnet.activations",
-    "dnet.evaluators",
+    "dnet.layers",
+    "dnet.optimizers",
     "builtins",
-    "_importlib_modulespec",
     "abc"
   ],
-  "hash": "855dffd98d641b65715693c4c9c80552",
+  "hash": "967b594f4ab102283a0f8be1d1b2c964",
   "id": "dnet.trainer",
   "ignore_all": false,
-  "interface_hash": "ad48c4db06bf7bb9cc009c9e7b31ba81",
-  "mtime": 1574750024,
+  "interface_hash": "351cf28252f68741459e59e04013863b",
+  "mtime": 1575279183,
   "options": {
     "allow_redefinition": false,
     "allow_untyped_globals": false,
@@ -76,11 +68,10 @@
     "warn_unused_ignores": false
   },
   "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/trainer.py",
-  "size": 2733,
+  "size": 800,
   "suppressed": [
     "jax.numpy",
-    "jax",
-    "tqdm"
+    "jax"
   ],
   "version_id": "0.740"
 }

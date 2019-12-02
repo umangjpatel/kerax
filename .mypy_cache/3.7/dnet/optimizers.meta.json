@@ -1,1 +1,77 @@
-{"child_modules": [], "data_mtime": 1575007595, "dep_lines": [1, 8, 1, 1, 3, 3, 6], "dep_prios": [5, 5, 5, 30, 10, 5, 5], "dependencies": ["typing", "dnet.layers", "builtins", "abc"], "hash": "305a42e8093419e4bd6acbfb9fd58457", "id": "dnet.optimizers", "ignore_all": false, "interface_hash": "e2294705572838990f81555b26cfe648", "mtime": 1575007044, "options": {"allow_redefinition": false, "allow_untyped_globals": false, "always_false": [], "always_true": [], "bazel": false, "check_untyped_defs": false, "disallow_any_decorated": false, "disallow_any_explicit": false, "disallow_any_expr": false, "disallow_any_generics": false, "disallow_any_unimported": false, "disallow_incomplete_defs": false, "disallow_subclassing_any": false, "disallow_untyped_calls": false, "disallow_untyped_decorators": false, "disallow_untyped_defs": false, "follow_imports": "silent", "follow_imports_for_stubs": false, "ignore_errors": false, "ignore_missing_imports": true, "implicit_reexport": true, "local_partial_types": false, "mypyc": false, "no_implicit_optional": false, "platform": "darwin", "plugins": [], "show_none_errors": true, "strict_equality": false, "strict_optional": true, "strict_optional_whitelist": null, "warn_no_return": true, "warn_return_any": false, "warn_unreachable": false, "warn_unused_ignores": false}, "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/optimizers.py", "size": 2835, "suppressed": ["jax.numpy", "jax", "tqdm"], "version_id": "0.740"}
+{
+  "child_modules": [],
+  "data_mtime": 1575279150,
+  "dep_lines": [
+    1,
+    8,
+    1,
+    1,
+    3,
+    3,
+    6
+  ],
+  "dep_prios": [
+    5,
+    5,
+    5,
+    30,
+    10,
+    5,
+    5
+  ],
+  "dependencies": [
+    "typing",
+    "dnet.layers",
+    "builtins",
+    "abc"
+  ],
+  "hash": "0bacb643cb4fc3286433eac6c2c127c0",
+  "id": "dnet.optimizers",
+  "ignore_all": false,
+  "interface_hash": "f4cf4607e4797e312a13c0b3245728cd",
+  "mtime": 1575279138,
+  "options": {
+    "allow_redefinition": false,
+    "allow_untyped_globals": false,
+    "always_false": [],
+    "always_true": [],
+    "bazel": false,
+    "check_untyped_defs": false,
+    "disallow_any_decorated": false,
+    "disallow_any_explicit": false,
+    "disallow_any_expr": false,
+    "disallow_any_generics": false,
+    "disallow_any_unimported": false,
+    "disallow_incomplete_defs": false,
+    "disallow_subclassing_any": false,
+    "disallow_untyped_calls": false,
+    "disallow_untyped_decorators": false,
+    "disallow_untyped_defs": false,
+    "follow_imports": "silent",
+    "follow_imports_for_stubs": false,
+    "ignore_errors": false,
+    "ignore_missing_imports": true,
+    "implicit_reexport": true,
+    "local_partial_types": false,
+    "mypyc": false,
+    "no_implicit_optional": false,
+    "platform": "darwin",
+    "plugins": [],
+    "show_none_errors": true,
+    "strict_equality": false,
+    "strict_optional": true,
+    "strict_optional_whitelist": null,
+    "warn_no_return": true,
+    "warn_return_any": false,
+    "warn_unreachable": false,
+    "warn_unused_ignores": false
+  },
+  "path": "/Users/umang/Desktop/Umang/AI/Projects/DNet/DNet/dnet/optimizers.py",
+  "size": 2946,
+  "suppressed": [
+    "jax.numpy",
+    "jax",
+    "tqdm"
+  ],
+  "version_id": "0.740"
+}
