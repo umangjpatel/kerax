@@ -22,7 +22,7 @@ y_val = torch.from_numpy(testing_data[0].values.reshape(1, -1))  # shape : (1, m
 x_val = torch.from_numpy(testing_data.iloc[:, 1:].values.T) / 255.0  # shape = (n, m)
 
 net = Sequential()
-net.add(FC(units=500, activation="relu"))
+net.add(FC(units=500, activation="mish"))
 net.add(FC(units=10, activation="relu"))
 net.add(FC(units=1, activation="sigmoid"))
 net.compile(optimizer="sgd", loss="binary_crossentropy", lr=1e-02)

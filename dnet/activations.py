@@ -16,3 +16,11 @@ def tanh(z: Tensor) -> Tensor:
 
 def relu(z: Tensor) -> Tensor:
     return torch.relu(z)
+
+
+def softplus(z: Tensor) -> Tensor:
+    return torch.nn.Softplus()(z)
+
+
+def mish(z: Tensor) -> Tensor:
+    return z * tanh(softplus(z))
