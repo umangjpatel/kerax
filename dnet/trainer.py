@@ -1,7 +1,8 @@
-from torch import Tensor
-import torch
-from tqdm import tqdm
 from typing import List, Dict, Tuple
+
+import torch
+from torch import Tensor
+from tqdm import tqdm
 
 
 class Trainer:
@@ -48,10 +49,10 @@ class Trainer:
             self.training_cost.append(loss.item())
             loss.backward()
             with torch.no_grad():
-                self.update_weights()
                 if self.validation_data:
                     val_outputs: Tensor = self.compute_predictions(self.validation_data[0])
                     self.validation_cost.append(self.loss(val_outputs, self.validation_data[1]).item())
+                self.update_weights()
 
     def evaluate(self, inputs: Tensor, targets: Tensor) -> None:
         raise NotImplementedError
