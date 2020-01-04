@@ -1,12 +1,15 @@
+from torch import Tensor
+from dnet import activations
 from typing import Callable
 
-from jax import jit
 
-from dnet import activations
+class Layer:
+    pass
 
 
-class FC:
+class FC(Layer):
 
-    def __init__(self, units: int, activation: str) -> None:
+    def __init__(self, units: int, activation: str = "linear") -> None:
         self.units: int = units
-        self.activation: Callable = jit(getattr(activations, activation))
+        self.activation_name: str = activation
+        self.activation: Callable[[Tensor], Tensor] = getattr(activations, activation)

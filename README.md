@@ -1,117 +1,89 @@
 ![dnet library logo](assets/logo.png "DNet library")
 # DNet
-Neural Network Library written in Python and built on top of JAX, an open-source high-performance machine learning library.
+Neural Network Library written in Python and built on top of PyTorch, an open-source high-performance deep learning library.
 
 ## Packages used
-* [JAX](https://github.com/google/jax) for automatic differentiation.
+* [PyTorch](https://github.com/pytorch/pytorch) for automatic differentiation.
 * [Mypy](https://github.com/python/mypy) for static typing Python3 code.
 * [Matplotlib](https://github.com/matplotlib/matplotlib) for plotting.
 * [Pandas](https://github.com/pandas-dev/pandas) for data analysis / manipulation.
+* [tqdm](https://github.com/tqdm/tqdm) for displaying progress bar.
 
 ## Features
 * Enables high-performance machine learning research.
-* Easy to use with high-level APIs.
-* Runs seamlessly on GPUs and even TPUs.
+* Easy to use with high-level Keras-like APIs.
+* Runs seamlessly on GPU.
 
 ## Getting started
 
 Here's the Sequential model :
 ```python3
-model = Sequential()
+net = Sequential()
 ```
 Add the fully-connected layers / densely-connected layers :
 ```python3
-model.add(FC(units=500, activation="relu"))
-model.add(FC(units=50, activation="mish"))
-model.add(FC(units=1, activation="sigmoid"))
+net.add(FC(units=500, activation="relu"))
+net.add(FC(units=50, activation="mish"))
+net.add(FC(units=1, activation="sigmoid"))
 ```
 Compile the model with the hyperparameters :
 ```python3
-model.compile(loss="binary_crossentropy", epochs=20, lr=0.01)
+net.compile(loss="binary_crossentropy", epochs=20, lr=0.01)
 ```
 Train the model :
 ```python3
-model.fit(x_train, y_train)
+net.fit(x_train, y_train)
 ```
-Plot the loss curve :
+Plot the loss curves :
 ```python3
-model.plot_losses()
-```
-Plot the accuracy curve :
-```python3
-model.plot_accuracy()
-```
-Plot both the loss and accuracy curves :
-```python3
-model.plot_curves()
-```
-Compute scores :
-```python3
-train_score = model.evaluate(x_train, y_train)
-print("Training accuracy : {0:.6f}".format(train_score))
-val_score = model.evaluate(x_val, y_val)
-print("Validation accuracy : {0:.6f}".format(val_score))
+net.plot_losses()
 ```
 
 ## Toy Example
 
 ### Code
 ```python3
-import os
-
-import jax.numpy as tensor
+import torch
 import pandas as pd
+from pathlib import Path
 
-from dnet.layers import FC
 from dnet.nn import Sequential
+from dnet.layers import FC
 
-mnist_dataset_path = os.path.join("datasets", "mnist")
-mnist_train_path = os.path.join(mnist_dataset_path, "mnist_train_small.csv")
-mnist_test_path = os.path.join(mnist_dataset_path, "mnist_test.csv")
+dataset_path = Path("datasets")
+train_path = dataset_path / "mnist_small" / "mnist_train_small.csv"
+test_path = dataset_path / "mnist_small" / "mnist_test.csv"
 
-training_data = pd.read_csv(mnist_train_path, header=None)
+training_data = pd.read_csv(train_path, header=None)
 training_data = training_data.loc[training_data[0].isin([0, 1])]
 
-y_train = tensor.array(training_data[0].values.reshape(1, -1))  # shape : (1, m)
-x_train = tensor.array(training_data.iloc[:, 1:].values.T)  # shape = (n, m)
+y_train = torch.from_numpy(training_data[0].values.reshape(1, -11))  # shape : (1. m)
+x_train = torch.from_numpy(training_data.iloc[:, 1:].values.T) / 255.0  # shape = (n, m)
 
-testing_data = pd.read_csv(mnist_test_path, header=None)
+testing_data = pd.read_csv(test_path, header=None)
 testing_data = testing_data.loc[testing_data[0].isin([0, 1])]
 
-y_val = tensor.array(testing_data[0].values.reshape(1, -1))  # shape : (1, m)
-x_val = tensor.array(testing_data.iloc[:, 1:].values.T)  # shape = (n, m)
+y_val = torch.from_numpy(testing_data[0].values.reshape(1, -1))  # shape : (1, m)
+x_val = torch.from_numpy(testing_data.iloc[:, 1:].values.T) / 255.0  # shape = (n, m)
 
-model = Sequential()
-model.add(FC(units=500, activation="mish"))
-model.add(FC(units=50, activation="mish"))
-model.add(FC(units=1, activation="sigmoid"))
-model.compile(loss="binary_crossentropy", epochs=20, lr=0.01)
-model.fit(x_train, y_train)
+net = Sequential()
+net.add(FC(units=500, activation="relu"))
+net.add(FC(units=10, activation="relu"))
+net.add(FC(units=1, activation="sigmoid"))
+net.compile(optimizer="sgd", loss="binary_crossentropy", lr=1e-02)
+net.fit(x_train, y_train, epochs=50, validation_data=(x_val, y_val))
 
-model.plot_losses()
-model.plot_accuracy()
-model.plot_curves()
-
-train_score = model.evaluate(x_train, y_train)
-print("Training accuracy : {0:.6f}".format(train_score))
-val_score = model.evaluate(x_val, y_val)
-print("Validation accuracy : {0:.6f}".format(val_score))
+net.plot_losses()
 ```
 
 ### Outputs
 ```
 /usr/local/bin/python3.7 DNet/test.py
-/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jax/lib/xla_bridge.py:115: UserWarning: No GPU/TPU found, falling back to CPU.
-  warnings.warn('No GPU/TPU found, falling back to CPU.')
-Training the model: 100%|██████████| 20/20 [00:03<00:00,  5.73it/s]
+Using CPU for training...
+Training your model : 100%|██████████| 50/50 [00:02<00:00, 20.49it/s]
 ```
-![Toy example loss curve](assets/toy_example_loss_curve.png "Loss Curve")
-![Toy example accuracy curve](assets/toy_example_acc_curve.png "Accuracy Curve")
-![Toy example training curves](assets/toy_example_both_curves.png "Training Curves")
+![Toy example loss curves](assets/toy_example_loss_curves.png "Loss Curves")
 ```
-Training accuracy : 0.990488
-Validation accuracy : 0.994326
-
 Process finished with exit code 0
 ```
 

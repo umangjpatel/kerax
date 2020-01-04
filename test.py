@@ -1,37 +1,31 @@
-import os
-
-import jax.numpy as tensor
+import torch
 import pandas as pd
+from pathlib import Path
 
-from dnet.layers import FC
 from dnet.nn import Sequential
+from dnet.layers import FC
 
-mnist_dataset_path = os.path.join("datasets", "mnist")
-mnist_train_path = os.path.join(mnist_dataset_path, "mnist_train_small.csv")
-mnist_test_path = os.path.join(mnist_dataset_path, "mnist_test.csv")
+dataset_path = Path("datasets")
+train_path = dataset_path / "mnist_small" / "mnist_train_small.csv"
+test_path = dataset_path / "mnist_small" / "mnist_test.csv"
 
-training_data = pd.read_csv(mnist_train_path, header=None)
+training_data = pd.read_csv(train_path, header=None)
 training_data = training_data.loc[training_data[0].isin([0, 1])]
 
-y_train = tensor.array(training_data[0].values.reshape(1, -1))  # shape : (1, m)
-x_train = tensor.array(training_data.iloc[:, 1:].values.T)  # shape = (n, m)
+y_train = torch.from_numpy(training_data[0].values.reshape(1, -11))  # shape : (1. m)
+x_train = torch.from_numpy(training_data.iloc[:, 1:].values.T) / 255.0  # shape = (n, m)
 
-testing_data = pd.read_csv(mnist_test_path, header=None)
+testing_data = pd.read_csv(test_path, header=None)
 testing_data = testing_data.loc[testing_data[0].isin([0, 1])]
 
-y_val = tensor.array(testing_data[0].values.reshape(1, -1))  # shape : (1, m)
-x_val = tensor.array(testing_data.iloc[:, 1:].values.T)  # shape = (n, m)
+y_val = torch.from_numpy(testing_data[0].values.reshape(1, -1))  # shape : (1, m)
+x_val = torch.from_numpy(testing_data.iloc[:, 1:].values.T) / 255.0  # shape = (n, m)
 
-model = Sequential()
-model.add(FC(units=500, activation="relu"))
-model.add(FC(units=50, activation="relu"))
-model.add(FC(units=1, activation="sigmoid"))
-model.compile(loss="binary_crossentropy", optimizer="momentum", epochs=20, lr=0.01, bs=256)
-model.fit(x_train, y_train)
+net = Sequential()
+net.add(FC(units=500, activation="relu"))
+net.add(FC(units=10, activation="relu"))
+net.add(FC(units=1, activation="sigmoid"))
+net.compile(optimizer="sgd", loss="binary_crossentropy", lr=1e-02)
+net.fit(x_train, y_train, epochs=50, validation_data=(x_val, y_val))
 
-model.plot_curves()
-
-train_score = model.evaluate(x_train, y_train)
-print("Training accuracy : {0:.6f}".format(train_score))
-val_score = model.evaluate(x_val, y_val)
-print("Validation accuracy : {0:.6f}".format(val_score))
+net.plot_losses()
