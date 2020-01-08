@@ -1,56 +1,40 @@
-from torch import Tensor
+from typing import List, Callable, Tuple
+
+import jax.numpy as tensor
 import matplotlib.pyplot as plt
-from dnet.layers import Layer, FC
+
 from dnet import losses
+from dnet.layers import Layer
 from dnet.trainer import Trainer
-from typing import List, Tuple, Callable, Optional
 
 
 class Model:
-
-    def add(self, layer: Layer) -> None:
-        raise NotImplementedError
-
-    def summary(self) -> None:
-        raise NotImplementedError
-
-    def compile(self, optimizer: str, loss: str, lr: float) -> None:
-        raise NotImplementedError
-
-    def fit(self, inputs: Tensor, targets: Tensor, epochs: int, validation_data: Tuple[Tensor, Tensor]) -> None:
-        raise NotImplementedError
-
-    def plot_losses(self):
-        raise NotImplementedError
+    pass
 
 
 class Sequential(Model):
 
     def __init__(self) -> None:
-        self.layers: List[FC] = []
+        self.layers: List[Layer] = []
 
-    def add(self, layer: FC) -> None:
+    def add(self, layer: Layer) -> None:
         self.layers.append(layer)
 
-    def summary(self) -> None:
-        for i, layer in enumerate(self.layers):
-            print(f"Layer {i + 1} : units -> {layer.units}, activation -> {layer.activation_name}")
-
-    def compile(self, optimizer: str, loss: str, lr: float = 1e-02) -> None:
+    def compile(self, loss: str, optimizer: str, lr: float = 3e-02) -> None:
+        self.loss: Callable[[tensor.array], float] = getattr(losses, loss)
         self.optimizer: str = optimizer
-        self.loss: Callable = getattr(losses, loss)
         self.lr: float = lr
 
-    def fit(self, inputs: Tensor, targets: Tensor, epochs: int,
-            validation_data: Tuple[Tensor, Tensor] = None) -> None:
-        self.epochs: int = epochs
-        self.inputs: Tensor = inputs
-        self.targets: Tensor = targets
-        self.validation_data: Optional[Tuple[Tensor, Tensor]] = validation_data
-        self.trainer: Trainer = Trainer(self.__dict__)
+    def fit(self, inputs: tensor.array, targets: tensor.array, epochs: int,
+            validation_data: Tuple[tensor.array, tensor.array]):
+        self.inputs: tensor.array = inputs
+        self.targets: tensor.array = targets
+        self.val_inputs, self.val_targets = validation_data
+        self.epochs = epochs
+        self.trainer = Trainer(self.__dict__)
         self.trainer.train()
 
-    def plot_losses(self) -> None:
+    def plot_losses(self):
         plt.plot(range(self.epochs), self.trainer.training_cost, color="red", label="Training")
         plt.plot(range(self.epochs), self.trainer.validation_cost, color="green", label="Validation")
         plt.title("Loss Curve")
@@ -58,6 +42,3 @@ class Sequential(Model):
         plt.ylabel("Loss")
         plt.legend()
         plt.show()
-
-    def plot_accuracy(self) -> None:
-        raise NotImplementedError

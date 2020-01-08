@@ -1,26 +1,32 @@
-from torch import Tensor
-import torch
+import jax.numpy as tensor
+from jax import jit
 
 
-def linear(z: Tensor) -> Tensor:
+@jit
+def linear(z: tensor.array) -> tensor.array:
     return z
 
 
-def sigmoid(z: Tensor) -> Tensor:
-    return torch.sigmoid(z)
+@jit
+def sigmoid(z: tensor.array) -> tensor.array:
+    return 1 / (1 + tensor.exp(-z))
 
 
-def tanh(z: Tensor) -> Tensor:
-    return torch.tanh(z)
+@jit
+def tanh(z: tensor.array) -> tensor.array:
+    return tensor.tanh(z)
 
 
-def relu(z: Tensor) -> Tensor:
-    return torch.relu(z)
+@jit
+def relu(z: tensor.array) -> tensor.array:
+    return tensor.maximum(0, z)
 
 
-def softplus(z: Tensor) -> Tensor:
-    return torch.nn.Softplus()(z)
+@jit
+def softplus(z: tensor.array) -> tensor.array:
+    return tensor.log(1 + tensor.exp(z))
 
 
-def mish(z: Tensor) -> Tensor:
+@jit
+def mish(z: tensor.array) -> tensor.array:
     return z * tanh(softplus(z))

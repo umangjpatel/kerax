@@ -1,63 +1,43 @@
-from typing import List, Dict, Tuple
+from typing import List, Dict
 
-import torch
-from torch import Tensor
+import jax.numpy as tensor
+from jax import jit, value_and_grad
 from tqdm import tqdm
 
 
 class Trainer:
 
-    def __init__(self, items: Dict):
-        for k, v in items.items():
+    def __init__(self, model: Dict):
+        for k, v in model.items():
             self.__dict__[k] = v
         self.training_cost: List[float] = []
-        self.training_acc: List[float] = []
         self.validation_cost: List[float] = []
-        self.device: str = "cuda" if torch.cuda.is_available() else "cpu"
-        print(f"Using {self.device.upper()} for training...")
-        self.init_weights()
 
-    def init_weights(self):
-        self.weights: List[Dict[str, Tensor]] = []
-        for i, layer in enumerate(self.layers):
-            w_shape: Tuple[int, int] = (
-                layer.units, self.layers[i - 1].units if i > 0 else self.inputs.shape[0])
-            w: Tensor = torch.randn(size=w_shape, dtype=torch.float32, device=self.device) * 0.01
-            b: Tensor = torch.zeros(size=(layer.units, 1), dtype=torch.float32, device=self.device)
-            self.weights.append({"w": w.requires_grad_(True), "b": b.requires_grad_(True)})
+    def get_parameters(self) -> List[Dict[str, tensor.array]]:
+        return [{"w": layer.weights, "b": layer.bias} for layer in self.layers]
 
-    def compute_predictions(self, inputs: Tensor) -> Tensor:
-        a: Tensor = inputs
-        for i, layer in enumerate(self.layers):
-            w: Tensor = self.weights[i]["w"]
-            b: Tensor = self.weights[i]["b"]
-            z: Tensor = w @ a + b
-            a = layer.activation(z)
-        return a
+    def compute_cost(self, params: List[Dict[str, tensor.array]], inputs: tensor.array, targets: tensor.array) -> float:
+        outputs: tensor.array = self.compute_predictions(params, inputs)
+        return self.loss(outputs, targets)
 
-    def update_weights(self) -> None:
-        for i in range(len(self.weights)):
-            self.weights[i]["w"].sub_(self.lr * self.weights[i]["w"].grad)
-            self.weights[i]["b"].sub_(self.lr * self.weights[i]["b"].grad)
-            self.weights[i]["w"].grad.zero_()
-            self.weights[i]["b"].grad.zero_()
+    def compute_predictions(self, params: List[Dict[str, tensor.array]], inputs: tensor.array) -> tensor.array:
+        for param, layer in zip(params, self.layers):
+            z: tensor.array = tensor.dot(param.get("w"), inputs)
+            inputs: tensor.array = layer.activation(z)
+        return inputs
 
-    def train(self) -> None:
-        for _ in tqdm(range(self.epochs), desc="Training your model "):
-            outputs: Tensor = self.compute_predictions(self.inputs)
-            loss: Tensor = self.loss(outputs, self.targets)
-            self.training_cost.append(loss.item())
-            loss.backward()
-            with torch.no_grad():
-                if self.validation_data:
-                    val_outputs: Tensor = self.compute_predictions(self.validation_data[0])
-                    self.validation_cost.append(self.loss(val_outputs, self.validation_data[1]).item())
-                self.update_weights()
+    def update_weights(self, params: List[Dict[str, tensor.array]], grads: List[Dict[str, tensor.array]]) -> List[
+        Dict[str, tensor.array]]:
+        for i, grad in enumerate(grads):
+            params[i]["w"] -= self.lr * grad.get("w")
+            params[i]["b"] -= self.lr * grad.get("b")
+        return params
 
-    def evaluate(self, inputs: Tensor, targets: Tensor) -> None:
-        raise NotImplementedError
-
-    def predict(self, inputs: Tensor) -> Tensor:
-        with torch.no_grad():
-            predictions: Tensor = self.compute_predictions(inputs)
-        return predictions
+    def train(self):
+        parameters: List[Dict[str, tensor.array]] = self.get_parameters()
+        grad_fn = jit(value_and_grad(self.compute_cost))
+        for _ in tqdm(range(self.epochs), desc="Training your model"):
+            loss, grads = grad_fn(parameters, self.inputs, self.targets)
+            self.training_cost.append(loss)
+            self.validation_cost.append(self.compute_cost(parameters, self.val_inputs, self.val_targets))
+            parameters = self.update_weights(parameters, grads)

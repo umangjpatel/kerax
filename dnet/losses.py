@@ -1,6 +1,7 @@
-from torch import Tensor
-import torch
+import jax.numpy as tensor
+from jax import jit
 
 
-def binary_crossentropy(outputs: Tensor, targets: Tensor) -> Tensor:
-    return -torch.mean(targets * torch.log(outputs) + (1.0 - targets) * torch.log(1.0 - outputs))
+@jit
+def binary_crossentropy(outputs: tensor.array, targets: tensor.array) -> float:
+    return -tensor.mean(targets * tensor.log(outputs) + (1 - targets) * tensor.log(1 - outputs))
