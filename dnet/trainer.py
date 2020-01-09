@@ -22,22 +22,19 @@ class Trainer:
 
     def compute_predictions(self, params: List[Dict[str, tensor.array]], inputs: tensor.array) -> tensor.array:
         for param, layer in zip(params, self.layers):
-            z: tensor.array = tensor.dot(param.get("w"), inputs)
-            inputs: tensor.array = layer.activation(z)
+            inputs = layer.forward(param, inputs)
         return inputs
 
-    def update_weights(self, params: List[Dict[str, tensor.array]], grads: List[Dict[str, tensor.array]]) -> List[
-        Dict[str, tensor.array]]:
-        for i, grad in enumerate(grads):
-            params[i]["w"] -= self.lr * grad.get("w")
-            params[i]["b"] -= self.lr * grad.get("b")
-        return params
+    def update_weights(self, grads: List[Dict[str, tensor.array]]) -> None:
+        for grad, layer in zip(grads, self.layers):
+            layer.update_weights(grad, self.lr)
 
     def train(self):
-        parameters: List[Dict[str, tensor.array]] = self.get_parameters()
+        parameters: List[Dict[str, tensor.array]]
         grad_fn = jit(value_and_grad(self.compute_cost))
         for _ in tqdm(range(self.epochs), desc="Training your model"):
+            parameters = self.get_parameters()
             loss, grads = grad_fn(parameters, self.inputs, self.targets)
             self.training_cost.append(loss)
             self.validation_cost.append(self.compute_cost(parameters, self.val_inputs, self.val_targets))
-            parameters = self.update_weights(parameters, grads)
+            self.update_weights(grads)
