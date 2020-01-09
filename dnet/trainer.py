@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Callable
 
 import jax.numpy as tensor
 from jax import jit, value_and_grad
@@ -31,7 +31,7 @@ class Trainer:
 
     def train(self):
         parameters: List[Dict[str, tensor.array]]
-        grad_fn = jit(value_and_grad(self.compute_cost))
+        grad_fn: Callable = jit(value_and_grad(self.compute_cost))
         for _ in tqdm(range(self.epochs), desc="Training your model"):
             parameters = self.get_parameters()
             loss, grads = grad_fn(parameters, self.inputs, self.targets)
