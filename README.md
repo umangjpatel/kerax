@@ -58,14 +58,14 @@ test_path = dataset_path / "mnist_small" / "mnist_test.csv"
 training_data = pd.read_csv(train_path, header=None)
 training_data = training_data.loc[training_data[0].isin([0, 1])]
 
-y_train = tensor.array(training_data[0].values.reshape(1, -11))  # shape : (1. m)
-x_train = tensor.array(training_data.iloc[:, 1:].values.T) / 255.0  # shape = (n, m)
+y_train = tensor.array(training_data[0].values.reshape(-1, 1))  # shape : (m, 1)
+x_train = tensor.array(training_data.iloc[:, 1:].values) / 255.0  # shape = (m, n)
 
 testing_data = pd.read_csv(test_path, header=None)
 testing_data = testing_data.loc[testing_data[0].isin([0, 1])]
 
-y_val = tensor.array(testing_data[0].values.reshape(1, -1))  # shape : (1, m)
-x_val = tensor.array(testing_data.iloc[:, 1:].values.T) / 255.0  # shape = (n, m)
+y_val = tensor.array(testing_data[0].values.reshape(-1, 1))  # shape : (m, 1)
+x_val = tensor.array(testing_data.iloc[:, 1:].values) / 255.0  # shape = (m, n)
 
 model = Sequential()
 model.add(FC(units=500, activation="mish", input_dim=784))
