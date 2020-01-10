@@ -21,3 +21,7 @@ def adam(lr: float, beta1: float = 0.9, beta2: float = 0.999) -> Tuple[Callable,
 
 def adagrad(lr: float, beta: float = 0.9) -> Tuple[Callable, Callable, Callable]:
     return optimizers.adagrad(step_size=lr, momentum=beta)
+
+
+def sm3(lr: float, beta: float = 0.9) -> Tuple[Callable, Callable, Callable]:
+    return optimizers.sm3(step_size=lr, momentum=beta)
