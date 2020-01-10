@@ -33,11 +33,11 @@ class FC(Layer):
         z: tensor.array = tensor.dot(inputs, params.get("w")) + params.get("b")
         return self.activation(z)
 
-    def update_weights(self, grad: Dict[str, tensor.array], lr: float) -> None:
-        self.weights -= lr * grad.get("w")
-        self.bias -= lr * grad.get("b")
+    def update_weights(self, params: Dict[str, tensor.array]) -> None:
+        self.weights = params.get("w")
+        self.bias = params.get("b")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"""
         FC layer info :-
         {"-" * 10}

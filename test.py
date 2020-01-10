@@ -24,9 +24,9 @@ x_val = tensor.array(testing_data.iloc[:, 1:].values) / 255.0  # shape = (m, n)
 
 model = Sequential()
 model.add(FC(units=500, activation="mish", input_dim=x_train.shape[-1]))
-model.add(FC(units=10, activation="relu"))
+model.add(FC(units=10, activation="mish"))
 model.add(FC(units=1, activation="sigmoid"))
-model.compile(loss="binary_crossentropy", optimizer="sgd", lr=1e-02)
+model.compile(loss="binary_crossentropy", optimizer="adagrad", lr=1e-02, bs=x_train.shape[0])
 model.fit(inputs=x_train, targets=y_train, epochs=50, validation_data=(x_val, y_val))
 
 model.plot_losses()
