@@ -6,9 +6,9 @@ import pandas as pd
 from dnet.layers import FC
 from dnet.nn import Sequential
 
-dataset_path = Path("datasets")
-train_path = dataset_path / "mnist_small" / "mnist_train_small.csv"
-test_path = dataset_path / "mnist_small" / "mnist_test.csv"
+current_path = Path("..")
+train_path = current_path / "datasets" / "mnist_small" / "mnist_train_small.csv"
+test_path = current_path / "datasets" / "mnist_small" / "mnist_test.csv"
 
 training_data = pd.read_csv(train_path, header=None)
 training_data = training_data.loc[training_data[0].isin([0, 1])]
