@@ -12,7 +12,7 @@ def ones(key: tensor.array, shape: Tuple[int, int]) -> tensor.array:
     return initializers.ones(key=key, shape=shape)
 
 
-def normal(key: tensor.array, shape: Tuple[int, int], weight_scale: float = 0.1) -> tensor.array:
+def normal(key: tensor.array, shape: Tuple[int, int], weight_scale: float = 0.01) -> tensor.array:
     return initializers.normal(stddev=weight_scale)(key=key, shape=shape)
 
 
