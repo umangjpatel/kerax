@@ -3,6 +3,7 @@ from typing import List, Callable, Tuple, Optional
 import jax.numpy as tensor
 import matplotlib.pyplot as plt
 
+from dnet import evaluators
 from dnet import losses
 from dnet import optimizers
 from dnet.layers import Layer
@@ -23,6 +24,7 @@ class Sequential(Model):
 
     def compile(self, loss: str, optimizer: str, lr: float = 3e-02, bs: Optional[int] = None) -> None:
         self.loss: Callable[[tensor.array], float] = getattr(losses, loss)
+        self.evaluator: Callable[[tensor.array, tensor.array], float] = getattr(evaluators, loss)
         self.lr: float = lr
         self.optimizer: Callable = getattr(optimizers, optimizer)
         self.bs: Optional[int] = bs
@@ -45,5 +47,14 @@ class Sequential(Model):
         plt.title("Loss Curve")
         plt.xlabel("Epochs")
         plt.ylabel("Loss")
+        plt.legend()
+        plt.show()
+
+    def plot_accuracy(self) -> None:
+        plt.plot(range(self.epochs), self.trainer.training_accuracy, marker="o", color="red", label="Training")
+        plt.plot(range(self.epochs), self.trainer.validation_accuracy, color="green", label="Validation")
+        plt.title("Accuracy Curve")
+        plt.xlabel("Epochs")
+        plt.ylabel("Accuracy")
         plt.legend()
         plt.show()

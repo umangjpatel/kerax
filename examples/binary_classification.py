@@ -30,3 +30,4 @@ model.compile(loss="binary_crossentropy", optimizer="sgd", lr=1e-02, bs=x_train.
 model.fit(inputs=x_train, targets=y_train, epochs=50, validation_data=(x_val, y_val))
 
 model.plot_losses()
+model.plot_accuracy()

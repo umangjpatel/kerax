@@ -24,6 +24,12 @@ class Trainer:
     def get_weights(self) -> List[Dict[str, tensor.array]]:
         return [{"w": layer.weights, "b": layer.bias} for layer in self.layers]
 
+    def compute_accuracy(self, params: List[Dict[str, tensor.array]],
+                         batch: Tuple[tensor.array, tensor.array]) -> float:
+        inputs, targets = batch
+        outputs = self.compute_predictions(params, inputs)
+        return self.evaluator(outputs, targets)
+
     def compute_cost(self, params: List[Dict[str, tensor.array]],
                      batch: Tuple[tensor.array, tensor.array]) -> float:
         inputs, targets = batch
@@ -50,6 +56,14 @@ class Trainer:
             for _ in tqdm(range(self.data_loader.num_batches), desc=f"Epoch {epoch + 1} : "):
                 self.opt_state = self.update_params(next(count), self.opt_state, next(self.batches))
             parameters = self.get_params(self.opt_state)
-            self.training_cost.append(self.compute_cost(parameters, (self.inputs, self.targets)))
-            self.validation_cost.append(self.compute_cost(parameters, (self.val_inputs, self.val_targets)))
+            self.update_training_metrics(parameters)
+            self.update_validation_metrics(parameters)
         self.update_layer_weights(parameters)
+
+    def update_validation_metrics(self, parameters):
+        self.validation_cost.append(self.compute_cost(parameters, (self.val_inputs, self.val_targets)))
+        self.validation_accuracy.append(self.compute_accuracy(parameters, (self.val_inputs, self.val_targets)))
+
+    def update_training_metrics(self, parameters):
+        self.training_cost.append(self.compute_cost(parameters, (self.inputs, self.targets)))
+        self.training_accuracy.append(self.compute_accuracy(parameters, (self.inputs, self.targets)))
