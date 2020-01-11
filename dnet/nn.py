@@ -32,8 +32,8 @@ class Sequential(Model):
         self.inputs: tensor.array = inputs
         self.targets: tensor.array = targets
         self.val_inputs, self.val_targets = validation_data
-        self.epochs = epochs
-        self.trainer = Trainer(self.__dict__)
+        self.epochs: int = epochs
+        self.trainer: Trainer = Trainer(self.__dict__)
         self.trainer.train()
 
     def predict(self, inputs: tensor.array):

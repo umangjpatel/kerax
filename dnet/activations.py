@@ -1,3 +1,4 @@
+import jax.nn as activations
 import jax.numpy as tensor
 from jax import jit
 
@@ -9,7 +10,7 @@ def linear(z: tensor.array) -> tensor.array:
 
 @jit
 def sigmoid(z: tensor.array) -> tensor.array:
-    return 1 / (1 + tensor.exp(-z))
+    return activations.sigmoid(z)
 
 
 @jit
@@ -19,14 +20,19 @@ def tanh(z: tensor.array) -> tensor.array:
 
 @jit
 def relu(z: tensor.array) -> tensor.array:
-    return tensor.maximum(0, z)
+    return activations.relu(z)
 
 
 @jit
 def softplus(z: tensor.array) -> tensor.array:
-    return tensor.log(1 + tensor.exp(z))
+    return activations.softplus(z)
 
 
 @jit
 def mish(z: tensor.array) -> tensor.array:
     return z * tanh(softplus(z))
+
+
+@jit
+def softmax(z: tensor.array) -> tensor.array:
+    return activations.softmax(z, axis=1)

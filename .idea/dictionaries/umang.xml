@@ -11,6 +11,7 @@
       <w>mnist</w>
       <w>relu</w>
       <w>rmsprop</w>
+      <w>softmax</w>
       <w>softplus</w>
       <w>subkey</w>
       <w>tanh</w>

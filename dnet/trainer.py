@@ -18,11 +18,14 @@ class Trainer:
         self.opt_init, self.opt_update, self.get_params = self.optimizer(self.lr)
         self.training_cost: List[float] = []
         self.validation_cost: List[float] = []
+        self.training_accuracy: List[float] = []
+        self.validation_accuracy: List[float] = []
 
     def get_weights(self) -> List[Dict[str, tensor.array]]:
         return [{"w": layer.weights, "b": layer.bias} for layer in self.layers]
 
-    def compute_cost(self, params: List[Dict[str, tensor.array]], batch: Tuple[tensor.array, tensor.array]) -> float:
+    def compute_cost(self, params: List[Dict[str, tensor.array]],
+                     batch: Tuple[tensor.array, tensor.array]) -> float:
         inputs, targets = batch
         outputs: tensor.array = self.compute_predictions(params, inputs)
         return self.loss(outputs, targets)
@@ -43,8 +46,8 @@ class Trainer:
         parameters: List[Dict[str, tensor.array]]
         self.opt_state: Callable = self.opt_init(self.get_weights())
         count: Iterator[int] = itertools.count()
-        for i in tqdm(range(self.epochs), desc="Training your model"):
-            for _ in range(self.data_loader.num_batches):
+        for epoch in range(self.epochs):
+            for _ in tqdm(range(self.data_loader.num_batches), desc=f"Epoch {epoch + 1} : "):
                 self.opt_state = self.update_params(next(count), self.opt_state, next(self.batches))
             parameters = self.get_params(self.opt_state)
             self.training_cost.append(self.compute_cost(parameters, (self.inputs, self.targets)))

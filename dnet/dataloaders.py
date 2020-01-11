@@ -10,7 +10,7 @@ class DataLoader:
         self.random_generator: RandomState = RandomState(0)
         self.inputs: tensor.array = inputs
         self.outputs: tensor.array = outputs
-        self.batch_size = batch_size
+        self.batch_size: int = batch_size
         self.batching()
 
     def batching(self) -> None:
@@ -21,5 +21,5 @@ class DataLoader:
         while True:
             permutation: tensor.array = tensor.array(self.random_generator.permutation(self.inputs.shape[0]))
             for i in range(self.num_batches):
-                index = permutation[i * self.batch_size: (i + 1) * self.batch_size]
+                index: int = permutation[i * self.batch_size: (i + 1) * self.batch_size]
                 yield self.inputs[index], self.outputs[index]
