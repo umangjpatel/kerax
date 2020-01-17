@@ -1,6 +1,7 @@
 import jax.nn as activations
 import jax.numpy as tensor
 from jax import jit
+from jax.scipy.special import logsumexp
 
 
 @jit
@@ -35,4 +36,4 @@ def mish(z: tensor.array) -> tensor.array:
 
 @jit
 def softmax(z: tensor.array) -> tensor.array:
-    return activations.softmax(z, axis=1)
+    return z - logsumexp(z, axis=1, keepdims=True)

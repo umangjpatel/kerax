@@ -9,4 +9,4 @@ def binary_crossentropy(outputs: tensor.array, targets: tensor.array) -> float:
 
 @jit
 def categorical_crossentropy(outputs: tensor.array, targets: tensor.array) -> float:
-    return tensor.mean(a=-tensor.sum(a=targets * tensor.log(1 - outputs), axis=1))
+    return -tensor.mean(tensor.sum(outputs * targets, axis=1))
