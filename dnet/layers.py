@@ -43,6 +43,26 @@ class FC(Layer):
         self.params = params
 
 
+class Dropout(Layer):
+    _key: tensor.array = None
+
+    def __init__(self, keep_prob: float) -> None:
+        if Dropout._key is None:
+            Dropout._key = random.PRNGKey(0)
+        self.keep_prob: float = keep_prob
+        self.init_params()
+
+    def init_params(self) -> None:
+        self.params: Dict[str, tensor.array] = {}
+
+    def forward(self, params: Dict[str, tensor.array], inputs: tensor.array) -> tensor.array:
+        d: tensor.array = random.bernoulli(key=Dropout._key, p=self.keep_prob) / self.keep_prob
+        return inputs * d
+
+    def update_params(self, params: Dict[str, tensor.array]) -> None:
+        self.params = params
+
+
 class BatchNorm(Layer):
     _key: tensor.array = None
 
