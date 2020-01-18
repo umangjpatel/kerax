@@ -41,11 +41,11 @@ class Trainer:
             inputs = layer.forward(param, inputs)
         return inputs
 
-    def update_params(self, i: int, opt_state: Callable, batch: Tuple[tensor.array, tensor.array]) -> Callable:
+    def opt_update_params(self, i: int, opt_state: Callable, batch: Tuple[tensor.array, tensor.array]) -> Callable:
         params: List[Dict[str, tensor.array]] = self.get_params(opt_state)
         return self.opt_update(i, grad(self.compute_cost)(params, batch), opt_state)
 
-    def update_layer_weights(self, params: List[Dict[str, tensor.array]]) -> None:
+    def update_layer_params(self, params: List[Dict[str, tensor.array]]) -> None:
         for param, layer in zip(params, self.layers): layer.update_params(param)
 
     def train(self) -> None:
@@ -54,11 +54,11 @@ class Trainer:
         count: Iterator[int] = itertools.count()
         for epoch in range(self.epochs):
             for _ in tqdm(range(self.data_loader.num_batches), desc=f"Epoch {epoch + 1} : "):
-                self.opt_state = self.update_params(next(count), self.opt_state, next(self.batches))
+                self.opt_state = self.opt_update_params(next(count), self.opt_state, next(self.batches))
             parameters = self.get_params(self.opt_state)
             self.update_training_metrics(parameters)
             self.update_validation_metrics(parameters)
-        self.update_layer_weights(parameters)
+        self.update_layer_params(parameters)
 
     def update_validation_metrics(self, parameters):
         self.validation_cost.append(self.compute_cost(parameters, (self.val_inputs, self.val_targets)))
