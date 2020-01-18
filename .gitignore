@@ -74,3 +74,8 @@
 /.mypy_cache/
 /.idea/
 /.idea/dictionaries/
+/datasets/aerial_cactus/test/
+/datasets/aerial_cactus/train/
+/datasets/aerial_cactus/test.zip
+/datasets/aerial_cactus/train.csv
+/datasets/aerial_cactus/train.zip
