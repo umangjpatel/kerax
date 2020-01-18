@@ -53,6 +53,7 @@ class Dropout(Layer):
         self.init_params()
 
     def init_params(self) -> None:
+        Dropout._key, _ = random.split(Dropout._key)
         self.params: Dict[str, tensor.array] = {}
 
     def forward(self, params: Dict[str, tensor.array], inputs: tensor.array) -> tensor.array:
