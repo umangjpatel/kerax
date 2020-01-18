@@ -22,7 +22,7 @@ class Trainer:
         self.validation_accuracy: List[float] = []
 
     def get_weights(self) -> List[Dict[str, tensor.array]]:
-        return [{"w": layer.weights, "b": layer.bias} for layer in self.layers]
+        return [layer.params for layer in self.layers]
 
     def compute_accuracy(self, params: List[Dict[str, tensor.array]],
                          batch: Tuple[tensor.array, tensor.array]) -> float:
@@ -46,7 +46,7 @@ class Trainer:
         return self.opt_update(i, grad(self.compute_cost)(params, batch), opt_state)
 
     def update_layer_weights(self, params: List[Dict[str, tensor.array]]) -> None:
-        for param, layer in zip(params, self.layers): layer.update_weights(param)
+        for param, layer in zip(params, self.layers): layer.update_params(param)
 
     def train(self) -> None:
         parameters: List[Dict[str, tensor.array]]

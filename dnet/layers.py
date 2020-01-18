@@ -26,30 +26,46 @@ class FC(Layer):
         if FC._prev_units is None:
             FC._prev_units = input_dim
             FC._key = random.PRNGKey(0)
-        self.init_weights()
+        self.init_params()
 
-    def init_weights(self) -> None:
+    def init_params(self) -> None:
         FC._key, subkey = random.split(FC._key)
-        self.weights: tensor.array = self.weight_scheme(key=FC._key, shape=(FC._prev_units, self.units))
-        self.bias: tensor.array = self.bias_scheme(key=subkey, shape=(1, self.units))
+        weights: tensor.array = self.weight_scheme(key=FC._key, shape=(FC._prev_units, self.units))
+        bias: tensor.array = self.bias_scheme(key=subkey, shape=(1, self.units))
+        self.params: Dict[str, tensor.array] = {"w": weights, "b": bias}
         FC._prev_units = self.units
 
     def forward(self, params: Dict[str, tensor.array], inputs: tensor.array) -> tensor.array:
         z: tensor.array = tensor.dot(inputs, params.get("w")) + params.get("b")
         return self.activation(z)
 
-    def update_weights(self, params: Dict[str, tensor.array]) -> None:
-        self.weights = params.get("w")
-        self.bias = params.get("b")
+    def update_params(self, params: Dict[str, tensor.array]) -> None:
+        self.params = params
 
-    def __str__(self) -> str:
-        return f"""
-        FC layer info :-
-        {"-" * 10}
-        # units => {self.units},
-        Activation fn => {self.act_name},
-        Weights dims => {self.weights.shape}
-        Weights scheme => {self.weight_scheme},
-        Bias dims => {self.bias.shape},
-        Bias scheme => {self.bias_scheme}
-        {"-" * 10}"""
+
+class BatchNorm(Layer):
+    _key: tensor.array = None
+
+    def __init__(self, units: int) -> None:
+        if BatchNorm._key is None:
+            BatchNorm._key = random.PRNGKey(0)
+        self.units: int = units
+        self.eps: float = 1e-08
+        self.gamma_scheme: Callable = getattr(weight_initializers, "ones")
+        self.beta_scheme: Callable = getattr(weight_initializers, "zeros")
+        self.init_params()
+
+    def init_params(self) -> None:
+        BatchNorm._key, subkey = random.split(BatchNorm._key)
+        gamma: tensor.array = self.gamma_scheme(key=BatchNorm._key, shape=(1, self.units))
+        beta: tensor.array = self.beta_scheme(key=subkey, shape=(1, self.units))
+        self.params: Dict[str, tensor.array] = {"g": gamma, "b": beta}
+
+    def forward(self, params: Dict[str, tensor.array], inputs: tensor.array) -> tensor.array:
+        mean: tensor.array = tensor.mean(inputs, axis=0, keepdims=True)
+        variance: tensor.array = tensor.var(inputs, axis=0, keepdims=True)
+        z_norm: tensor.array = (inputs - mean) / tensor.sqrt(variance + self.eps)
+        return params.get("g") * z_norm + params.get("b")
+
+    def update_params(self, params: Dict[str, tensor.array]) -> None:
+        self.params = params
