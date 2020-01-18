@@ -35,7 +35,7 @@ class FC(Layer):
         self.params: Dict[str, tensor.array] = {"w": weights, "b": bias}
         FC._prev_units = self.units
 
-    def forward(self, params: Dict[str, tensor.array], inputs: tensor.array) -> tensor.array:
+    def forward(self, params: Dict[str, tensor.array], inputs: tensor.array, trainable: bool = True) -> tensor.array:
         z: tensor.array = tensor.dot(inputs, params.get("w")) + params.get("b")
         return self.activation(z)
 
@@ -56,9 +56,8 @@ class Dropout(Layer):
         Dropout._key, _ = random.split(Dropout._key)
         self.params: Dict[str, tensor.array] = {}
 
-    def forward(self, params: Dict[str, tensor.array], inputs: tensor.array) -> tensor.array:
-        d: tensor.array = random.bernoulli(key=Dropout._key, p=self.keep_prob) / self.keep_prob
-        return inputs * d
+    def forward(self, params: Dict[str, tensor.array], inputs: tensor.array, trainable: bool = True) -> tensor.array:
+        return inputs * (random.bernoulli(key=Dropout._key, p=self.keep_prob) / self.keep_prob) if trainable else inputs
 
     def update_params(self, params: Dict[str, tensor.array]) -> None:
         self.params = params
@@ -82,7 +81,7 @@ class BatchNorm(Layer):
         beta: tensor.array = self.beta_scheme(key=subkey, shape=(1, self.units))
         self.params: Dict[str, tensor.array] = {"g": gamma, "b": beta}
 
-    def forward(self, params: Dict[str, tensor.array], inputs: tensor.array) -> tensor.array:
+    def forward(self, params: Dict[str, tensor.array], inputs: tensor.array, trainable: bool = True) -> tensor.array:
         mean: tensor.array = tensor.mean(inputs, axis=0, keepdims=True)
         variance: tensor.array = tensor.var(inputs, axis=0, keepdims=True)
         z_norm: tensor.array = (inputs - mean) / tensor.sqrt(variance + self.eps)

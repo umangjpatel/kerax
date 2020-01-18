@@ -39,7 +39,7 @@ class Sequential(Model):
         self.trainer.train()
 
     def predict(self, inputs: tensor.array):
-        return self.trainer.compute_predictions(self.trainer.get_weights(), inputs)
+        return self.trainer.compute_predictions(params=self.trainer.get_weights(), inputs=inputs, trainable=False)
 
     def plot_losses(self) -> None:
         plt.plot(range(self.epochs), self.trainer.training_cost, marker="o", color="red", label="Training")

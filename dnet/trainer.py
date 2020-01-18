@@ -25,20 +25,21 @@ class Trainer:
         return [layer.params for layer in self.layers]
 
     def compute_accuracy(self, params: List[Dict[str, tensor.array]],
-                         batch: Tuple[tensor.array, tensor.array]) -> float:
+                         batch: Tuple[tensor.array, tensor.array], trainable: bool = True) -> float:
         inputs, targets = batch
-        outputs = self.compute_predictions(params, inputs)
+        outputs = self.compute_predictions(params, inputs, trainable)
         return self.evaluator(outputs, targets)
 
     def compute_cost(self, params: List[Dict[str, tensor.array]],
-                     batch: Tuple[tensor.array, tensor.array]) -> float:
+                     batch: Tuple[tensor.array, tensor.array], trainable: bool = True) -> float:
         inputs, targets = batch
-        outputs: tensor.array = self.compute_predictions(params, inputs)
+        outputs: tensor.array = self.compute_predictions(params, inputs, trainable)
         return self.loss(outputs, targets)
 
-    def compute_predictions(self, params: List[Dict[str, tensor.array]], inputs: tensor.array) -> tensor.array:
+    def compute_predictions(self, params: List[Dict[str, tensor.array]], inputs: tensor.array,
+                            trainable: bool) -> tensor.array:
         for param, layer in zip(params, self.layers):
-            inputs = layer.forward(param, inputs)
+            inputs = layer.forward(param, inputs, trainable)
         return inputs
 
     def opt_update_params(self, i: int, opt_state: Callable, batch: Tuple[tensor.array, tensor.array]) -> Callable:
@@ -61,9 +62,11 @@ class Trainer:
         self.update_layer_params(parameters)
 
     def update_validation_metrics(self, parameters):
-        self.validation_cost.append(self.compute_cost(parameters, (self.val_inputs, self.val_targets)))
-        self.validation_accuracy.append(self.compute_accuracy(parameters, (self.val_inputs, self.val_targets)))
+        self.validation_cost.append(
+            self.compute_cost(params=parameters, batch=(self.val_inputs, self.val_targets), trainable=False))
+        self.validation_accuracy.append(
+            self.compute_accuracy(parameters, (self.val_inputs, self.val_targets), trainable=False))
 
     def update_training_metrics(self, parameters):
-        self.training_cost.append(self.compute_cost(parameters, (self.inputs, self.targets)))
-        self.training_accuracy.append(self.compute_accuracy(parameters, (self.inputs, self.targets)))
+        self.training_cost.append(self.compute_cost(params=parameters, batch=(self.inputs, self.targets)))
+        self.training_accuracy.append(self.compute_accuracy(params=parameters, batch=(self.inputs, self.targets)))
