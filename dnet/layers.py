@@ -13,13 +13,12 @@ class Layer:
 
 class FC(Layer):
     _prev_units: Optional[int] = None
-    _key: tensor.array = None
+    _key: Optional[tensor.array] = None
 
     def __init__(self, units: int, activation: str = "linear", weight_scheme: str = "glorot_uniform",
                  bias_scheme="zeros",
                  input_dim: Optional[int] = None) -> None:
         self.units: int = units
-        self.act_name: str = activation
         self.activation: Callable[[tensor.array], tensor.array] = getattr(activations, activation)
         self.weight_scheme: Callable = getattr(weight_initializers, weight_scheme)
         self.bias_scheme: Callable = getattr(weight_initializers, bias_scheme)

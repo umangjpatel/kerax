@@ -2,10 +2,13 @@
   <dictionary name="umang">
     <words>
       <w>adagrad</w>
+      <w>conv</w>
       <w>crossentropy</w>
       <w>dataset</w>
       <w>datasets</w>
+      <w>fastai</w>
       <w>glorot</w>
+      <w>jaxlib</w>
       <w>matplotlib</w>
       <w>mish</w>
       <w>mnist</w>

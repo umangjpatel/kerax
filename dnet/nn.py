@@ -1,4 +1,4 @@
-from typing import List, Callable, Tuple, Optional
+from typing import List, Callable, Tuple
 
 import jax.numpy as tensor
 import matplotlib.pyplot as plt
@@ -22,12 +22,12 @@ class Sequential(Model):
     def add(self, layer: Layer) -> None:
         self.layers.append(layer)
 
-    def compile(self, loss: str, optimizer: str, lr: float = 3e-02, bs: Optional[int] = None) -> None:
+    def compile(self, loss: str, optimizer: str, lr: float = 3e-02, bs: int = 32) -> None:
         self.loss: Callable[[tensor.array], float] = getattr(losses, loss)
         self.evaluator: Callable[[tensor.array, tensor.array], float] = getattr(evaluators, loss)
         self.lr: float = lr
         self.optimizer: Callable = getattr(optimizers, optimizer)
-        self.bs: Optional[int] = bs
+        self.bs: int = bs
 
     def fit(self, inputs: tensor.array, targets: tensor.array, epochs: int,
             validation_data: Tuple[tensor.array, tensor.array]) -> None:

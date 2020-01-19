@@ -23,9 +23,9 @@ y_val = tensor.asarray(testing_data[0].values.reshape(-1, 1))  # shape : (m, 1)
 x_val = tensor.asarray(testing_data.iloc[:, 1:].values) / 255.0  # shape = (m, n)
 
 model = Sequential()
-model.add(FC(units=500, activation="mish", weight_scheme="glorot_uniform", input_dim=x_train.shape[-1]))
-model.add(FC(units=10, activation="mish", weight_scheme="glorot_uniform"))
-model.add(FC(units=1, activation="sigmoid", weight_scheme="glorot_uniform"))
+model.add(FC(units=500, activation="mish"))
+model.add(FC(units=10, activation="mish"))
+model.add(FC(units=1, activation="sigmoid"))
 model.compile(loss="binary_crossentropy", optimizer="sgd", lr=1e-02, bs=x_train.shape[0])
 model.fit(inputs=x_train, targets=y_train, epochs=20, validation_data=(x_val, y_val))
 
