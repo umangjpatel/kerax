@@ -1,39 +1,33 @@
-import jax.nn as activations
+from typing import Callable, Tuple
+
 import jax.numpy as tensor
 from jax import jit
-from jax.scipy.special import logsumexp
+from jax.experimental.stax import Sigmoid, Relu, Tanh, LogSoftmax
+from jax.nn import functions
 
 
 @jit
-def linear(z: tensor.array) -> tensor.array:
-    return z
+def sigmoid() -> Tuple[Callable, Callable]:
+    return Sigmoid
 
 
 @jit
-def sigmoid(z: tensor.array) -> tensor.array:
-    return activations.sigmoid(z)
+def tanh() -> Tuple[Callable, Callable]:
+    return Tanh
 
 
 @jit
-def tanh(z: tensor.array) -> tensor.array:
-    return tensor.tanh(z)
+def relu() -> Tuple[Callable, Callable]:
+    return Relu
 
 
 @jit
-def relu(z: tensor.array) -> tensor.array:
-    return activations.relu(z)
+def softmax() -> Tuple[Callable, Callable]:
+    return LogSoftmax
 
 
 @jit
-def softplus(z: tensor.array) -> tensor.array:
-    return activations.softplus(z)
-
-
-@jit
-def mish(z: tensor.array) -> tensor.array:
-    return z * tanh(softplus(z))
-
-
-@jit
-def softmax(z: tensor.array) -> tensor.array:
-    return z - logsumexp(z, axis=1, keepdims=True)
+def mish() -> Tuple[Callable, Callable]:
+    init_fun: Callable = lambda rng, input_shape: (input_shape, ())
+    apply_fun: Callable = lambda params, inputs, **kwargs: inputs * tensor.tanh(functions.softplus(inputs))
+    return init_fun, apply_fun

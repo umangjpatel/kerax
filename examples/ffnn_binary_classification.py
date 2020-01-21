@@ -4,7 +4,7 @@ import jax.numpy as tensor
 import pandas as pd
 
 from dnet.layers import FC
-from dnet.nn import Sequential
+from dnet.models import Sequential
 
 current_path = Path("..")
 train_path = current_path / "datasets" / "mnist_small" / "mnist_train_small.csv"
@@ -23,10 +23,10 @@ y_val = tensor.asarray(testing_data[0].values.reshape(-1, 1))  # shape : (m, 1)
 x_val = tensor.asarray(testing_data.iloc[:, 1:].values) / 255.0  # shape = (m, n)
 
 model = Sequential()
-model.add(FC(units=500, activation="mish"))
-model.add(FC(units=10, activation="mish"))
+model.add(FC(units=500, activation="relu"))
+model.add(FC(units=50, activation="relu"))
 model.add(FC(units=1, activation="sigmoid"))
-model.compile(loss="binary_crossentropy", optimizer="sgd", lr=1e-02, bs=x_train.shape[0])
+model.compile(loss="binary_crossentropy", optimizer="sgd", lr=1e-02, bs=512)
 model.fit(inputs=x_train, targets=y_train, epochs=20, validation_data=(x_val, y_val))
 
 model.plot_losses()

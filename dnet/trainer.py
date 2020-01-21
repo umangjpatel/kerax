@@ -1,72 +1,71 @@
 import itertools
-from typing import List, Dict, Callable, Generator, Iterator, Tuple
+from typing import Dict
+from typing import Generator, Callable, Iterator, Tuple, List
 
 import jax.numpy as tensor
 from jax import grad
+from jax import random
 from tqdm import tqdm
 
-from dnet.dataloaders import DataLoader
+from dnet.dataloaders import BatchLoader
 
 
 class Trainer:
 
-    def __init__(self, model: Dict):
+    def __init__(self, model: Dict) -> None:
         for k, v in model.items():
             self.__dict__[k] = v
-        self.data_loader: DataLoader = DataLoader(self.inputs, self.targets, self.bs)
-        self.batches: Generator = self.data_loader.load_batch()
+        self.init_params_fun, self.predict_fun = self.serial_model
+        self.data_loader: BatchLoader = BatchLoader(self.inputs, self.targets, batch_size=self.bs)
+        self.data_batches: Generator = self.data_loader.load_batch()
         self.opt_init, self.opt_update, self.get_params = self.optimizer(self.lr)
-        self.training_cost: List[float] = []
-        self.validation_cost: List[float] = []
+        self.init_network()
+
+    def init_network(self) -> None:
+        _, self.params = self.init_params_fun(random.PRNGKey(0), (-1, self.inputs.shape[-1]))
+        self.opt_state: Callable = self.opt_init(self.params)
+        self.count: Iterator[int] = itertools.count()
         self.training_accuracy: List[float] = []
+        self.training_cost: List[float] = []
         self.validation_accuracy: List[float] = []
+        self.validation_cost: List[float] = []
 
-    def get_weights(self) -> List[Dict[str, tensor.array]]:
-        return [layer.params for layer in self.layers]
+    def compute_predictions(self, params: List[Tuple[tensor.array, tensor.array]],
+                            inputs: tensor.array) -> tensor.array:
+        return self.predict_fun(params, inputs)
 
-    def compute_accuracy(self, params: List[Dict[str, tensor.array]],
-                         batch: Tuple[tensor.array, tensor.array], trainable: bool = True) -> float:
+    def compute_cost(self, params: List[Tuple[tensor.array, tensor.array]],
+                     batch: Tuple[tensor.array, tensor.array]) -> float:
         inputs, targets = batch
-        outputs = self.compute_predictions(params, inputs, trainable)
-        return self.evaluator(outputs, targets)
-
-    def compute_cost(self, params: List[Dict[str, tensor.array]],
-                     batch: Tuple[tensor.array, tensor.array], trainable: bool = True) -> float:
-        inputs, targets = batch
-        outputs: tensor.array = self.compute_predictions(params, inputs, trainable)
+        outputs: tensor.array = self.compute_predictions(params, inputs)
         return self.loss(outputs, targets)
 
-    def compute_predictions(self, params: List[Dict[str, tensor.array]], inputs: tensor.array,
-                            trainable: bool) -> tensor.array:
-        for param, layer in zip(params, self.layers):
-            inputs = layer.forward(param, inputs, trainable)
-        return inputs
+    def compute_accuracy(self, params: List[Tuple[tensor.array, tensor.array]],
+                         batch: Tuple[tensor.array, tensor.array]) -> float:
+        inputs, targets = batch
+        outputs: tensor.array = self.compute_predictions(params, inputs)
+        return self.evaluator(outputs, targets)
 
-    def opt_update_params(self, i: int, opt_state: Callable, batch: Tuple[tensor.array, tensor.array]) -> Callable:
-        params: List[Dict[str, tensor.array]] = self.get_params(opt_state)
+    def update(self, i: int, opt_state: Callable, batch: Tuple[tensor.array, tensor.array]) -> Callable:
+        params: List[Tuple[tensor.array, tensor.array]] = self.get_params(opt_state)
         return self.opt_update(i, grad(self.compute_cost)(params, batch), opt_state)
 
-    def update_layer_params(self, params: List[Dict[str, tensor.array]]) -> None:
-        for param, layer in zip(params, self.layers): layer.update_params(param)
-
     def train(self) -> None:
-        parameters: List[Dict[str, tensor.array]]
-        self.opt_state: Callable = self.opt_init(self.get_weights())
-        count: Iterator[int] = itertools.count()
-        for epoch in range(self.epochs):
-            for _ in tqdm(range(self.data_loader.num_batches), desc=f"Epoch {epoch + 1} : "):
-                self.opt_state = self.opt_update_params(next(count), self.opt_state, next(self.batches))
-            parameters = self.get_params(self.opt_state)
-            self.update_training_metrics(parameters)
-            self.update_validation_metrics(parameters)
-        self.update_layer_params(parameters)
+        epoch_bar: tqdm = tqdm(range(self.epochs))
+        for epoch in epoch_bar:
+            for _ in range(self.data_loader.num_batches):
+                self.opt_state = self.update(next(self.count), self.opt_state, next(self.data_batches))
+            params: List[Tuple[tensor.array, tensor.array]] = self.get_params(self.opt_state)
+            self.update_metrics(epoch, epoch_bar, params)
 
-    def update_validation_metrics(self, parameters):
-        self.validation_cost.append(
-            self.compute_cost(params=parameters, batch=(self.val_inputs, self.val_targets), trainable=False))
-        self.validation_accuracy.append(
-            self.compute_accuracy(parameters, (self.val_inputs, self.val_targets), trainable=False))
-
-    def update_training_metrics(self, parameters):
-        self.training_cost.append(self.compute_cost(params=parameters, batch=(self.inputs, self.targets)))
-        self.training_accuracy.append(self.compute_accuracy(params=parameters, batch=(self.inputs, self.targets)))
+    def update_metrics(self, epoch, epoch_bar, params) -> None:
+        train_acc: float = self.compute_accuracy(params, (self.inputs, self.targets))
+        train_cost: float = self.compute_cost(params, (self.inputs, self.targets))
+        val_acc: float = self.compute_accuracy(params, (self.val_inputs, self.val_targets))
+        val_cost: float = self.compute_cost(params, (self.val_inputs, self.val_targets))
+        epoch_bar.set_description_str(desc=f"Epoch {epoch + 1}")
+        epoch_bar.set_postfix_str(s=f"Validation accuracy => {val_acc}")
+        self.training_cost.append(train_cost)
+        self.training_accuracy.append(train_acc)
+        self.validation_cost.append(val_cost)
+        self.validation_accuracy.append(val_acc)
