@@ -22,7 +22,8 @@ class Trainer:
         self.init_network()
 
     def init_network(self) -> None:
-        _, self.params = self.init_params_fun(random.PRNGKey(0), (-1, self.inputs.shape[-1]))
+        input_shape: Tuple[int, ...] = tuple([-1] + list(self.inputs.shape)[1:])
+        _, self.params = self.init_params_fun(random.PRNGKey(0), input_shape)
         self.opt_state: Callable = self.opt_init(self.params)
         self.count: Iterator[int] = itertools.count()
         self.training_accuracy: List[float] = []

@@ -12,6 +12,7 @@
       <w>matplotlib</w>
       <w>mish</w>
       <w>mnist</w>
+      <w>nchw</w>
       <w>relu</w>
       <w>rmsprop</w>
       <w>softmax</w>

@@ -31,3 +31,10 @@ def mish() -> Tuple[Callable, Callable]:
     init_fun: Callable = lambda rng, input_shape: (input_shape, ())
     apply_fun: Callable = lambda params, inputs, **kwargs: inputs * tensor.tanh(functions.softplus(inputs))
     return init_fun, apply_fun
+
+
+@jit
+def linear() -> Tuple[Callable, Callable]:
+    init_fun: Callable = lambda rng, input_shape: (input_shape, ())
+    apply_fun: Callable = lambda params, inputs, **kwargs: inputs
+    return init_fun, apply_fun

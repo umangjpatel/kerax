@@ -22,9 +22,10 @@ x_val = tensor.asarray(testing_data.iloc[:, 1:].values) / 255.0  # shape = (m, n
 
 model = Sequential()
 model.add(FC(units=500, activation="relu"))
+model.add(FC(units=50, activation="relu"))
 model.add(FC(units=10, activation="softmax"))
 model.compile(loss="categorical_crossentropy", optimizer="sgd", lr=1e-02, bs=512)
-model.fit(inputs=x_train, targets=y_train, epochs=5, validation_data=(x_val, y_val))
+model.fit(inputs=x_train, targets=y_train, epochs=20, validation_data=(x_val, y_val))
 
 model.plot_losses()
 model.plot_accuracy()
