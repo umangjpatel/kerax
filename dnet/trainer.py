@@ -54,17 +54,17 @@ class Trainer:
     def train(self) -> None:
         epoch_bar: tqdm = tqdm(range(self.epochs))
         for epoch in epoch_bar:
-            for _ in range(self.data_loader.num_batches):
+            for batch in range(self.data_loader.num_batches):
+                epoch_bar.set_description_str(desc=f"Epoch {epoch + 1}, Batch {batch + 1}")
                 self.opt_state = self.update(next(self.count), self.opt_state, next(self.data_batches))
             params: List[Tuple[tensor.array, tensor.array]] = self.get_params(self.opt_state)
-            self.update_metrics(epoch, epoch_bar, params)
+            self.update_metrics(epoch_bar, params)
 
-    def update_metrics(self, epoch, epoch_bar, params) -> None:
+    def update_metrics(self, epoch_bar: tqdm, params: List[Tuple[tensor.array, tensor.array]]) -> None:
         train_acc: float = self.compute_accuracy(params, (self.inputs, self.targets))
         train_cost: float = self.compute_cost(params, (self.inputs, self.targets))
         val_acc: float = self.compute_accuracy(params, (self.val_inputs, self.val_targets))
         val_cost: float = self.compute_cost(params, (self.val_inputs, self.val_targets))
-        epoch_bar.set_description_str(desc=f"Epoch {epoch + 1}")
         epoch_bar.set_postfix_str(s=f"Validation accuracy => {val_acc}")
         self.training_cost.append(train_cost)
         self.training_accuracy.append(train_acc)

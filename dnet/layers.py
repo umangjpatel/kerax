@@ -35,7 +35,7 @@ class Conv2D(Layer):
 class MaxPool2D(Layer):
 
     def __init__(self, pool_size: Tuple[int, int], padding: str = "valid") -> None:
-        self.layer: List = [MaxPool(window_shape=pool_size, padding=padding.upper(), spec="NCHW")]
+        self.layer: List = [MaxPool(window_shape=pool_size, padding=padding.upper(), spec="NHWC")]
 
 
 class BatchNorm(Layer):

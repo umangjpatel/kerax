@@ -13,6 +13,7 @@
       <w>mish</w>
       <w>mnist</w>
       <w>nchw</w>
+      <w>nhwc</w>
       <w>relu</w>
       <w>rmsprop</w>
       <w>softmax</w>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DNet.iml" filepath="$PROJECT_DIR$/.idea/DNet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dnet.iml" filepath="$PROJECT_DIR$/.idea/dnet.iml" />
     </modules>
   </component>
 </project>
