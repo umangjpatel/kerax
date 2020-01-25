@@ -8,6 +8,7 @@ def binary_crossentropy(outputs: tensor.array, targets: tensor.array) -> float:
     return tensor.mean(output_labels == targets)
 
 
+@jit
 def categorical_crossentropy(outputs: tensor.array, targets: tensor.array) -> float:
     target_class = tensor.argmax(targets, axis=1)
     predicted_class = tensor.argmax(outputs, axis=1)
