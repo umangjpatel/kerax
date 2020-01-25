@@ -1,6 +1,6 @@
 ![dnet library logo](assets/logo.png "DNet library")
 # DNet
-Neural Network Library written in Python and built on top of JAX, an open-source high-performance deep learning library.
+Neural Network Library written in Python and built on top of JAX, an open-source high-performance automatic differentiation library.
 
 ## Packages used
 * [JAX](https://github.com/google/jax) for automatic differentiation.
