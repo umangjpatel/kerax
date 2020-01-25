@@ -24,7 +24,7 @@ model = Sequential()
 model.add(FC(units=500, activation="relu"))
 model.add(FC(units=50, activation="relu"))
 model.add(FC(units=10, activation="softmax"))
-model.compile(loss="categorical_crossentropy", optimizer="sgd", lr=1e-02, bs=512)
+model.compile(loss="categorical_crossentropy", optimizer="momentum", lr=1e-03, bs=128)
 model.fit(inputs=x_train, targets=y_train, epochs=20, validation_data=(x_val, y_val))
 
 model.plot_losses()
