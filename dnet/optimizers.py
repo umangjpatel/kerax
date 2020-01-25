@@ -5,7 +5,7 @@ from jax import jit
 from jax.experimental import optimizers
 
 
-@functools.partial(jit, static_argnums=(0))
+@functools.partial(jit, static_argnums=0)
 def sgd(lr: float) -> Tuple[Callable, ...]:
     return optimizers.sgd(step_size=lr)
 

@@ -70,7 +70,6 @@ class Trainer:
             params: List[Tuple[tensor.array, tensor.array]] = self.get_params(self.opt_state)
             self.update_metrics(epoch_bar, params)
 
-    @functools.partial(jit, static_argnums=0)
     def update_metrics(self, epoch_bar: tqdm, params: List[Tuple[tensor.array, tensor.array]]) -> None:
         train_acc: float = self.compute_accuracy(params, (self.inputs, self.targets))
         train_cost: float = self.compute_cost(params, (self.inputs, self.targets))
