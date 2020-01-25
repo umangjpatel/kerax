@@ -8,40 +8,20 @@ Neural Network Library written in Python and built on top of JAX, an open-source
 * [Matplotlib](https://github.com/matplotlib/matplotlib) for plotting.
 * [Pandas](https://github.com/pandas-dev/pandas) for data analysis / manipulation.
 * [tqdm](https://github.com/tqdm/tqdm) for displaying progress bar.
+* [NumPy](https://github.com/numpy/numpy) for randomization.
 
 ## Features
 * Enables high-performance machine learning research.
+* Supports FFNN and CNN models.
+* Built-in support of popular optimization algorithms and activation functions.
 * Easy to use with high-level Keras-like APIs.
-* Runs seamlessly on GPU and even TPU!.
+* Runs seamlessly on CPU, GPU and even TPU! without any configuration required.
 
-## Getting started
+## Examples
 
-Here's the Sequential model :
-```python3
-model = Sequential()
-```
-Add the fully-connected layers / densely-connected layers :
-```python3
-model.add(FC(units=500, activation="mish"))
-model.add(FC(units=10, activation="relu"))
-model.add(FC(units=1, activation="sigmoid"))
-```
-Compile the model with the hyperparameters :
-```python3
-model.compile(loss="binary_crossentropy", optimizer="sgd", lr=1e-02)
-```
-Train the model (with validation data) :
-```python3
-model.fit(x_train, y_train, epochs=50, validation_data=(x_val, y_val)
-```
-Plot the loss curves :
-```python3
-model.plot_losses()
-```
+### MNIST Fully-connected neural network (FFNN)
 
-## Toy Example
-
-### Code
+#### Code
 ```python3
 from pathlib import Path
 
@@ -49,46 +29,98 @@ import jax.numpy as tensor
 import pandas as pd
 
 from dnet.layers import FC
-from dnet.nn import Sequential
+from dnet.models import Sequential
 
-dataset_path = Path("datasets")
-train_path = dataset_path / "mnist_small" / "mnist_train_small.csv"
-test_path = dataset_path / "mnist_small" / "mnist_test.csv"
+current_path = Path("..")
+train_path = current_path / "datasets" / "mnist_small" / "mnist_train_small.csv"
+test_path = current_path / "datasets" / "mnist_small" / "mnist_test.csv"
 
 training_data = pd.read_csv(train_path, header=None)
-training_data = training_data.loc[training_data[0].isin([0, 1])]
 
-y_train = tensor.array(training_data[0].values.reshape(-1, 1))  # shape : (m, 1)
-x_train = tensor.array(training_data.iloc[:, 1:].values) / 255.0  # shape = (m, n)
+y_train = tensor.asarray(pd.get_dummies(training_data[0]))  # One-hot encoding output shape : (m, ny)
+x_train = tensor.asarray(training_data.iloc[:, 1:].values) / 255.0  # shape = (m, nx)
 
 testing_data = pd.read_csv(test_path, header=None)
-testing_data = testing_data.loc[testing_data[0].isin([0, 1])]
 
-y_val = tensor.array(testing_data[0].values.reshape(-1, 1))  # shape : (m, 1)
-x_val = tensor.array(testing_data.iloc[:, 1:].values) / 255.0  # shape = (m, n)
+y_val = tensor.asarray(pd.get_dummies(testing_data[0]))  # One-hot encoding output shape : (m, ny)
+x_val = tensor.asarray(testing_data.iloc[:, 1:].values) / 255.0  # shape = (m, nx)
 
 model = Sequential()
-model.add(FC(units=500, activation="mish", input_dim=784))
-model.add(FC(units=10, activation="relu"))
-model.add(FC(units=1, activation="sigmoid"))
-model.compile(loss="binary_crossentropy", optimizer="sgd", lr=1e-02)
-model.fit(inputs=x_train, targets=y_train, epochs=50, validation_data=(x_val, y_val))
+model.add(FC(units=500, activation="relu"))
+model.add(FC(units=50, activation="relu"))
+model.add(FC(units=10, activation="softmax"))
+model.compile(loss="categorical_crossentropy", optimizer="momentum", lr=1e-03, bs=512)
+model.fit(inputs=x_train, targets=y_train, epochs=20, validation_data=(x_val, y_val))
 
 model.plot_losses()
+model.plot_accuracy()
 ```
 
-### Outputs
-```
-/usr/local/bin/python3.7 DNet/test.py
-/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jax/lib/xla_bridge.py:120: UserWarning: No GPU/TPU found, falling back to CPU.
+#### Output
+```terminal
+/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jax/lib/xla_bridge.py:119: UserWarning: No GPU/TPU found, falling back to CPU.
   warnings.warn('No GPU/TPU found, falling back to CPU.')
-Training your model: 100%|██████████| 50/50 [00:02<00:00, 17.21it/s]
-```
-![Toy example loss curves](assets/toy_example_loss_curves.png "Loss Curves")
-```
+Epoch 20, Batch 40: 100%|██████████| 20/20 [00:15<00:00,  1.30it/s, Validation accuracy => 0.8935999870300293]
+
 Process finished with exit code 0
 ```
 
+![MNIST FFNN Example Loss Curves](assets/mnist_ffnn_example_loss_curve.png "Loss Curves")
+![MNIST FFNN Example Accuracy Curves](assets/mnist_ffnn_example_acc_curve.png "Accuracy Curves")
+
+### MNIST Convolutional neural network (CNN)
+
+#### Code
+```python3
+from pathlib import Path
+
+import jax.numpy as tensor
+import pandas as pd
+
+from dnet.layers import Conv2D, MaxPool2D, Flatten, FC
+from dnet.models import Sequential
+
+current_path = Path("..")
+train_path = current_path / "datasets" / "mnist_small" / "mnist_train_small.csv"
+test_path = current_path / "datasets" / "mnist_small" / "mnist_test.csv"
+
+training_data = pd.read_csv(train_path, header=None)
+
+y_train = tensor.asarray(pd.get_dummies(training_data[0]))  # One-hot encoding output shape : (m, nc)
+x_train = tensor.asarray(training_data.iloc[:, 1:].values.reshape(-1, 28, 28, 1)) / 255.0  # shape = (m, h, w, c)
+
+testing_data = pd.read_csv(test_path, header=None)
+
+y_val = tensor.asarray(pd.get_dummies(testing_data[0]))  # One-hot encoding output shape : (m, nc)
+x_val = tensor.asarray(testing_data.iloc[:, 1:].values.reshape(-1, 28, 28, 1)) / 255.0  # shape = (m, h, w, c)
+
+model = Sequential()
+model.add(Conv2D(filters=6, kernel_size=(5, 5), activation="relu"))
+model.add(MaxPool2D(pool_size=(2, 2)))
+model.add(Conv2D(filters=16, kernel_size=(5, 5), activation="relu"))
+model.add(MaxPool2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(FC(units=120, activation="relu"))
+model.add(FC(units=84, activation="relu"))
+model.add(FC(units=10, activation="softmax"))
+model.compile(loss="categorical_crossentropy", optimizer="adam", lr=1e-03, bs=512)
+model.fit(inputs=x_train, targets=y_train, epochs=10, validation_data=(x_val, y_val))
+
+model.plot_losses()
+model.plot_accuracy()
+```
+
+#### Output
+```
+/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jax/lib/xla_bridge.py:119: UserWarning: No GPU/TPU found, falling back to CPU.
+  warnings.warn('No GPU/TPU found, falling back to CPU.')
+Epoch 10, Batch 40: 100%|██████████| 10/10 [01:41<00:00, 10.17s/it, Validation accuracy => 0.9824000000953674]
+
+Process finished with exit code 0
+```
+
+![MNIST CNN Example Loss Curves](assets/mnist_cnn_example_loss_curve.png "Loss Curves")
+![MNIST CNN Example Accuracy Curves](assets/mnist_cnn_example_acc_curve.png "Accuracy Curves")
 
 ## Roadmap
 Check the [roadmap](https://github.com/umangjpatel/dnet/projects/2) of this project. This will show you the progress in the development of this library.
