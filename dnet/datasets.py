@@ -1,31 +1,30 @@
+import os
 from pathlib import Path
-from typing import Collection
+from typing import Dict, Tuple
 
 import jax.numpy as tensor
+import numpy as np
 import pandas as pd
-from fastai.datasets import untar_data, URLs
-from fastai.vision.data import ImageList, ImageDataBunch, imagenet_stats
-from fastai.vision.image import Transform
-from fastai.vision.transform import get_transforms
+import tensorflow_datasets as tfds
+
+tfds.disable_progress_bar()
 
 
-def mnist_tiny(flatten: bool = False, one_hot_encoding: bool = False):
-    path: Path = untar_data(URLs.MNIST_TINY)
-    transforms: Collection[Transform] = get_transforms(do_flip=False)
-    data: ImageDataBunch = (ImageList.from_folder(path=path)
-                            .split_by_folder()
-                            .label_from_folder()
-                            .transform(transforms, size=28)
-                            .databunch()
-                            .normalize(imagenet_stats))
-    train_items: tensor.array = tensor.array([item.data.transpose(0, -1).numpy() for item in data.train_ds.x])
-    train_targets: tensor.array = tensor.array([item.data for item in data.train_ds.y]).reshape(-1, 1)
-    val_items: tensor.array = tensor.array([item.data.transpose(0, -1).numpy() for item in data.valid_ds.x])
-    val_targets: tensor.array = tensor.array([item.data for item in data.valid_ds.y]).reshape(-1, 1)
+def mnist(flatten: bool = False, one_hot_encoding: bool = False,
+          data_dir: str = os.path.join("..", "datasets", "mnist")):
+    path: Path = Path(data_dir)
+    downloaded_data, info = tfds.load(name="mnist", batch_size=-1, data_dir=path, with_info=True)
+    mnist_data: Dict[str, Dict[str, np.array]] = tfds.as_numpy(downloaded_data)
+    train_data, valid_data = mnist_data.get("train"), mnist_data.get("test")
+    input_shape: Tuple[int, ...] = info.features["image"].shape
+    train_images, train_labels = tensor.asarray(train_data.get("image"), dtype=tensor.float32), tensor.asarray(
+        train_data.get("label"), dtype=tensor.float32).reshape(-1, 1)
+    valid_images, valid_labels = tensor.asarray(valid_data.get("image"), dtype=tensor.float32), tensor.asarray(
+        valid_data.get("label"), dtype=tensor.float32).reshape(-1, 1)
     if flatten:
-        train_items = train_items.reshape((-1, tensor.prod(list(train_items.shape[1:]))))
-        val_items = val_items.reshape((-1, tensor.prod(list(val_items.shape[1:]))))
+        train_images = train_images.reshape(-1, tensor.prod(list(input_shape)))
+        valid_images = valid_images.reshape(-1, tensor.prod(list(input_shape)))
     if one_hot_encoding:
-        train_targets = tensor.asarray(pd.get_dummies(train_targets))
-        val_targets = tensor.asarray(pd.get_dummies(val_targets))
-    return (train_items, train_targets), (val_items, val_targets)
+        train_labels = tensor.asarray(pd.get_dummies(train_labels), dtype=tensor.float32)
+        valid_labels = tensor.asarray(pd.get_dummies(valid_labels), dtype=tensor.float32)
+    return (train_images, train_labels), (valid_images, valid_labels)

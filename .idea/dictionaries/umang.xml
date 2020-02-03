@@ -20,6 +20,7 @@
       <w>softplus</w>
       <w>subkey</w>
       <w>tanh</w>
+      <w>tfds</w>
       <w>tqdm</w>
     </words>
   </dictionary>
