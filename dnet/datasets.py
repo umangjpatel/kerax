@@ -30,7 +30,7 @@ def mnist(flatten: bool = False, one_hot_encoding: bool = False,
     return (train_images, train_labels), (valid_images, valid_labels)
 
 
-def tiny_mnist(flatten: bool = False, one_hot_encoding: bool = False,
+def tiny_mnist(flatten: bool = True, one_hot_encoding: bool = False,
                data_dir: str = os.path.join("..", "datasets", "tiny_mnist")):
     path: Path = Path(data_dir)
     train_data: tensor.array = tensor.asarray(pd.read_csv(path / "train.csv", header=None).values, dtype=tensor.float32)
