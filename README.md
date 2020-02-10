@@ -27,7 +27,7 @@ from dnet import datasets
 from dnet.layers import FC
 from dnet.models import Sequential
 
-(x_train, y_train), (x_val, y_val) = datasets.mnist_tiny(flatten=True)
+(x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(flatten=True, one_hot_encoding=True)
 
 model = Sequential()
 model.add(FC(units=500, activation="relu"))
@@ -60,7 +60,7 @@ from dnet import datasets
 from dnet.layers import Conv2D, MaxPool2D, Flatten, FC
 from dnet.models import Sequential
 
-(x_train, y_train), (x_val, y_val) = datasets.mnist_tiny()
+(x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(flatten=False, one_hot_encoding=True)
 
 model = Sequential()
 model.add(Conv2D(filters=6, kernel_size=(5, 5), activation="relu"))
