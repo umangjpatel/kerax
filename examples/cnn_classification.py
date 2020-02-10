@@ -2,7 +2,7 @@ from dnet import datasets
 from dnet.layers import Conv2D, MaxPool2D, Flatten, FC
 from dnet.models import Sequential
 
-(x_train, y_train), (x_val, y_val) = datasets.mnist(one_hot_encoding=True)
+(x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(one_hot_encoding=True)
 
 model = Sequential()
 model.add(Conv2D(filters=6, kernel_size=(5, 5), activation="relu"))
