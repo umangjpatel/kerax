@@ -1,4 +1,4 @@
-from typing import List, Callable, Tuple
+from typing import List, Callable, Tuple, Optional
 
 import jax.numpy as tensor
 import matplotlib.pyplot as plt
@@ -17,11 +17,18 @@ class Model:
 
 class Sequential(Model):
 
-    def __init__(self):
+    def __init__(self, network_layers: List[Optional[Layer]] = None):
         self.layers: List = []
+        if network_layers is not None:
+            for network_layer in network_layers:
+                self.add(network_layer)
 
     def add(self, network_layer: Layer) -> None:
         self.layers.extend(network_layer.layer)
+
+    def add_layers(self, network_layers: List[Layer]) -> None:
+        for network_layer in network_layers:
+            self.layers.extend(network_layer.layer)
 
     def compile(self, loss: str, optimizer: str, lr: float = 1e-02, bs: int = 32) -> None:
         self.lr: float = lr
