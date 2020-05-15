@@ -14,14 +14,6 @@ model = Sequential([
     FC(units=84, activation="relu"),
     FC(units=10, activation="softmax")
 ])
-# model.add(Conv2D(filters=6, kernel_size=(5, 5), activation="relu"))
-# model.add(MaxPool2D(pool_size=(2, 2)))
-# model.add(Conv2D(filters=16, kernel_size=(5, 5), activation="relu"))
-# model.add(MaxPool2D(pool_size=(2, 2)))
-# model.add(Flatten())
-# model.add(FC(units=120, activation="relu"))
-# model.add(FC(units=84, activation="relu"))
-# model.add(FC(units=10, activation="softmax"))
 model.compile(loss="categorical_crossentropy", optimizer="adam", lr=1e-03, bs=512)
 model.fit(inputs=x_train, targets=y_train, epochs=10, validation_data=(x_val, y_val))
 

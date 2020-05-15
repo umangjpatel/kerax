@@ -59,6 +59,7 @@ class Sequential(Model):
     def plot_accuracy(self) -> None:
         plt.plot(range(self.epochs), self.trainer.training_accuracy, color="red", marker="o", label="Training accuracy")
         plt.plot(range(self.epochs), self.trainer.validation_accuracy, color="green", label="Validation accuracy")
+        plt.ylim([0.0, 1.05])
         plt.title("Accuracy Curve")
         plt.xlabel("Epochs")
         plt.ylabel("Accuracy")
