@@ -1,7 +1,0 @@
-numpy==1.18.4
-jax==0.1.67
-jaxlib==0.1.47
-matplotlib==3.2.1
-tqdm==4.46.0
-pandas==1.0.3
-tensorflow-datasets==3.1.0
