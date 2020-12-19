@@ -26,12 +26,15 @@ class Trainer:
         self.output_shape, self._net_params = self._set_params(rng=rng, input_shape=input_shape)
 
     def begin_training(self, epochs: int, inputs: Tensor, targets: Tensor):
+        self.losses: List[float] = []
         opt_state = self._opt_init(self._net_params)
         progress_bar = tqdm(iterable=range(epochs), desc="Training model", leave=True)
         for i in progress_bar:
             opt_state = self._train(i, opt_state, inputs, targets)
             params = self._get_params(opt_state)
-            progress_bar.set_postfix_str(f"Loss : {self._loss(params, self._forward_pass, inputs, targets)}")
+            loss: Tensor = self._loss(params, self._forward_pass, inputs, targets)
+            self.losses.append(loss.item())
+            progress_bar.set_postfix_str(f"Loss : {loss}")
             progress_bar.refresh()
         self.trained_params = self._get_params(opt_state)
 
