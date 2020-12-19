@@ -75,3 +75,4 @@
 /.idea/
 /.idea/dictionaries/
 /datasets/mnist/
+.DS_Store
