@@ -4,13 +4,7 @@ from typing import Callable, List
 
 from dnet.optimizers import Optimizer
 from dnet.tensor import Tensor
-
-"""
-1) Parameters handling
-2) Network forward pass
-3) Optimizer step
-4)
-"""
+from tqdm import tqdm
 
 
 class Trainer:
@@ -33,8 +27,12 @@ class Trainer:
 
     def begin_training(self, epochs: int, inputs: Tensor, targets: Tensor):
         opt_state = self._opt_init(self._net_params)
-        for i in range(epochs):
+        progress_bar = tqdm(iterable=range(epochs), desc="Training model", leave=True)
+        for i in progress_bar:
             opt_state = self._train(i, opt_state, inputs, targets)
+            params = self._get_params(opt_state)
+            progress_bar.set_postfix_str(f"Loss : {self._loss(params, self._forward_pass, inputs, targets)}")
+            progress_bar.refresh()
         self.trained_params = self._get_params(opt_state)
 
     @partial(jit, static_argnums=(0,))
