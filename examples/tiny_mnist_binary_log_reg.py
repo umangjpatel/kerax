@@ -8,9 +8,7 @@ train_images, train_labels = binary_tiny_mnist.load_data()
 
 model = Sequential([Dense(1), Sigmoid])
 model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01))
-model.fit(inputs=train_images,
-          targets=train_labels,
-          epochs=10)
+model.fit(inputs=train_images, targets=train_labels, epochs=10)
 
 interp = model.get_interpretation()
 interp.plot_losses()
