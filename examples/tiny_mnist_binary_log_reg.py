@@ -12,3 +12,5 @@ model.fit(inputs=train_images, targets=train_labels, epochs=100)
 
 interp = model.get_interpretation()
 interp.plot_losses()
+
+# TODO : Serialization functionality

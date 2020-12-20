@@ -1,4 +1,4 @@
-from jax import jit, grad, value_and_grad
+from jax import jit, grad
 from functools import partial
 from typing import Callable, List
 
