@@ -5,10 +5,25 @@ from dnet.trainer import Trainer
 from dnet.interpreter import Interpreter
 
 
-class Sequential:
+class Module:
 
     def __init__(self, layers: List[Callable]):
         self.layers = layers
+
+    def __add__(self, other):
+        if isinstance(other, Module):
+            layers = self.layers + other.layers
+            return Module(layers=layers)
+        else:
+            raise Exception("Operation not allowed")
+
+    def add(self, other):
+        if isinstance(other, Module):
+            self.layers += other.layers
+        elif isinstance(other, list):
+            self.layers += other
+        else:
+            raise Exception("Operation not allowed")
 
     def compile(self, loss: Callable, optimizer: Optimizer):
         self._trainer: Trainer = Trainer()

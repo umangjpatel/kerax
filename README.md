@@ -22,10 +22,11 @@ Neural Network Library written in Python and built on top of JAX, an open-source
 ### Tiny MNIST Fully-connected neural network (FFNN)
 
 #### Code
+
 ```python3
 from dnet import datasets
 from dnet.layers import FC
-from dnet.models import Sequential
+from dnet.models import Module
 
 (x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(flatten=True, one_hot_encoding=True)
 
@@ -55,10 +56,11 @@ Process finished with exit code 0
 ### Tiny MNIST Convolutional neural network (CNN)
 
 #### Code
+
 ```python3
 from dnet import datasets
 from dnet.layers import Conv2D, MaxPool2D, Flatten, FC
-from dnet.models import Sequential
+from dnet.models import Module
 
 (x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(flatten=False, one_hot_encoding=True)
 
