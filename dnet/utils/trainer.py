@@ -1,9 +1,11 @@
 from jax import jit, grad
+from jax.tree_util import tree_flatten
+from jax.experimental.stax import serial
 from functools import partial
 from typing import Callable, List
 
-from dnet.optimizers import Optimizer
-from dnet.tensor import Tensor
+from dnet.optimizers import Optimizer, OptimizerState
+from dnet.utils import Tensor
 from tqdm import tqdm
 
 
@@ -14,7 +16,6 @@ class Trainer:
         self._opt_init, self._opt_update, self._get_params = optimizer
 
     def init_network(self, layers: List):
-        from jax.experimental.stax import serial
         self._set_params, self._forward_pass = serial(*layers)
 
     def init_params(self, input_shape: List[int], seed: int = 0):
@@ -27,7 +28,7 @@ class Trainer:
 
     def begin_training(self, epochs: int, inputs: Tensor, targets: Tensor):
         self.losses: List[float] = []
-        opt_state = self._opt_init(self._net_params)
+        opt_state: OptimizerState = self._opt_init(self._net_params)
         progress_bar = tqdm(iterable=range(epochs), desc="Training model", leave=True)
         for i in progress_bar:
             opt_state = self._train(i, opt_state, inputs, targets)
@@ -36,7 +37,7 @@ class Trainer:
             self.losses.append(loss.item())
             progress_bar.set_postfix_str(f"Loss : {loss}")
             progress_bar.refresh()
-        self.trained_params = self._get_params(opt_state)
+        self.trained_params, _ = tree_flatten(self._get_params(opt_state))
 
     @partial(jit, static_argnums=(0,))
     def _train(self, i, opt_state, inputs, targets):

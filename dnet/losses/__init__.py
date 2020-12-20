@@ -1,6 +1,5 @@
 import jax.numpy as jnp
-from dnet.tensor import Tensor
-from jax import jit
+from dnet.utils import Tensor
 from typing import List, Callable
 from jax.interpreters.ad import JVPTracer
 

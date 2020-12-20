@@ -1,8 +1,9 @@
-from dnet.tensor import Tensor
-from typing import Tuple, List, Callable
+from dnet.utils import Tensor
+from typing import List, Callable
 from dnet.optimizers import Optimizer
-from dnet.trainer import Trainer
+from dnet.utils.trainer import Trainer
 from dnet.interpreter import Interpreter
+from dnet.utils.serialization import msgpack_serialize, msgpack_restore
 
 
 class Module:
@@ -37,3 +38,13 @@ class Module:
 
     def get_interpretation(self) -> Interpreter:
         return Interpreter(epochs=self.epochs, losses=self._trainer.losses)
+
+    def save(self, file_name: str):
+        print(self._trainer.trained_params)
+        serialized_params = msgpack_serialize(self._trainer.trained_params)
+        params = msgpack_restore(serialized_params)
+        print(params)
+
+    def load(self, file_name: str):
+        pass
+
