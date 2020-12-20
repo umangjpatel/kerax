@@ -40,14 +40,19 @@ class Module:
         return Interpreter(epochs=self.epochs, losses=self._trainer.losses)
 
     def save(self, file_name: str):
+        self.data: dict = {
+            "params": self._trainer.trained_params,
+        }
         with open(file_name + "_params.msgpack", "wb") as saved_file:
-            serialized_params = to_bytes(self._trainer.trained_params)
-            saved_file.write(serialized_params)
-        # self.load(file_name)
-        print("Params serialized into msgpack format")
+            serialized_data = to_bytes(self.data)
+            saved_file.write(serialized_data)
+        self.load(file_name)
+        print("Data serialized into msgpack format")
 
     def load(self, file_name: str):
         with open(file_name + "_params.msgpack", "rb") as loaded_file:
-            params = loaded_file.read()
-            deserialized_params = from_bytes(target=self._trainer.trained_params, encoded_bytes=params)
-            # deserialized params consist of python array instead of DeviceArray
+            data = loaded_file.read()
+            # TODO : Decouple self.data reference so that model can directly be loaded and inferenced...
+            deserialized_data = from_bytes(target=self.data, encoded_bytes=data)
+        print("Data deserialized from msgpack format")
+        # deserialized_data["params"] consist of python array instead of DeviceArray
