@@ -12,3 +12,6 @@ model.fit(inputs=train_images, targets=train_labels, epochs=10)
 
 interp = model.get_interpretation()
 interp.plot_losses()
+
+# TODO : 1) Study Course 1 and Course 2 notes
+# TODO : 2) Plan out library functionality
