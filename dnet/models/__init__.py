@@ -3,7 +3,7 @@ from typing import List, Callable
 from dnet.optimizers import Optimizer
 from dnet.utils.trainer import Trainer
 from dnet.interpreter import Interpreter
-from dnet.utils.serialization import msgpack_serialize, msgpack_restore
+from dnet.utils.serialization import to_bytes, from_bytes
 
 
 class Module:
@@ -40,11 +40,14 @@ class Module:
         return Interpreter(epochs=self.epochs, losses=self._trainer.losses)
 
     def save(self, file_name: str):
-        print(self._trainer.trained_params)
-        serialized_params = msgpack_serialize(self._trainer.trained_params)
-        params = msgpack_restore(serialized_params)
-        print(params)
+        with open(file_name + "_params.msgpack", "wb") as saved_file:
+            serialized_params = to_bytes(self._trainer.trained_params)
+            saved_file.write(serialized_params)
+        # self.load(file_name)
+        print("Params serialized into msgpack format")
 
     def load(self, file_name: str):
-        pass
-
+        with open(file_name + "_params.msgpack", "rb") as loaded_file:
+            params = loaded_file.read()
+            deserialized_params = from_bytes(target=self._trainer.trained_params, encoded_bytes=params)
+            # deserialized params consist of python array instead of DeviceArray

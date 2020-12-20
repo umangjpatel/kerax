@@ -1,5 +1,4 @@
 from jax import jit, grad
-from jax.tree_util import tree_flatten
 from jax.experimental.stax import serial
 from functools import partial
 from typing import Callable, List
@@ -37,7 +36,7 @@ class Trainer:
             self.losses.append(loss.item())
             progress_bar.set_postfix_str(f"Loss : {loss}")
             progress_bar.refresh()
-        self.trained_params, _ = tree_flatten(self._get_params(opt_state))
+        self.trained_params = self._get_params(opt_state)
 
     @partial(jit, static_argnums=(0,))
     def _train(self, i, opt_state, inputs, targets):

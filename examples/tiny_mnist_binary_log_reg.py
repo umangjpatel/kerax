@@ -12,7 +12,5 @@ model.fit(inputs=train_images, targets=train_labels, epochs=10)
 
 model.save(file_name="log_reg")
 
-interp = model.get_interpretation()
-interp.plot_losses()
-
-# TODO : Serialization functionality
+# interp = model.get_interpretation()
+# interp.plot_losses()
