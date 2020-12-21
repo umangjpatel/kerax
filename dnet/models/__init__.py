@@ -53,14 +53,5 @@ class Module:
         self.layers = deserialized_config.get("layers")
         self.compile(loss=deserialized_config.get("loss"),
                      optimizer=deserialized_config.get("optimizer"))
-        self._trainer.trained_params = serialization\
+        self._trainer.trained_params = serialization \
             .convert_to_tensor(deserialized_config.get("params"))
-
-
-"""
- For retraining the model, we need
- 1) Layers (List for callables) -> Done
- 2) Loss function (can be simply dilled) -> Done
- 3) Optimizer to be dilled (opt_init, opr_update, get_params can be extracted easily) -> Done
- 4) Trained params (can be serialized using Flax to msgpack conversion APIs) -> Done
-"""
