@@ -1,4 +1,4 @@
-from dnet.utils import Tensor
+from dnet.utils.tensor import Tensor
 
 
 def load_data():

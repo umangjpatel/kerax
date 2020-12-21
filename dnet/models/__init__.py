@@ -1,4 +1,4 @@
-from dnet.utils import Tensor
+from dnet.utils.tensor import Tensor
 from typing import List, Callable
 from dnet.optimizers import Optimizer
 from dnet.utils.trainer import Trainer

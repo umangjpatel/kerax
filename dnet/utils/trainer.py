@@ -4,7 +4,7 @@ from functools import partial
 from typing import Callable, List
 
 from dnet.optimizers import Optimizer, OptimizerState
-from dnet.utils import Tensor
+from dnet.utils.tensor import Tensor
 from tqdm import tqdm
 
 

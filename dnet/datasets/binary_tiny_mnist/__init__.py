@@ -1,7 +1,11 @@
-from dnet.utils import Tensor
+from dnet.utils.tensor import Tensor
+from typing import Tuple
 
 
-def load_data():
+def load_data() -> Tuple[Tensor, Tensor]:
+    """Loads the binary tiny MNIST dataset (available on Google Colaboratory).
+    :return: tuple consisting of training images and training labels
+    """
     import pandas as pd
     import jax.numpy as jnp
     from jax import device_put
