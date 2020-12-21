@@ -245,7 +245,7 @@ def to_bytes(target):
     """Save optimizer or other object as msgpack-serialized state-dict.
     Args:
       target: template object with state-dict registrations to be
-        serialized to msgpack format.  Typically a flax model   or optimizer.
+        serialized to msgpack format.  Typically a flax model or optimizer.
     Returns:
       Bytes of msgpack-encoded state-dict of `target` object.
     """

@@ -1,11 +1,11 @@
 from jax import jit, grad
 from jax.experimental.stax import serial
-from functools import partial
-from typing import Callable, List
-
+from jax.interpreters.ad import JVPTracer
 from dnet.optimizers import Optimizer, OptimizerState
 from dnet.utils.tensor import Tensor
+from functools import partial
 from tqdm import tqdm
+from typing import Callable, List
 
 
 class Trainer:
@@ -32,7 +32,7 @@ class Trainer:
         for i in progress_bar:
             opt_state = self._train(i, opt_state, inputs, targets)
             params = self._get_params(opt_state)
-            loss: Tensor = self._loss(params, self._forward_pass, inputs, targets)
+            loss: Tensor = self.compute(params, self._forward_pass, inputs, targets)
             self.losses.append(loss.item())
             progress_bar.set_postfix_str(f"Loss : {loss}")
             progress_bar.refresh()
@@ -41,5 +41,9 @@ class Trainer:
     @partial(jit, static_argnums=(0,))
     def _train(self, i, opt_state, inputs, targets):
         params = self._get_params(opt_state)
-        grads = grad(self._loss)(params, self._forward_pass, inputs, targets)
+        grads = grad(self.compute)(params, self._forward_pass, inputs, targets)
         return self._opt_update(i, grads, opt_state)
+
+    def compute(self, params: List, net_apply: Callable, inputs: Tensor, targets: Tensor):
+        predictions: Tensor = net_apply(params, inputs)
+        return self._loss(predictions=predictions, targets=targets)
