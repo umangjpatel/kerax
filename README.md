@@ -1,5 +1,6 @@
 ![dnet library logo](assets/logo.png "DNet library")
-# DNet
+# DNet (Undergoing v2 rewrite)
+Check v2-rewrite branch
 Neural Network Library written in Python and built on top of JAX, an open-source high-performance automatic differentiation library.
 
 ## Packages used
