@@ -1,5 +1,7 @@
 import collections
 import enum
+
+import dill
 import jax
 import msgpack
 import numpy as np
@@ -250,3 +252,35 @@ def to_bytes(target):
       Bytes of msgpack-encoded state-dict of `target` object.
     """
     return msgpack_serialize(to_state_dict(target))
+
+
+def save_model(fname, **config):
+    layers_dill: bytes = dill.dumps(config.get("layers"))
+    layers_msgpack: bytes = msgpack.packb(layers_dill, use_bin_type=True)
+    print(layers_msgpack)
+
+    opt_dill: bytes = dill.dumps(config.get("optimizer"))
+    opt_msgpack: bytes = msgpack.packb(opt_dill, use_bin_type=True)
+    print(opt_msgpack)
+
+    loss_dill: bytes = dill.dumps(config.get("loss"))
+    loss_msgpack: bytes = msgpack.packb(loss_dill, use_bin_type=True)
+    print(loss_msgpack)
+
+    # TODO : Serializing network parameters (can use jax pytree methods) see below for reference
+
+# def save(self, file_name: str):
+#     self.data: dict = {
+#         "params": self._trainer.trained_params,
+#     }
+#     with open(file_name + "_params.msgpack", "wb") as saved_file:
+#         serialized_data = to_bytes(self.data)
+#         saved_file.write(serialized_data)
+#     print("Data serialized into msgpack format")
+
+# def load(self, file_name: str):
+#     with open(file_name + "_params.msgpack", "rb") as loaded_file:
+#         data = loaded_file.read()
+#         deserialized_data = from_bytes(target=self.data, encoded_bytes=data)
+#         print(deserialized_data)
+#     print("Data deserialized from msgpack format")

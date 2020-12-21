@@ -1,17 +1,19 @@
+from functools import partial
+from typing import Callable, List
+
 from jax import jit, grad
 from jax.experimental.stax import serial
-from jax.interpreters.ad import JVPTracer
+from tqdm import tqdm
+
 from dnet.optimizers import Optimizer, OptimizerState
 from dnet.utils.tensor import Tensor
-from functools import partial
-from tqdm import tqdm
-from typing import Callable, List
 
 
 class Trainer:
 
     def compile(self, loss: Callable, optimizer: Optimizer):
         self._loss: Callable = loss
+        self._optimizer = optimizer
         self._opt_init, self._opt_update, self._get_params = optimizer
 
     def init_network(self, layers: List):
@@ -46,4 +48,4 @@ class Trainer:
 
     def compute(self, params: List, net_apply: Callable, inputs: Tensor, targets: Tensor):
         predictions: Tensor = net_apply(params, inputs)
-        return self._loss(predictions=predictions, targets=targets)
+        return jit(self._loss)(predictions=predictions, targets=targets)

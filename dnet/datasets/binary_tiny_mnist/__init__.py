@@ -1,5 +1,6 @@
-from dnet.utils.tensor import Tensor
 from typing import Tuple
+
+from dnet.utils.tensor import Tensor
 
 
 def load_data() -> Tuple[Tensor, Tensor]:

@@ -1,9 +1,10 @@
-from dnet.utils.tensor import Tensor
 from typing import List, Callable
-from dnet.optimizers import Optimizer
-from dnet.utils.trainer import Trainer
+
 from dnet.interpreter import Interpreter
-from dnet.utils.serialization import to_bytes, from_bytes
+from dnet.optimizers import Optimizer
+from dnet.utils import serialization
+from dnet.utils.tensor import Tensor
+from dnet.utils.trainer import Trainer
 
 
 class Module:
@@ -39,20 +40,22 @@ class Module:
     def get_interpretation(self) -> Interpreter:
         return Interpreter(epochs=self.epochs, losses=self._trainer.losses)
 
-    def save(self, file_name: str):
-        self.data: dict = {
-            "params": self._trainer.trained_params,
-        }
-        with open(file_name + "_params.msgpack", "wb") as saved_file:
-            serialized_data = to_bytes(self.data)
-            saved_file.write(serialized_data)
-        self.load(file_name)
-        print("Data serialized into msgpack format")
+    def save(self, fname: str):
+        serialization.save_model(fname, layers=self.layers,
+                                 loss=self._trainer._loss,
+                                 optimizer=self._trainer._optimizer,
+                                 params=self._trainer.trained_params)
 
-    def load(self, file_name: str):
-        with open(file_name + "_params.msgpack", "rb") as loaded_file:
-            data = loaded_file.read()
-            # TODO : Decouple self.data reference so that model can directly be loaded and inferenced...
-            deserialized_data = from_bytes(target=self.data, encoded_bytes=data)
-        print("Data deserialized from msgpack format")
-        # deserialized_data["params"] consist of python array instead of DeviceArray
+
+# TODO : Decouple self.data reference so that model can directly be loaded and inferenced...
+# TODO Solution : We can use dill to serialize the pytree data structures (of flattened and type info)
+# TODO Then, we use the msgpack to load and unload the params.
+
+"""
+ For retraining the model, we need
+ 1) Layers (List for callables) -> Done
+ 2) Loss function (can be simply dilled) -> Done
+ 3) Optimizer to be dilled (opt_init, opr_update, get_params can be extracted easily) -> Done
+ 4) Trained params (can be serialized using Flax to msgpack conversion APIs)
+  -> These params can be replaced when loading it
+"""
