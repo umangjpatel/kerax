@@ -11,6 +11,9 @@ from dnet.utils.tensor import Tensor
 
 class Trainer:
 
+    def __init__(self):
+        self.trained_params: List = []
+
     def compile(self, loss: Callable, optimizer: Optimizer):
         self._loss: Callable = loss
         self._optimizer = optimizer
@@ -26,6 +29,8 @@ class Trainer:
         input_shape.insert(0, -1)
         input_shape = tuple(input_shape)
         self.output_shape, self._net_params = self._set_params(rng=rng, input_shape=input_shape)
+        if len(self.trained_params) != 0:
+            self._net_params = self.trained_params
 
     def begin_training(self, epochs: int, inputs: Tensor, targets: Tensor):
         self.losses: List[float] = []
