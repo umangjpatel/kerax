@@ -40,11 +40,11 @@ class Module:
     def get_interpretation(self) -> Interpreter:
         return Interpreter(epochs=self.epochs, losses=self._trainer.losses)
 
-    def save(self, fname: str):
-        serialization.save_model(fname, layers=self.layers,
-                                 loss=self._trainer._loss,
-                                 optimizer=self._trainer._optimizer,
-                                 params=self._trainer.trained_params)
+    def save(self, file_name: str):
+        serialization.save(file_name, layers=self.layers,
+                           loss=self._trainer._loss,
+                           optimizer=self._trainer._optimizer,
+                           params=self._trainer.trained_params)
 
 
 # TODO : Decouple self.data reference so that model can directly be loaded and inferenced...

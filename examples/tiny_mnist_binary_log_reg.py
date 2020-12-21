@@ -10,7 +10,7 @@ model = Module([Dense(10), Relu, Dense(1), Sigmoid])
 model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01))
 model.fit(inputs=train_images, targets=train_labels, epochs=10)
 
-model.save(fname="log_reg")
+model.save(file_name="log_reg")
 # model.load(file_name="log_reg")
 
 # interp = model.get_interpretation()
