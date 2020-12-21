@@ -1,1 +1,1 @@
-from jax.experimental.stax import Dense, Sigmoid
+from jax.experimental.stax import Dense, Sigmoid, Relu
