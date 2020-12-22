@@ -10,14 +10,14 @@ model = Module([Dense(10), Relu, Dense(1), Sigmoid])
 model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01))
 model.fit(inputs=train_images, targets=train_labels, epochs=10)
 model.save(file_name="log_reg")
-
-interp = model.get_interpretation()
-interp.plot_losses()
+#
+# interp = model.get_interpretation()
+# interp.plot_losses()
 
 model = Module()
 model.load(file_name="log_reg")
 model.fit(inputs=train_images, targets=train_labels, epochs=100)
 model.save(file_name="log_reg_v2")
 
-interp = model.get_interpretation()
-interp.plot_losses()
+# interp = model.get_interpretation()
+# interp.plot_losses()

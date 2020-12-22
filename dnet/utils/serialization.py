@@ -2,8 +2,6 @@ from typing import Dict
 
 import dill
 import msgpack
-from jax import device_put
-from jax.tree_util import tree_flatten, tree_unflatten
 
 
 def save_module(file_name: str, **config: dict):
@@ -16,7 +14,6 @@ def save_module(file_name: str, **config: dict):
     with open(f"{file_name}.msgpack", "wb") as f:
         serialized_data = msgpack.packb(serialized_config)
         f.write(serialized_data)
-        print("Saved model")
 
 
 def load_module(file_name: str):
@@ -27,10 +24,3 @@ def load_module(file_name: str):
             item_dill = msgpack.unpackb(v)
             deserialized_config[k] = dill.loads(item_dill)
     return deserialized_config
-
-
-def convert_to_tensor(data):
-    flat_data, data_tree_struct = tree_flatten(data)
-    for i, item in enumerate(flat_data):
-        flat_data[i] = device_put(item)
-    return tree_unflatten(data_tree_struct, flat_data)

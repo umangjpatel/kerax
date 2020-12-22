@@ -5,8 +5,9 @@ from jax import jit, grad
 from jax.experimental.stax import serial
 from tqdm import tqdm
 
-from dnet.optimizers import Optimizer, OptimizerState
-from dnet.utils.tensor import Tensor
+from .tensor import Tensor
+from ..optimizers import Optimizer
+from ..optimizers import OptimizerState
 
 
 class Trainer:
