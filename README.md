@@ -1,8 +1,12 @@
 ![dnet library logo](assets/logo.png "DNet library")
-# DNet
-Neural Network Library written in Python and built on top of JAX, an open-source high-performance automatic differentiation library.
+
+# DNet (Undergoing v2 rewrite)
+
+Check v2-rewrite branch Neural Network Library written in Python and built on top of JAX, an open-source
+high-performance automatic differentiation library.
 
 ## Packages used
+
 * [JAX](https://github.com/google/jax) for automatic differentiation.
 * [Mypy](https://github.com/python/mypy) for static typing Python3 code.
 * [Matplotlib](https://github.com/matplotlib/matplotlib) for plotting.
@@ -11,6 +15,7 @@ Neural Network Library written in Python and built on top of JAX, an open-source
 * [NumPy](https://github.com/numpy/numpy) for randomization.
 
 ## Features
+
 * Enables high-performance machine learning research.
 * Supports FFNN and CNN models.
 * Built-in support of popular optimization algorithms and activation functions.
@@ -26,7 +31,7 @@ Neural Network Library written in Python and built on top of JAX, an open-source
 ```python3
 from dnet import datasets
 from dnet.layers import FC
-from dnet.models import Module
+from dnet.models import Sequential
 
 (x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(flatten=True, one_hot_encoding=True)
 
@@ -42,6 +47,7 @@ model.plot_accuracy()
 ```
 
 #### Output
+
 ```terminal
 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jax/lib/xla_bridge.py:119: UserWarning: No GPU/TPU found, falling back to CPU.
   warnings.warn('No GPU/TPU found, falling back to CPU.')
@@ -60,7 +66,7 @@ Process finished with exit code 0
 ```python3
 from dnet import datasets
 from dnet.layers import Conv2D, MaxPool2D, Flatten, FC
-from dnet.models import Module
+from dnet.models import Sequential
 
 (x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(flatten=False, one_hot_encoding=True)
 
@@ -81,6 +87,7 @@ model.plot_accuracy()
 ```
 
 #### Output
+
 ```
 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jax/lib/xla_bridge.py:119: UserWarning: No GPU/TPU found, falling back to CPU.
   warnings.warn('No GPU/TPU found, falling back to CPU.')
@@ -93,7 +100,10 @@ Process finished with exit code 0
 ![Tiny MNIST CNN Example Accuracy Curves](assets/mnist_cnn_example_acc_curve.png "Accuracy Curves")
 
 ## Roadmap
-Check the [roadmap](https://github.com/umangjpatel/dnet/projects/2) of this project. This will show you the progress in the development of this library.
+
+Check the [roadmap](https://github.com/umangjpatel/dnet/projects/2) of this project. This will show you the progress in
+the development of this library.
 
 ## Developers
+
 * [Umang Patel](https://github.com/umangjpatel)
