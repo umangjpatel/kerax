@@ -28,7 +28,6 @@ class Trainer:
         return params
 
     def train(self, batch: Tuple[Tensor, Tensor], validation_data: Tuple[Tensor, Tensor]):
-        losses = []
         network_params = self.initialize_params(list(batch[0].shape))
         opt_state: OptimizerState = self.opt_init(network_params)
         progress_bar = tqdm(iterable=range(self.config.get("_epochs")),
@@ -36,10 +35,10 @@ class Trainer:
         for i in progress_bar:
             opt_state = self.step(i, opt_state, batch)
             params = self.fetch_params(opt_state)
-            losses.append(self.compute_loss(params, batch).item())
-            progress_bar.set_postfix_str(f"Loss : {losses[-1]}")
+            latest_metric = self.compute_metrics(params, batch, validation_data)
+            progress_bar.set_postfix_str(latest_metric)
             progress_bar.refresh()
-        self.config["_metrics"] = {"losses": losses}
+
         self.config["_trained_params"] = self.fetch_params(opt_state)
         return self.config
 
@@ -54,3 +53,12 @@ class Trainer:
         inputs, targets = batch
         predictions = self.forward_pass(params, inputs)
         return jit(self.config.get("_loss_fn"))(predictions, targets)
+
+    def compute_metrics(self, params, batch: Tuple[Tensor, Tensor],
+                        validation_data: Tuple[Tensor, Tensor]) -> str:
+        self.config.get("_metrics")["train_loss"].append(self.compute_loss(params, batch).item())
+        self.config.get("_metrics")["val_loss"].append(self.compute_loss(params, validation_data).item())
+        log_message = ""
+        for metric in self.config.get("_metrics"):
+            log_message += f' {metric} : {self.config.get("_metrics").get(metric)[-1]} ::'
+        return log_message

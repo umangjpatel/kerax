@@ -16,8 +16,7 @@ class Module:
         self._trained_params = None
         self._loss_fn = None
         self._optimizer = None
-        self._metrics = None
-        self._epochs = None
+        self._metrics = {"train_loss": [], "val_loss": []}
         self._seed = None
 
     def __add__(self, other):
@@ -41,8 +40,7 @@ class Module:
             seed: int = 0):
         self._epochs = epochs
         self._seed = seed
-        trainer = Trainer(self.__dict__)
-        self.__dict__ = trainer.train((inputs, targets), validation_data)
+        self.__dict__ = Trainer(self.__dict__).train((inputs, targets), validation_data)
 
     def get_interpretation(self) -> Interpreter:
         return Interpreter(epochs=self._epochs, metrics=self._metrics)
