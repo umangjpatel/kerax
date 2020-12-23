@@ -4,19 +4,22 @@ from dnet.losses import BCELoss
 from dnet.models import Module
 from dnet.optimizers import SGD
 
-train_images, train_labels = binary_tiny_mnist.load_data()
+(train_images, train_labels), (val_images, val_labels) = binary_tiny_mnist.load_data()
 
 model = Module([Dense(10), Relu, Dense(1), Sigmoid])
 model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01))
-model.fit(inputs=train_images, targets=train_labels, epochs=10)
+model.fit(inputs=train_images, targets=train_labels,
+          validation_data=(val_images, val_labels), epochs=10)
 model.save(file_name="log_reg")
 
 interp = model.get_interpretation()
 interp.plot_losses()
-
+#
 model = Module()
 model.load(file_name="log_reg")
-model.fit(inputs=train_images, targets=train_labels, epochs=100)
+# Compiles model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01)) when loading the model.
+# You can compile the model again if you wish to...maybe with a different optimizer
+model.fit(inputs=train_images, targets=train_labels, validation_data=(val_images, val_labels), epochs=100)
 model.save(file_name="log_reg_v2")
 
 interp = model.get_interpretation()

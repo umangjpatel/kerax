@@ -1,9 +1,10 @@
-from typing import Callable
+from typing import Callable, Tuple
 
 from ..optimizers import Optimizer
-from ..utils import convert_to_tensor, serialization, trainer
+from ..utils import convert_to_tensor, serialization
 from ..utils.interpreter import Interpreter
 from ..utils.tensor import Tensor
+from ..utils.trainer import Trainer
 
 
 class Module:
@@ -36,10 +37,12 @@ class Module:
         self._loss_fn = loss
         self._optimizer = optimizer
 
-    def fit(self, inputs: Tensor, targets: Tensor, epochs: int = 1, seed: int = 0):
+    def fit(self, inputs: Tensor, targets: Tensor, validation_data: Tuple[Tensor, Tensor], epochs: int = 1,
+            seed: int = 0):
         self._epochs = epochs
         self._seed = seed
-        self.__dict__ = trainer.train(self.__dict__, inputs, targets)
+        trainer = Trainer(self.__dict__)
+        self.__dict__ = trainer.train((inputs, targets), validation_data)
 
     def get_interpretation(self) -> Interpreter:
         return Interpreter(epochs=self._epochs, metrics=self._metrics)

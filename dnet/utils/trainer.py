@@ -1,56 +1,56 @@
-from typing import List
+from functools import partial
+from typing import Tuple, List
 
 from jax import jit, grad
 from jax.experimental.stax import serial
+from jax.random import PRNGKey
 from tqdm import tqdm
 
+from .tensor import Tensor
 from ..optimizers import OptimizerState
 
 
-def train(config: dict, inputs, targets):
-    seed = config.get("_seed")
-    epochs = config.get("_epochs")
-    loss_fn = config.get("_loss_fn")
-    trained_params = config.get("_trained_params")
-    opt_init, opt_update, fetch_params = config.get("_optimizer")
-    setup_params, forward_pass = serial(*config.get("_layers"))
+class Trainer:
 
-    def initialize_params():
-        from jax.random import PRNGKey
-        rng = PRNGKey(seed)
-        input_shape = list(inputs.shape)
+    def __init__(self, config: dict):
+        self.config = config
+        self.opt_init, self.opt_update, self.fetch_params = config.get("_optimizer")
+        self.setup_params, self.forward_pass = serial(*config.get("_layers"))
+
+    def initialize_params(self, input_shape: List[int]):
+        rng = PRNGKey(self.config.get("_seed"))
         input_shape[0] = -1
         input_shape = tuple(input_shape)
-        _, params = setup_params(rng=rng, input_shape=input_shape)
+        _, params = self.setup_params(rng=rng, input_shape=input_shape)
+        trained_params = self.config.get("_trained_params")
         if trained_params:
             params = trained_params
         return params
 
-    network_params = initialize_params()
-
-    def begin_training():
-        losses: List[float] = []
-        opt_state: OptimizerState = opt_init(network_params)
-        progress_bar = tqdm(iterable=range(epochs), desc="Training model", leave=True)
+    def train(self, batch: Tuple[Tensor, Tensor], validation_data: Tuple[Tensor, Tensor]):
+        losses = []
+        network_params = self.initialize_params(list(batch[0].shape))
+        opt_state: OptimizerState = self.opt_init(network_params)
+        progress_bar = tqdm(iterable=range(self.config.get("_epochs")),
+                            desc="Training model", leave=True)
         for i in progress_bar:
-            opt_state = step(i, opt_state)
-            params = fetch_params(opt_state)
-            losses.append(compute_loss(params).item())
+            opt_state = self.step(i, opt_state, batch)
+            params = self.fetch_params(opt_state)
+            losses.append(self.compute_loss(params, batch).item())
             progress_bar.set_postfix_str(f"Loss : {losses[-1]}")
             progress_bar.refresh()
-        config["_metrics"] = {"losses": losses}
-        config["_trained_params"] = fetch_params(opt_state)
+        self.config["_metrics"] = {"losses": losses}
+        self.config["_trained_params"] = self.fetch_params(opt_state)
+        return self.config
 
-    @jit
-    def step(i, opt_state):
-        params = fetch_params(opt_state)
-        grads = grad(compute_loss)(params)
-        return opt_update(i, grads, opt_state)
+    @partial(jit, static_argnums=(0,))
+    def step(self, i, opt_state, batch):
+        params = self.fetch_params(opt_state)
+        grads = grad(self.compute_loss)(params, batch)
+        return self.opt_update(i, grads, opt_state)
 
-    @jit
-    def compute_loss(params):
-        predictions = forward_pass(params, inputs)
-        return jit(loss_fn)(predictions, targets)
-
-    begin_training()
-    return config
+    @partial(jit, static_argnums=(0,))
+    def compute_loss(self, params, batch):
+        inputs, targets = batch
+        predictions = self.forward_pass(params, inputs)
+        return jit(self.config.get("_loss_fn"))(predictions, targets)
