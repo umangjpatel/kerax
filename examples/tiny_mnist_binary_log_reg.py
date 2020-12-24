@@ -1,12 +1,12 @@
 from dnet.datasets import binary_tiny_mnist
-from dnet.layers import Dense, Sigmoid, Relu
+from dnet.layers import Dense, Relu, Dropout, Sigmoid
 from dnet.losses import BCELoss
 from dnet.models import Module
 from dnet.optimizers import SGD
 
 (train_images, train_labels), (val_images, val_labels) = binary_tiny_mnist.load_data()
 
-model = Module([Dense(10), Relu, Dense(1), Sigmoid])
+model = Module([Dense(100), Relu, Dropout(rate=0.5), Dense(1), Sigmoid])
 model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01))
 model.fit(inputs=train_images, targets=train_labels,
           validation_data=(val_images, val_labels), epochs=10)

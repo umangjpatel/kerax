@@ -38,9 +38,16 @@ class Module:
 
     def fit(self, inputs: Tensor, targets: Tensor, validation_data: Tuple[Tensor, Tensor], epochs: int = 1,
             seed: int = 0):
+        assert epochs > 0, "Number of epochs must be greater than 0"
         self._epochs = epochs
         self._seed = seed
         self.__dict__ = Trainer(self.__dict__).train((inputs, targets), validation_data)
+
+    def predict(self, inputs: Tensor):
+        assert self._trained_params, "Module not yet trained / trained params not found"
+        from jax.experimental.stax import serial
+        _, forward_pass = serial(*self._layers)
+        return forward_pass(self._trained_params, inputs, mode="predict")
 
     def get_interpretation(self) -> Interpreter:
         return Interpreter(epochs=self._epochs, metrics=self._metrics)

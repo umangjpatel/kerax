@@ -18,14 +18,15 @@ class Trainer:
         self.setup_params, self.forward_pass = serial(*config.get("_layers"))
 
     def initialize_params(self, input_shape: List[int]):
-        rng = PRNGKey(self.config.get("_seed"))
-        input_shape[0] = -1
-        input_shape = tuple(input_shape)
-        _, params = self.setup_params(rng=rng, input_shape=input_shape)
         trained_params = self.config.get("_trained_params")
         if trained_params:
-            params = trained_params
-        return params
+            return trained_params
+        else:
+            rng = PRNGKey(self.config.get("_seed"))
+            input_shape[0] = -1
+            input_shape = tuple(input_shape)
+            _, params = self.setup_params(rng=rng, input_shape=input_shape)
+            return params
 
     def train(self, batch: Tuple[Tensor, Tensor], validation_data: Tuple[Tensor, Tensor]):
         network_params = self.initialize_params(list(batch[0].shape))
@@ -38,7 +39,6 @@ class Trainer:
             latest_metric = self.compute_metrics(params, batch, validation_data)
             progress_bar.set_postfix_str(latest_metric)
             progress_bar.refresh()
-
         self.config["_trained_params"] = self.fetch_params(opt_state)
         return self.config
 
@@ -51,7 +51,7 @@ class Trainer:
     @partial(jit, static_argnums=(0,))
     def compute_loss(self, params, batch):
         inputs, targets = batch
-        predictions = self.forward_pass(params, inputs)
+        predictions = self.forward_pass(params, inputs, mode="train")
         return jit(self.config.get("_loss_fn"))(predictions, targets)
 
     def compute_metrics(self, params, batch: Tuple[Tensor, Tensor],
