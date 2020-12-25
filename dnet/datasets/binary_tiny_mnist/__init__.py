@@ -15,8 +15,9 @@ def load_data() -> Tuple[Tuple[Tensor, Tensor], Tuple[Tensor, Tensor]]:
     path: Path = Path(__file__).parent
     data: pd.DataFrame = pd.read_csv(path / "train.csv", header=None)
 
-    train_data = data.sample(frac=0.8, random_state=42)  # 80% training, 20% validation
-    val_data = data.drop(train_data.index)
+    # 80% training, 20% validation
+    train_data: pd.DataFrame = data.sample(frac=0.8, random_state=0)
+    val_data: pd.DataFrame = data.drop(train_data.index)
 
     train_labels: Tensor = jnp.expand_dims(device_put(train_data[0].values), axis=1)
     train_images: Tensor = device_put(train_data.iloc[:, 1:].values) / 255.0

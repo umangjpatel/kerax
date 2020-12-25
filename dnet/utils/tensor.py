@@ -1,4 +1,4 @@
-from jax.interpreters.xla import DeviceArray as Tensor
+from jax.numpy import ndarray as Tensor
 
 
 def convert_to_tensor(data):

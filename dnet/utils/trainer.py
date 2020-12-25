@@ -1,5 +1,5 @@
 from functools import partial
-from typing import Tuple, List
+from typing import Tuple, List, Optional, Dict, Any
 
 from jax import jit, grad
 from jax.experimental.stax import serial
@@ -12,14 +12,14 @@ from ..optimizers import OptimizerState
 
 class Trainer:
 
-    def __init__(self, config: dict):
-        self.config = config
+    def __init__(self, config: Dict[str, Any]):
+        self.config: Dict[str, Any] = config
         self.opt_init, self.opt_update, self.fetch_params = config.get("_optimizer")
         self.setup_params, self.forward_pass = serial(*config.get("_layers"))
 
     def initialize_params(self, input_shape: List[int]):
-        trained_params = self.config.get("_trained_params")
-        if trained_params:
+        trained_params: List[Optional[Tuple[Tensor, Tensor]]] = self.config.get("_trained_params")
+        if len(trained_params) > 0:
             return trained_params
         else:
             rng = PRNGKey(self.config.get("_seed"))
@@ -58,7 +58,7 @@ class Trainer:
                         validation_data: Tuple[Tensor, Tensor]) -> str:
         self.config.get("_metrics")["train_loss"].append(self.compute_loss(params, batch).item())
         self.config.get("_metrics")["val_loss"].append(self.compute_loss(params, validation_data).item())
-        log_message = ""
+        log_message: str = ""
         for metric in self.config.get("_metrics"):
             log_message += f' {metric} : {self.config.get("_metrics").get(metric)[-1]} ::'
         return log_message

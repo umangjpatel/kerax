@@ -1,7 +1,11 @@
+from typing import Union
+
 from jax.experimental.stax import Dense, Relu, Sigmoid
 
+from ..utils.tensor import Tensor
 
-def Dropout(rate):
+
+def Dropout(rate: Union[Tensor, float]):
     """Layer construction function for a dropout layer with given rate."""
 
     def init_fun(rng, input_shape):

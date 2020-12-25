@@ -1,23 +1,22 @@
-from typing import Callable, Tuple
+from typing import Callable, Tuple, List, Dict, Optional
 
-from ..optimizers import Optimizer
-from ..utils import convert_to_tensor, serialization
-from ..utils.interpreter import Interpreter
-from ..utils.tensor import Tensor
-from ..utils.trainer import Trainer
+from dnet.optimizers import Optimizer
+from dnet.utils import convert_to_tensor, serialization
+from dnet.utils.interpreter import Interpreter
+from dnet.utils.tensor import Tensor
+from dnet.utils.trainer import Trainer
 
 
 class Module:
 
     def __init__(self, layers=None):
-        self._layers: list = [] if layers is None else layers
-        self._epochs = None
-        self._metrics = None
-        self._trained_params = None
-        self._loss_fn = None
-        self._optimizer = None
-        self._metrics = {"train_loss": [], "val_loss": []}
-        self._seed = None
+        self._layers: List[Tuple[Callable, Callable]] = [] if layers is None else layers
+        self._epochs: int = 1
+        self._trained_params: List[Optional[Tuple[Tensor, Tensor]]] = []
+        self._loss_fn: Optional[Callable[[Tensor, Tensor], Tensor]] = None
+        self._optimizer: Optional[Optimizer] = None
+        self._metrics: Dict[str, List[float]] = {"train_loss": [], "val_loss": []}
+        self._seed: int = 0
 
     def __add__(self, other):
         assert type(other) == Module, "Type is not 'Module'"
@@ -32,12 +31,11 @@ class Module:
         else:
             raise Exception("Operation not allowed")
 
-    def compile(self, loss: Callable, optimizer: Optimizer):
+    def compile(self, loss: Callable[[Tensor, Tensor], Tensor], optimizer: Optimizer):
         self._loss_fn = loss
         self._optimizer = optimizer
 
-    def fit(self, inputs: Tensor, targets: Tensor, validation_data: Tuple[Tensor, Tensor], epochs: int = 1,
-            seed: int = 0):
+    def fit(self, inputs: Tensor, targets: Tensor, validation_data: Tuple[Tensor, Tensor], epochs: int, seed: int = 0):
         assert epochs > 0, "Number of epochs must be greater than 0"
         self._epochs = epochs
         self._seed = seed

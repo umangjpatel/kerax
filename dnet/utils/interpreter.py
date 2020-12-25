@@ -1,3 +1,6 @@
+from typing import Iterable, List
+
+
 class Interpreter:
 
     def __init__(self, **config):
@@ -5,9 +8,9 @@ class Interpreter:
 
     def plot_losses(self):
         import matplotlib.pyplot as plt
-        epochs = range(self._config.get("epochs"))
-        train_losses = self._config.get("metrics").get("train_loss")
-        val_losses = self._config.get("metrics").get("val_loss")
+        epochs: Iterable[int] = range(self._config.get("epochs"))
+        train_losses: List[float] = self._config.get("metrics").get("train_loss")
+        val_losses: List[float] = self._config.get("metrics").get("val_loss")
         plt.plot(epochs, train_losses, color="red", label="Training")
         plt.plot(epochs, val_losses, color="green", label="Validation")
         plt.title("Loss Curve")
