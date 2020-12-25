@@ -23,4 +23,4 @@ def load_module(file_name: str) -> Dict[str, Any]:
         for k, v in deserialized_config.items():
             item_dill: bytes = msgpack.unpackb(v)
             deserialized_config[k] = dill.loads(item_dill)
-    return deserialized_configs
+    return deserialized_config

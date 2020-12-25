@@ -3,8 +3,9 @@ from dnet.layers import Dense, Relu, Dropout, Sigmoid
 from dnet.losses import BCELoss
 from dnet.models import Module
 from dnet.optimizers import SGD
+import asyncio
 
-(train_images, train_labels), (val_images, val_labels) = binary_tiny_mnist.load_data()
+(train_images, train_labels), (val_images, val_labels) = asyncio.run(binary_tiny_mnist.load_data())
 
 model = Module([Dense(100), Relu, Dropout(rate=0.5), Dense(1), Sigmoid])
 model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01))

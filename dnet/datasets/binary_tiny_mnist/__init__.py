@@ -3,7 +3,7 @@ from typing import Tuple
 from ...utils.tensor import Tensor
 
 
-def load_data() -> Tuple[Tuple[Tensor, Tensor], Tuple[Tensor, Tensor]]:
+async def load_data() -> Tuple[Tuple[Tensor, Tensor], Tuple[Tensor, Tensor]]:
     """Loads the binary tiny MNIST dataset (available on Google Colaboratory).
     :return: tuple consisting of training images and training labels
     """
