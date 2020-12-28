@@ -6,8 +6,9 @@ from jax.experimental.stax import serial
 from jax.random import PRNGKey
 from tqdm import tqdm
 
-from .tensor import Tensor
-from ..optimizers import OptimizerState
+from dnet.data import Dataloader
+from dnet.utils.tensor import Tensor
+from dnet.optimizers import OptimizerState
 
 
 class Trainer:
@@ -28,7 +29,8 @@ class Trainer:
             _, params = self.setup_params(rng=rng, input_shape=input_shape)
             return params
 
-    def train(self, batch: Tuple[Tensor, Tensor], validation_data: Tuple[Tensor, Tensor]):
+    def train(self, data: Dataloader):
+        batch, validation_data = data.train_data, data.val_data
         network_params = self.initialize_params(list(batch[0].shape))
         opt_state: OptimizerState = self.opt_init(network_params)
         progress_bar = tqdm(iterable=range(self.config.get("_epochs")),

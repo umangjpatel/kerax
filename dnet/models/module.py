@@ -1,6 +1,7 @@
 from typing import Callable, Tuple, List, Dict, Optional
 
 from dnet.optimizers import Optimizer
+from dnet.data import Dataloader
 from dnet.utils import convert_to_tensor, serialization
 from dnet.utils.interpreter import Interpreter
 from dnet.utils.tensor import Tensor
@@ -35,11 +36,11 @@ class Module:
         self._loss_fn = loss
         self._optimizer = optimizer
 
-    def fit(self, inputs: Tensor, targets: Tensor, validation_data: Tuple[Tensor, Tensor], epochs: int, seed: int = 0):
+    def fit(self, data: Dataloader, epochs: int, seed: int = 0):
         assert epochs > 0, "Number of epochs must be greater than 0"
         self._epochs = epochs
         self._seed = seed
-        self.__dict__ = Trainer(self.__dict__).train((inputs, targets), validation_data)
+        self.__dict__ = Trainer(self.__dict__).train(data)
 
     def predict(self, inputs: Tensor):
         assert self._trained_params, "Module not yet trained / trained params not found"
