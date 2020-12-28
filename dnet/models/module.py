@@ -1,7 +1,7 @@
 from typing import Callable, Tuple, List, Dict, Optional
 
-from dnet.optimizers import Optimizer
 from dnet.data import Dataloader
+from dnet.optimizers import Optimizer
 from dnet.utils import convert_to_tensor, serialization
 from dnet.utils.interpreter import Interpreter
 from dnet.utils.tensor import Tensor

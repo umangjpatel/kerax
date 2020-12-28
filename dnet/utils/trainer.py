@@ -30,7 +30,8 @@ class Trainer:
             return params
 
     def train(self, data: Dataloader):
-        batch, validation_data = data.train_data, data.val_data
+        batch: Tuple[Tensor, Tensor] = data.train_data
+        validation_data: Tuple[Tensor, Tensor] = data.val_data
         network_params = self.initialize_params(list(batch[0].shape))
         opt_state: OptimizerState = self.opt_init(network_params)
         progress_bar = tqdm(iterable=range(self.config.get("_epochs")),
