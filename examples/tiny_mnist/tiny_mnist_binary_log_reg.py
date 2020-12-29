@@ -1,5 +1,5 @@
 from dnet.data import Dataloader
-from dnet.layers import Dense, Relu, Sigmoid
+from dnet.layers import Dense
 from dnet.losses import BCELoss
 from dnet.models import Module
 from dnet.optimizers import SGD
@@ -36,8 +36,8 @@ def load_data() -> Dataloader:
 
 data = load_data()
 
-model = Module([Dense(100), Relu, Dense(1), Sigmoid])
-model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01))
+model = Module([Dense(100, "relu"), Dense(1, "sigmoid")])
+model.compile(loss=BCELoss, optimizer=SGD(step_size=0.003))
 model.fit(data=data, epochs=10)
 model.save(file_name="log_reg")
 interp = model.get_interpretation()
