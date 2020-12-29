@@ -10,6 +10,8 @@ from dnet.data import Dataloader
 from dnet.utils.tensor import Tensor
 from dnet.optimizers import OptimizerState
 
+import itertools
+
 
 class Trainer:
 
@@ -30,16 +32,20 @@ class Trainer:
             return params
 
     def train(self, data: Dataloader):
-        batch: Tuple[Tensor, Tensor] = data.train_data
-        validation_data: Tuple[Tensor, Tensor] = data.val_data
-        network_params = self.initialize_params(list(batch[0].shape))
+        num_batches = data.num_batches
+        batches = data.batch_stream
+        network_params = self.initialize_params(list(data.input_shape))
         opt_state: OptimizerState = self.opt_init(network_params)
+        itercount = itertools.count()
         progress_bar = tqdm(iterable=range(self.config.get("_epochs")),
                             desc="Training model", leave=True)
-        for i in progress_bar:
-            opt_state = self.step(i, opt_state, batch)
+        for epoch in progress_bar:
+            for batch_number in range(num_batches):
+                batch = next(batches)
+                opt_state = self.step(next(itercount), opt_state, batch)
+                progress_bar.set_description(desc=f"Epoch {epoch + 1}, Batch {batch_number + 1}")
             params = self.fetch_params(opt_state)
-            latest_metric = self.compute_metrics(params, batch, validation_data)
+            latest_metric = self.compute_metrics(params, data.train_data, data.val_data)
             progress_bar.set_postfix_str(latest_metric)
             progress_bar.refresh()
         self.config["_trained_params"] = self.fetch_params(opt_state)
@@ -57,10 +63,10 @@ class Trainer:
         predictions = self.forward_pass(params, inputs, mode="train")
         return jit(self.config.get("_loss_fn"))(predictions, targets)
 
-    def compute_metrics(self, params, batch: Tuple[Tensor, Tensor],
-                        validation_data: Tuple[Tensor, Tensor]) -> str:
-        self.config.get("_metrics")["train_loss"].append(self.compute_loss(params, batch).item())
-        self.config.get("_metrics")["val_loss"].append(self.compute_loss(params, validation_data).item())
+    def compute_metrics(self, params, train_data: Tuple[Tensor, Tensor],
+                        val_data: Tuple[Tensor, Tensor]) -> str:
+        self.config.get("_metrics")["train_loss"].append(self.compute_loss(params, train_data).item())
+        self.config.get("_metrics")["val_loss"].append(self.compute_loss(params, val_data).item())
         log_message: str = ""
         for metric in self.config.get("_metrics"):
             log_message += f' {metric} : {self.config.get("_metrics").get(metric)[-1]} ::'

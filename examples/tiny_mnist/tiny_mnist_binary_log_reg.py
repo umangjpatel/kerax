@@ -29,7 +29,7 @@ def load_data() -> Dataloader:
         val_images: Tensor = device_put(val_data.iloc[:, 1:].values) / 255.0
 
         return Dataloader(train_data=(train_images, train_labels),
-                          val_data=(val_images, val_labels))
+                          val_data=(val_images, val_labels), batch_size=1000)
 
     return asyncio.run(load())
 
