@@ -1,7 +1,8 @@
 from functools import partial
 from typing import Tuple, List, Optional, Dict, Any
 
-from jax import jit, grad
+from jax import jit, grad, device_put
+import jax.numpy as jnp
 from jax.experimental.stax import serial
 from jax.random import PRNGKey
 from tqdm import tqdm
@@ -32,23 +33,23 @@ class Trainer:
             return params
 
     def train(self, data: Dataloader):
-        num_batches = data.num_batches
-        batches = data.batch_stream
         network_params = self.initialize_params(list(data.input_shape))
         opt_state: OptimizerState = self.opt_init(network_params)
         itercount = itertools.count()
         progress_bar = tqdm(iterable=range(self.config.get("_epochs")),
                             desc="Training model", leave=True)
         for epoch in progress_bar:
-            for batch_number in range(num_batches):
-                batch = next(batches)
+            for batch_number in range(data.num_train_batches):
+                batch = device_put(next(data.train_data))
                 opt_state = self.step(next(itercount), opt_state, batch)
                 progress_bar.set_description(desc=f"Epoch {epoch + 1}, Batch {batch_number + 1}")
-            params = self.fetch_params(opt_state)
-            latest_metric = self.compute_metrics(params, data.train_data, data.val_data)
-            progress_bar.set_postfix_str(latest_metric)
-            progress_bar.refresh()
-        self.config["_trained_params"] = self.fetch_params(opt_state)
+                params = self.fetch_params(opt_state)
+                progress_bar.set_postfix_str(f"loss : {self.compute_loss(params, batch)}")
+                progress_bar.refresh()
+                # TODO : Metrics interpretation
+                # latest_metric = self.compute_metrics(params, data.train_data, data.val_data)
+                # progress_bar.set_postfix_str(latest_metric)
+        # self.config["_trained_params"] = self.fetch_params(opt_state)
         return self.config
 
     @partial(jit, static_argnums=(0,))

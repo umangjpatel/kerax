@@ -31,7 +31,7 @@ class Module:
         else:
             raise Exception("Operation not allowed")
 
-    def compile(self, loss: Callable[[Tensor, Tensor], Tensor], optimizer: Callable):
+    def compile(self, loss: Callable, optimizer: Callable):
         self._loss_fn = loss
         self._optimizer = optimizer
 
