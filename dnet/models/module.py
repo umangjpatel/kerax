@@ -1,7 +1,6 @@
 from typing import Callable, Tuple, List, Dict, Optional
 
 from dnet.data import Dataloader
-from dnet.optimizers import Optimizer
 from dnet.utils import convert_to_tensor, serialization
 from dnet.utils.interpreter import Interpreter
 from dnet.utils.tensor import Tensor
@@ -32,7 +31,7 @@ class Module:
         else:
             raise Exception("Operation not allowed")
 
-    def compile(self, loss: Callable[[Tensor, Tensor], Tensor], optimizer: Optimizer):
+    def compile(self, loss: Callable[[Tensor, Tensor], Tensor], optimizer: Callable):
         self._loss_fn = loss
         self._optimizer = optimizer
 
