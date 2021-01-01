@@ -1,16 +1,12 @@
-import math
-
-
 class Dataloader:
 
-    def __init__(self, train_data, val_data, input_shape, batch_size, info):
+    def __init__(self, train_data, val_data, input_shape, batch_size, num_train_batches, num_val_batches):
         self.train_data = train_data
         self.val_data = val_data
         self.input_shape = input_shape
         self.batch_size = batch_size
-        if info is not None:
-            self.num_train_batches = math.ceil(info.splits["train"].num_examples / batch_size)
-            self.num_val_batches = math.ceil(info.splits["test"].num_examples / batch_size)
-        else:
-            self.num_train_batches = math.ceil(sum(1 for _ in train_data) / batch_size)
-            self.num_val_batches = math.ceil(sum(1 for _ in val_data) / batch_size)
+        self.num_train_batches = num_train_batches
+        self.num_val_batches = num_val_batches
+
+        assert self.num_train_batches is not None, "Please add num_train_batches"
+        assert self.num_val_batches is not None, "Please add num_val_batches"

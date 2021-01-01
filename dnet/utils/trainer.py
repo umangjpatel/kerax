@@ -1,17 +1,15 @@
+import itertools
 from functools import partial
 from typing import Tuple, List, Optional, Dict, Any
 
 from jax import jit, grad, device_put
-import jax.numpy as jnp
 from jax.experimental.stax import serial
 from jax.random import PRNGKey
 from tqdm import tqdm
 
 from dnet.data import Dataloader
-from dnet.utils.tensor import Tensor
 from dnet.optimizers import OptimizerState
-
-import itertools
+from dnet.utils.tensor import Tensor
 
 
 class Trainer:
@@ -35,21 +33,25 @@ class Trainer:
     def train(self, data: Dataloader):
         network_params = self.initialize_params(list(data.input_shape))
         opt_state: OptimizerState = self.opt_init(network_params)
-        itercount = itertools.count()
+        iter_count = itertools.count()
         progress_bar = tqdm(iterable=range(self.config.get("_epochs")),
                             desc="Training model", leave=True)
         for epoch in progress_bar:
-            for batch_number in range(data.num_train_batches):
-                batch = device_put(next(data.train_data))
-                opt_state = self.step(next(itercount), opt_state, batch)
-                progress_bar.set_description(desc=f"Epoch {epoch + 1}, Batch {batch_number + 1}")
-                params = self.fetch_params(opt_state)
-                progress_bar.set_postfix_str(f"loss : {self.compute_loss(params, batch)}")
-                progress_bar.refresh()
-                # TODO : Metrics interpretation
-                # latest_metric = self.compute_metrics(params, data.train_data, data.val_data)
-                # progress_bar.set_postfix_str(latest_metric)
-        # self.config["_trained_params"] = self.fetch_params(opt_state)
+            train_loss, valid_loss = 0.0, 0.0
+            progress_bar.set_description(desc=f"Epoch {epoch + 1}")
+            for _ in range(data.num_train_batches):
+                train_batch = device_put(next(data.train_data))
+                opt_state = self.step(next(iter_count), opt_state, train_batch)
+                network_params = self.fetch_params(opt_state)
+                train_loss += self.compute_loss(network_params, train_batch)
+            for _ in range(data.num_val_batches):
+                valid_batch = device_put(next(data.val_data))
+                valid_loss += self.compute_loss(network_params, valid_batch)
+            train_loss /= data.num_train_batches
+            valid_loss /= data.num_val_batches
+            progress_bar.set_postfix_str(self.compute_metrics(train_loss, valid_loss))
+            progress_bar.refresh()
+        self.config["_trained_params"] = self.fetch_params(opt_state)
         return self.config
 
     @partial(jit, static_argnums=(0,))
@@ -64,10 +66,9 @@ class Trainer:
         predictions = self.forward_pass(params, inputs, mode="train")
         return jit(self.config.get("_loss_fn"))(predictions, targets)
 
-    def compute_metrics(self, params, train_data: Tuple[Tensor, Tensor],
-                        val_data: Tuple[Tensor, Tensor]) -> str:
-        self.config.get("_metrics")["train_loss"].append(self.compute_loss(params, train_data).item())
-        self.config.get("_metrics")["val_loss"].append(self.compute_loss(params, val_data).item())
+    def compute_metrics(self, train_loss, valid_loss) -> str:
+        self.config.get("_metrics")["train_loss"].append(train_loss)
+        self.config.get("_metrics")["val_loss"].append(valid_loss)
         log_message: str = ""
         for metric in self.config.get("_metrics"):
             log_message += f' {metric} : {self.config.get("_metrics").get(metric)[-1]} ::'

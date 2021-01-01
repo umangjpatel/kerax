@@ -8,7 +8,7 @@ class Interpreter:
 
     def plot_losses(self):
         import matplotlib.pyplot as plt
-        epochs: Iterable[int] = range(self._config.get("epochs"))
+        epochs: Iterable[int] = range(1, self._config.get("epochs") + 1)
         train_losses: List[float] = self._config.get("metrics").get("train_loss")
         val_losses: List[float] = self._config.get("metrics").get("val_loss")
         plt.plot(epochs, train_losses, color="red", label="Training")
