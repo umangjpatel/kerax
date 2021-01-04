@@ -1,10 +1,11 @@
 from typing import Union
 
 from jax.experimental.stax import Dense, Flatten
+
 from kerax.utils.tensor import Tensor
 
 
-def dropout(rate: Union[Tensor, float]):
+def Dropout(rate: Union[Tensor, float]):
     """Layer construction function for a dropout layer with given rate."""
 
     def init_fun(rng, input_shape):
@@ -28,3 +29,6 @@ def dropout(rate: Union[Tensor, float]):
             return inputs
 
     return init_fun, apply_fun
+
+
+__all__ = ["Dense", "Flatten", "Dropout"]
