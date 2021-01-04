@@ -1,10 +1,11 @@
+from collections import defaultdict
 from typing import Callable, Tuple, List, Dict, Optional
 
-from dnet.data import Dataloader
-from dnet.utils import convert_to_tensor, serialization
-from dnet.utils.interpreter import Interpreter
-from dnet.utils.tensor import Tensor
-from dnet.utils.trainer import Trainer
+from kerax.data import Dataloader
+from kerax.utils import convert_to_tensor, serialization
+from kerax.utils.interpreter import Interpreter
+from kerax.utils.tensor import Tensor
+from kerax.utils.trainer import Trainer
 
 
 class Module:
@@ -15,7 +16,9 @@ class Module:
         self._trained_params: List[Optional[Tuple[Tensor, Tensor]]] = []
         self._loss_fn: Optional[Callable[[Tensor, Tensor], Tensor]] = None
         self._optimizer: Optional[Optimizer] = None
-        self._metrics: Dict[str, List[float]] = {"train_loss": [], "val_loss": []}
+        self._metrics: Dict[str, Dict[str, List[float]]] = {"loss": defaultdict(list),
+                                                            "loss_per_epoch": defaultdict(list)}
+        self._metrics_fn: Optional[List[Callable]] = []
         self._seed: int = 0
 
     def __add__(self, other):
@@ -31,9 +34,12 @@ class Module:
         else:
             raise Exception("Operation not allowed")
 
-    def compile(self, loss: Callable, optimizer: Callable):
+    def compile(self, loss: Callable, optimizer: Callable, metrics: List[Callable] = None):
         self._loss_fn = loss
         self._optimizer = optimizer
+        self._metrics_fn = metrics
+        for metric_fn in self._metrics_fn:
+            self._metrics[metric_fn.__name__] = defaultdict(list)
 
     def fit(self, data: Dataloader, epochs: int, seed: int = 0):
         assert epochs > 0, "Number of epochs must be greater than 0"
@@ -53,6 +59,7 @@ class Module:
     def save(self, file_name: str):
         serialization.save_module(file_name, layers=self._layers,
                                   loss=self._loss_fn,
+                                  metrics=self._metrics_fn,
                                   optimizer=self._optimizer,
                                   params=self._trained_params)
 
@@ -60,5 +67,6 @@ class Module:
         deserialized_config = serialization.load_module(file_name)
         self._layers = deserialized_config.get("layers")
         self.compile(loss=deserialized_config.get("loss"),
-                     optimizer=deserialized_config.get("optimizer"))
+                     optimizer=deserialized_config.get("optimizer"),
+                     metrics=deserialized_config.get("metrics"))
         self._trained_params = convert_to_tensor(deserialized_config.get("params"))

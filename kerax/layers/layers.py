@@ -1,7 +1,7 @@
 from typing import Union
 
 from jax.experimental.stax import Dense, Flatten
-from dnet.utils.tensor import Tensor
+from kerax.utils.tensor import Tensor
 
 
 def dropout(rate: Union[Tensor, float]):

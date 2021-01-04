@@ -1,9 +1,10 @@
-![dnet library logo](assets/logo.png "DNet library")
+![kerax library logo](assets/logo.png "Kerax library")
 
-# DNet (Undergoing v2 rewrite)
+# Kerax (Undergoing v2 rewrite)
 
-Check v2-rewrite branch Neural Network Library written in Python and built on top of JAX, an open-source
-high-performance automatic differentiation library.
+Check v2-rewrite branch
+
+Neural Network Library written in Python and built on top of JAX, an open-source high-performance automatic differentiation library.
 
 ## Packages used
 
@@ -29,9 +30,9 @@ high-performance automatic differentiation library.
 #### Code
 
 ```python3
-from dnet import datasets
-from dnet.layers import FC
-from dnet.models import Sequential
+from kerax import datasets
+from kerax.layers import FC
+from kerax.models import Sequential
 
 (x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(flatten=True, one_hot_encoding=True)
 
@@ -64,9 +65,9 @@ Process finished with exit code 0
 #### Code
 
 ```python3
-from dnet import datasets
-from dnet.layers import Conv2D, MaxPool2D, Flatten, FC
-from dnet.models import Sequential
+from kerax import datasets
+from kerax.layers import Conv2D, MaxPool2D, Flatten, FC
+from kerax.models import Sequential
 
 (x_train, y_train), (x_val, y_val) = datasets.tiny_mnist(flatten=False, one_hot_encoding=True)
 
@@ -101,7 +102,7 @@ Process finished with exit code 0
 
 ## Roadmap
 
-Check the [roadmap](https://github.com/umangjpatel/dnet/projects/2) of this project. This will show you the progress in
+Check the [roadmap](https://github.com/umangjpatel/kerax/projects/2) of this project. This will show you the progress in
 the development of this library.
 
 ## Developers

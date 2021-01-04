@@ -5,11 +5,12 @@ from pathlib import Path
 import tensorflow as tf
 import tensorflow_datasets as tfds
 
-from dnet.data import Dataloader
-from dnet.layers import Flatten, Dense, Relu, LogSoftmax
-from dnet.losses import CCELoss
-from dnet.models import Module
-from dnet.optimizers import RMSProp
+from kerax.data import Dataloader
+from kerax.layers import Flatten, Dense, Relu, LogSoftmax
+from kerax.losses import CCELoss
+from kerax.metrics import accuracy
+from kerax.models import Module
+from kerax.optimizers import RMSProp
 
 
 async def tfds_load_data(batch_size: int) -> Dataloader:
@@ -30,10 +31,10 @@ async def tfds_load_data(batch_size: int) -> Dataloader:
     )
 
 
-data = asyncio.run(tfds_load_data(batch_size=1000))
+data = asyncio.run(tfds_load_data(batch_size=1024))
 model = Module([Flatten, Dense(500), Relu, Dense(100), Relu, Dense(10), LogSoftmax])
-model.compile(loss=CCELoss, optimizer=RMSProp(step_size=0.001))
+model.compile(loss=CCELoss, optimizer=RMSProp(step_size=0.001), metrics=[accuracy])
 model.fit(data, epochs=10)
-model.save("mnist_ffnn_v1")
+model.save("tfds_mnist_v1")
 interp = model.get_interpretation()
 interp.plot_losses()

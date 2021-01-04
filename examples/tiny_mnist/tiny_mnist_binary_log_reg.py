@@ -1,8 +1,9 @@
-from dnet.data import Dataloader
-from dnet.layers import Dense, Relu, Sigmoid
-from dnet.losses import BCELoss
-from dnet.models import Module
-from dnet.optimizers import SGD
+from kerax.data import Dataloader
+from kerax.layers import Dense, Relu, Sigmoid
+from kerax.losses import BCELoss
+from kerax.metrics import binary_accuracy
+from kerax.models import Module
+from kerax.optimizers import SGD
 
 
 def load_dataset(batch_size: int) -> Dataloader:
@@ -11,6 +12,7 @@ def load_dataset(batch_size: int) -> Dataloader:
     from pathlib import Path
 
     def compute_dataset_info(x, y):
+        assert x.shape[0] == y.shape[0], "Number of examples do not match..."
         num_examples = x.shape[0]
         num_complete_batches, leftover = divmod(num_examples, batch_size)
         num_batches = num_complete_batches + bool(leftover)
@@ -41,6 +43,7 @@ def load_dataset(batch_size: int) -> Dataloader:
 
         train_data_info = compute_dataset_info(train_images, train_labels)
         val_data_info = compute_dataset_info(val_images, val_labels)
+
         train_gen = data_stream(train_images, train_labels, train_data_info)
         val_gen = data_stream(val_images, val_labels, val_data_info)
 
@@ -56,7 +59,7 @@ def load_dataset(batch_size: int) -> Dataloader:
 
 data = load_dataset(batch_size=200)
 model = Module([Dense(100), Relu, Dense(1), Sigmoid])
-model.compile(loss=BCELoss, optimizer=SGD(step_size=0.003))
+model.compile(loss=BCELoss, optimizer=SGD(step_size=0.003), metrics=[binary_accuracy])
 model.fit(data=data, epochs=10)
 model.save(file_name="log_reg")
 interp = model.get_interpretation()
