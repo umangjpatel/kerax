@@ -1,14 +1,11 @@
 from collections import defaultdict
 from typing import Callable, Tuple, List, Dict, Optional
 
-from kerax.data import Dataloader
-from kerax.utils import convert_to_tensor, serialization
-from kerax.utils.interpreter import Interpreter
-from kerax.utils.tensor import Tensor
-from kerax.utils.trainer import Trainer
+from ..data import Dataloader
+from ..utils import Interpreter, Tensor, Trainer, convert_to_tensor, serialization, stax
 
 
-class Module:
+class Sequential:
 
     def __init__(self, layers=None):
         self._layers: List[Tuple[Callable, Callable]] = [] if layers is None else layers
@@ -22,17 +19,17 @@ class Module:
         self._seed: int = 0
 
     def __add__(self, other):
-        assert type(other) == Module, "Type is not 'Module'"
+        assert type(other) == Sequential, "Type is not 'Sequential'"
         layers = self._layers + other._layers
-        return Module(layers=layers)
+        return Sequential(layers=layers)
 
     def add(self, other):
-        if isinstance(other, Module) and len(other._layers) > 0:
+        if isinstance(other, Sequential) and len(other._layers) > 0:
             self._layers += other._layers
         elif isinstance(other, list) and len(other) > 0:
             self._layers += other
         else:
-            raise Exception("Operation not allowed")
+            return None
 
     def compile(self, loss: Callable, optimizer: Callable, metrics: List[Callable] = None):
         self._loss_fn = loss
@@ -42,6 +39,8 @@ class Module:
             self._metrics[metric_fn.__name__] = defaultdict(list)
 
     def fit(self, data: Dataloader, epochs: int, seed: int = 0):
+        assert self._optimizer, "Call .compile() before .fit()"
+        assert self._loss_fn, "Call .compile() before .fit()"
         assert epochs > 0, "Number of epochs must be greater than 0"
         self._epochs = epochs
         self._seed = seed
@@ -49,14 +48,18 @@ class Module:
 
     def predict(self, inputs: Tensor):
         assert self._trained_params, "Module not yet trained / trained params not found"
-        from jax.experimental.stax import serial
-        _, forward_pass = serial(*self._layers)
+        _, forward_pass = stax.serial(*self._layers)
         return forward_pass(self._trained_params, inputs, mode="predict")
 
     def get_interpretation(self) -> Interpreter:
         return Interpreter(epochs=self._epochs, metrics=self._metrics)
 
     def save(self, file_name: str):
+        assert self._layers, "Layers not provided"
+        assert self._loss_fn, "Loss function not provided"
+        assert self._metrics_fn, "Metric functions not provided"
+        assert self._optimizer, "Optimizer not provided"
+        assert self._trained_params, "Model not trained yet..."
         serialization.save_module(file_name, layers=self._layers,
                                   loss=self._loss_fn,
                                   metrics=self._metrics_fn,

@@ -2,15 +2,11 @@ import itertools
 from functools import partial
 from typing import Tuple, List, Optional, Dict, Any
 
-import jax.numpy as jnp
-from jax import jit, grad, device_put
-from jax.experimental.stax import serial
-from jax.random import PRNGKey
 from tqdm import tqdm
 
-from kerax.data import Dataloader
-from kerax.optimizers import OptimizerState
-from kerax.utils.tensor import Tensor
+from . import Tensor, jit, grad, device_put, jnp, random, stax
+from ..data import Dataloader
+from ..optimizers import OptimizerState
 
 
 class Trainer:
@@ -19,14 +15,14 @@ class Trainer:
         self.config: Dict[str, Any] = config
         self.mode = "train"
         self.opt_init, self.opt_update, self.fetch_params = config.get("_optimizer")
-        self.setup_params, self.forward_pass = serial(*config.get("_layers"))
+        self.setup_params, self.forward_pass = stax.serial(*config.get("_layers"))
 
     def initialize_params(self, input_shape: List[int]):
         trained_params: List[Optional[Tuple[Tensor, Tensor]]] = self.config.get("_trained_params")
         if len(trained_params) > 0:
             return trained_params
         else:
-            rng = PRNGKey(self.config.get("_seed"))
+            rng = random.PRNGKey(self.config.get("_seed"))
             input_shape[0] = -1
             input_shape = tuple(input_shape)
             _, params = self.setup_params(rng=rng, input_shape=input_shape)
