@@ -76,3 +76,4 @@
 /.idea/dictionaries/
 /datasets/mnist/
 .DS_Store
+/venv/
