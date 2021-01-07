@@ -1,0 +1,9 @@
+pandas==1.2.0
+tensorflow==2.4.0
+tensorflow_datasets==4.2.0
+matplotlib==3.3.3
+jax==0.2.7
+numpy==1.19.5
+dill==0.3.3
+tqdm==4.55.1
+msgpack_python==0.5.6
