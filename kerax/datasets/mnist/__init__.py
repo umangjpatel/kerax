@@ -1,14 +1,24 @@
-from ...data import Dataloader
+from ...data import Dataloader as __Dataloader__
 
 
-def load_dataset(batch_size: int) -> Dataloader:
+def load_dataset(batch_size: int) -> __Dataloader__:
+    """
+    Loads the complete MNIST dataset (training + validation)
+    Once the dataset is downloaded, it won't be downloaded again. So, relax...
+    :param batch_size: Number of examples in a batch
+    :return: a Dataloader object consisting of the dataset
+    """
     import asyncio
     import tensorflow as tf
     from pathlib import Path
     import tensorflow_datasets as tfds
     import math
 
-    async def tfds_load_data() -> Dataloader:
+    async def tfds_load_data() -> __Dataloader__:
+        """
+        Loads the dataset using the TensorFlow Datasets API
+        :return: a Dataloader object consisting of the dataset.
+        """
         assert batch_size > 0, "Batch size must be greater than 0"
         current_path = Path(__file__).parent
         ds, info = tfds.load(name="mnist", split=["train", "test"], as_supervised=True, with_info=True,

@@ -1,10 +1,25 @@
-def load_dataset(batch_size: int):
+from ...data import Dataloader as __Dataloader__
+from typing import Tuple
+
+
+def load_dataset(batch_size: int) -> __Dataloader__:
+    """
+    Loads the reduced version of the MNIST dataset where it contains only data of digits 0s and 1s.
+    :param batch_size: Number of examples to be included in a single batch.
+    :return: Dataloader object consisting of training and validation data.
+    """
     import numpy as np
     from ...data import Dataloader
     import pandas as pd
     from pathlib import Path
 
-    def compute_dataset_info(x, y):
+    def compute_dataset_info(x, y) -> Tuple[int, ...]:
+        """
+        Computes the number of examples and number of batches for a given dataset
+        :param x: Inputs
+        :param y: Targets
+        :return: a tuple consisting of total number of examples and number of batches.
+        """
         assert x.shape[0] == y.shape[0], "Number of examples do not match..."
         num_examples = x.shape[0]
         num_complete_batches, leftover = divmod(num_examples, batch_size)
@@ -12,6 +27,13 @@ def load_dataset(batch_size: int):
         return num_examples, num_batches
 
     def data_stream(x, y, data_info):
+        """
+        Yields an iterator for streaming the dataset into respective batches efficiently.
+        :param x: Inputs
+        :param y: Targets
+        :param data_info: a tuple consisting of total number of examples and number of batches.
+        :return: a tuple consisting of a batch of inputs and targets for a dataset.
+        """
         num_examples, num_batches = data_info
         rng = np.random.RandomState(0)
         while True:
@@ -20,7 +42,11 @@ def load_dataset(batch_size: int):
                 batch_idx = perm[i * batch_size:(i + 1) * batch_size]
                 yield x[batch_idx], y[batch_idx]
 
-    def load():
+    def load() -> __Dataloader__:
+        """
+        Loads the dataset
+        :return: a Dataloader object consisting of the training and validation data.
+        """
         path: Path = Path(__file__).parent
         dataset: pd.DataFrame = pd.read_csv(path / "train.csv", header=None)
 
