@@ -46,13 +46,14 @@ class TestSequential(TestCase):
         self.assertEqual(self.binary_model._loss_fn, loss_fn)
         self.assertEqual(self.binary_model._optimizer, opt_fn)
         self.assertEqual(self.binary_model._metrics_fn, metrics_fn)
-        self.assertEqual(", ".join(self.binary_model._metrics.keys()), "loss, loss_per_epoch, binary_accuracy")
+        self.assertEqual(", ".join(self.binary_model._metrics.keys()),
+                         "loss, loss_per_epoch, binary_accuracy, binary_accuracy_per_epoch")
 
     def test_fit(self) -> None:
         self.binary_model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01), metrics=[binary_accuracy])
         self.binary_model.fit(data=self.data, epochs=1)
         self.assertNotEqual(self.binary_model._trained_params, None)
-        self.assertEqual(len(self.binary_model._metrics.keys()), 3)
+        self.assertEqual(len(self.binary_model._metrics.keys()), 4)
 
     def test_predict(self) -> None:
         self.binary_model.compile(loss=BCELoss, optimizer=SGD(step_size=0.01), metrics=[binary_accuracy])
@@ -86,4 +87,4 @@ class TestSequential(TestCase):
         interp = self.binary_model.get_interpretation()
         self.assertIsInstance(interp, Interpreter)
         self.assertEqual(interp._config.get("epochs"), 1)
-        self.assertEqual(len(interp._config.get("metrics").keys()), 3)
+        self.assertEqual(len(interp._config.get("metrics").keys()), 4)

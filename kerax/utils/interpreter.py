@@ -17,7 +17,7 @@ class Interpreter:
 
     def plot_losses(self):
         """
-        Plots the epoch v/s loss curve in Matplotlib.
+        Plots the loss curves (both training and validation) in Matplotlib.
         :return: a Matplotlib chart.
         """
         epochs: Iterable[int] = range(1, self._config.get("epochs") + 1)
@@ -28,5 +28,26 @@ class Interpreter:
         plt.title("Loss Curve")
         plt.xlabel("Epochs")
         plt.ylabel("Loss")
+        plt.legend()
+        plt.show()
+
+    def plot_accuracy(self):
+        """
+        Plots the accuracy curves (both training and validation) in Matplotlib.
+        :return: a Matplotlib chart.
+        """
+        epochs: Iterable[int] = range(1, self._config.get("epochs") + 1)
+        if "binary_accuracy" in self._config.get("metrics").keys():
+            train_acc: List[float] = self._config.get("metrics").get("binary_accuracy_per_epoch").get("train")
+            val_acc: List[float] = self._config.get("metrics").get("binary_accuracy_per_epoch").get("valid")
+        else:
+            train_acc: List[float] = self._config.get("metrics").get("accuracy_per_epoch").get("train")
+            val_acc: List[float] = self._config.get("metrics").get("accuracy_per_epoch").get("valid")
+        plt.plot(epochs, train_acc, color="red", label="Training")
+        plt.plot(epochs, val_acc, color="green", label="Validation")
+        plt.title("Accuracy Curve")
+        plt.ylim([0.0, 1.05])
+        plt.xlabel("Epochs")
+        plt.ylabel("Accuracy")
         plt.legend()
         plt.show()

@@ -62,6 +62,7 @@ class Sequential:
         self._metrics_fn = metrics
         for metric_fn in self._metrics_fn:
             self._metrics[metric_fn.__name__] = defaultdict(list)
+            self._metrics[metric_fn.__name__ + "_per_epoch"] = defaultdict(list)
 
     def fit(self, data: Dataloader, epochs: int, seed: int = 0):
         """

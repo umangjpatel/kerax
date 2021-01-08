@@ -1,7 +1,4 @@
-from ...data import Dataloader as __Dataloader__
-
-
-def load_dataset(batch_size: int) -> __Dataloader__:
+def load_dataset(batch_size: int):
     """
     Loads the complete MNIST dataset (training + validation)
     Once the dataset is downloaded, it won't be downloaded again. So, relax...
@@ -14,7 +11,9 @@ def load_dataset(batch_size: int) -> __Dataloader__:
     import tensorflow_datasets as tfds
     import math
 
-    async def tfds_load_data() -> __Dataloader__:
+    from ...data import Dataloader
+
+    async def tfds_load_data() -> Dataloader:
         """
         Loads the dataset using the TensorFlow Datasets API
         :return: a Dataloader object consisting of the dataset.

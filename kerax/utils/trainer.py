@@ -65,7 +65,7 @@ class Trainer:
             for _ in range(data.num_val_batches):
                 valid_batch = device_put(next(data.val_data))
                 self.calculate_metrics(network_params, valid_batch)
-            self.calculate_epoch_losses(data)
+            self.calculate_epoch_metrics(data)
             progress_bar.set_postfix_str(self.pretty_print_metrics())
             progress_bar.refresh()
         self.config["_trained_params"] = self.fetch_params(opt_state)
@@ -108,9 +108,9 @@ class Trainer:
         for metric_fn in self.config.get("_metrics_fn"):
             self.config.get("_metrics")[metric_fn.__name__][self.mode].append(jit(metric_fn)(predictions, targets))
 
-    def calculate_epoch_losses(self, data: Dataloader):
+    def calculate_epoch_metrics(self, data: Dataloader):
         """
-        Caluclates the loss values (both training and validation) after every epoch of the training process.
+        Calculates the metrics values (both training and validation) after every epoch of the training process.
         :param data: Dataloader object (used to fetch the number of batches)
         """
         self.config.get("_metrics")["loss_per_epoch"]["train"].append(
@@ -119,6 +119,11 @@ class Trainer:
         self.config.get("_metrics")["loss_per_epoch"]["valid"].append(
             jnp.mean(jnp.array(self.config.get("_metrics")["loss"]["valid"][-data.num_val_batches:]))
         )
+        for metric_fn in self.config.get("_metrics_fn"):
+            self.config.get("_metrics")[metric_fn.__name__ + "_per_epoch"]["train"]\
+                .append(self.config.get("_metrics")[metric_fn.__name__]["train"][-1])
+            self.config.get("_metrics")[metric_fn.__name__ + "_per_epoch"]["valid"] \
+                .append(self.config.get("_metrics")[metric_fn.__name__]["valid"][-1])
 
     def pretty_print_metrics(self) -> str:
         """
