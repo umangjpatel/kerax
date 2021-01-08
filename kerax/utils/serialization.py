@@ -20,7 +20,7 @@ def load_module(file_name: str) -> Dict[str, Any]:
     with open(f"{file_name}.msgpack", "rb") as f:
         deserialized_data: bytes = f.read()
         deserialized_config: Dict[str, Any] = msgpack.unpackb(deserialized_data)
-        for k, v in deserialized_config.items():
-            item_dill: bytes = msgpack.unpackb(v)
-            deserialized_config[k] = dill.loads(item_dill)
+        for k in list(deserialized_config):
+            item_dill: bytes = msgpack.unpackb(deserialized_config.pop(k))
+            deserialized_config[k.decode("utf-8")] = dill.loads(item_dill)
     return deserialized_config
