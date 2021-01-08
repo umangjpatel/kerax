@@ -22,7 +22,9 @@ class Interpreter:
         """
         epochs: Iterable[int] = range(1, self._config.get("epochs") + 1)
         train_losses: List[float] = self._config.get("metrics").get("loss_per_epoch").get("train")
+        assert len(train_losses) == len(epochs), "Length of losses and number of epochs do not match"
         val_losses: List[float] = self._config.get("metrics").get("loss_per_epoch").get("valid")
+        assert len(train_losses) == len(val_losses), "Unequal length of the losses"
         plt.plot(epochs, train_losses, color="red", label="Training")
         plt.plot(epochs, val_losses, color="green", label="Validation")
         plt.title("Loss Curve")
@@ -39,10 +41,16 @@ class Interpreter:
         epochs: Iterable[int] = range(1, self._config.get("epochs") + 1)
         if "binary_accuracy" in self._config.get("metrics").keys():
             train_acc: List[float] = self._config.get("metrics").get("binary_accuracy_per_epoch").get("train")
+            assert len(train_acc) == len(epochs), "Length of accuracy values and number of epochs do not match"
             val_acc: List[float] = self._config.get("metrics").get("binary_accuracy_per_epoch").get("valid")
-        else:
+            assert len(train_acc) == len(val_acc), "Unequal length of the accuracy values"
+        elif "accuracy" in self._config.get("metrics").keys():
             train_acc: List[float] = self._config.get("metrics").get("accuracy_per_epoch").get("train")
+            assert len(train_acc) == len(epochs), "Length of accuracy values and number of epochs do not match"
             val_acc: List[float] = self._config.get("metrics").get("accuracy_per_epoch").get("valid")
+            assert len(train_acc) == len(val_acc), "Unequal length of the accuracy values"
+        else:
+            return None
         plt.plot(epochs, train_acc, color="red", label="Training")
         plt.plot(epochs, val_acc, color="green", label="Validation")
         plt.title("Accuracy Curve")
