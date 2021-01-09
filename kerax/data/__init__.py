@@ -2,12 +2,14 @@ from typing import Iterator, Tuple
 
 
 class Dataloader:
+    import numpy as np
     """
     Dataloader class is a helper class.
     Assists in iterating batches of data during the training process.
     """
 
-    def __init__(self, train_data: Iterator, val_data: Iterator,
+    def __init__(self, train_data: Iterator[Tuple[np.ndarray, np.ndarray]],
+                 val_data: Iterator[Tuple[np.ndarray, np.ndarray]],
                  input_shape: Tuple[int, ...], batch_size: int,
                  num_train_batches: int, num_val_batches: int):
         """
