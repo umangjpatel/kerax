@@ -2,10 +2,12 @@
   <dictionary name="umang">
     <words>
       <w>adagrad</w>
+      <w>bfloat</w>
       <w>conv</w>
       <w>crossentropy</w>
       <w>dataset</w>
       <w>datasets</w>
+      <w>dtype</w>
       <w>fastai</w>
       <w>glorot</w>
       <w>jaxlib</w>
@@ -13,7 +15,11 @@
       <w>mish</w>
       <w>mnist</w>
       <w>nchw</w>
+      <w>ndarray</w>
+      <w>ndarrays</w>
       <w>nhwc</w>
+      <w>npscalar</w>
+      <w>pytree</w>
       <w>relu</w>
       <w>rmsprop</w>
       <w>softmax</w>
