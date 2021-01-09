@@ -4,7 +4,6 @@
 
 Keras-like APIs for the [JAX](https://github.com/google/jax) library.
 
-
 ## Features
 
 * Enables high-performance machine learning research.
