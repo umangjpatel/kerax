@@ -17,7 +17,8 @@ setup(
         "numpy>=1.19.5",
         "dill>=0.3.3",
         "tqdm>=4.55.1",
-        "msgpack_python>=0.5.6"
+        "msgpack_python>=0.5.6".
+        "msgpack>=1.0.2"
     ],
     url='https://github.com/umangjpatel/kerax',
     license='',

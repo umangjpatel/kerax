@@ -1,4 +1,6 @@
-![kerax library logo](assets/logo.png "Kerax library")
+<div align="center">
+    <img src="assets/logo.png" alt="logo" />
+</div>
 
 # Kerax
 
