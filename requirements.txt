@@ -1,5 +1,5 @@
 pandas>=1.2.0
-tensorflow==2.5.1
+tensorflow==2.6.4
 tensorflow_datasets==4.2.0
 matplotlib>=3.3.3
 jax>=0.2.7
